@@ -1,0 +1,1954 @@
+[
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-001",
+    "genericName": "Lisinopril",
+    "brandName": "Zestril",
+    "strength": "10mg",
+    "activeIngredients": [
+      "Lisinopril"
+    ],
+    "interactionIdentifiers": [
+      "ACE_INHIBITOR",
+      "POTASSIUM_SPARING"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-002",
+    "genericName": "Warfarin",
+    "brandName": "Coumadin",
+    "strength": "5mg",
+    "activeIngredients": [
+      "Warfarin Sodium"
+    ],
+    "interactionIdentifiers": [
+      "ANTICOAGULANT",
+      "WARFARIN"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-003",
+    "genericName": "Ibuprofen",
+    "brandName": "Advil",
+    "strength": "200mg",
+    "activeIngredients": [
+      "Ibuprofen"
+    ],
+    "interactionIdentifiers": [
+      "NSAID"
+    ]
+  },
+  {
+    "medicationType": "LIQUID",
+    "medicationId": "MED-004",
+    "genericName": "GenericMed4",
+    "brandName": "BrandMed4",
+    "strength": "30mg",
+    "activeIngredients": [
+      "ActiveIngredient4"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_5"
+    ]
+  },
+  {
+    "medicationType": "INJECTION",
+    "medicationId": "MED-005",
+    "genericName": "GenericMed5",
+    "brandName": "BrandMed5",
+    "strength": "35mg",
+    "activeIngredients": [
+      "ActiveIngredient5"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_6"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-006",
+    "genericName": "GenericMed6",
+    "brandName": "BrandMed6",
+    "strength": "40mg",
+    "activeIngredients": [
+      "ActiveIngredient6"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_7"
+    ]
+  },
+  {
+    "medicationType": "LIQUID",
+    "medicationId": "MED-007",
+    "genericName": "GenericMed7",
+    "brandName": "BrandMed7",
+    "strength": "45mg",
+    "activeIngredients": [
+      "ActiveIngredient7"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_8"
+    ]
+  },
+  {
+    "medicationType": "INJECTION",
+    "medicationId": "MED-008",
+    "genericName": "GenericMed8",
+    "brandName": "BrandMed8",
+    "strength": "50mg",
+    "activeIngredients": [
+      "ActiveIngredient8"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_9"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-009",
+    "genericName": "GenericMed9",
+    "brandName": "BrandMed9",
+    "strength": "55mg",
+    "activeIngredients": [
+      "ActiveIngredient9"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_10"
+    ]
+  },
+  {
+    "medicationType": "LIQUID",
+    "medicationId": "MED-010",
+    "genericName": "GenericMed10",
+    "brandName": "BrandMed10",
+    "strength": "60mg",
+    "activeIngredients": [
+      "ActiveIngredient10"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_11"
+    ]
+  },
+  {
+    "medicationType": "INJECTION",
+    "medicationId": "MED-011",
+    "genericName": "GenericMed11",
+    "brandName": "BrandMed11",
+    "strength": "65mg",
+    "activeIngredients": [
+      "ActiveIngredient11"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_12"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-012",
+    "genericName": "GenericMed12",
+    "brandName": "BrandMed12",
+    "strength": "70mg",
+    "activeIngredients": [
+      "ActiveIngredient12"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_13"
+    ]
+  },
+  {
+    "medicationType": "LIQUID",
+    "medicationId": "MED-013",
+    "genericName": "GenericMed13",
+    "brandName": "BrandMed13",
+    "strength": "75mg",
+    "activeIngredients": [
+      "ActiveIngredient13"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_14"
+    ]
+  },
+  {
+    "medicationType": "INJECTION",
+    "medicationId": "MED-014",
+    "genericName": "GenericMed14",
+    "brandName": "BrandMed14",
+    "strength": "80mg",
+    "activeIngredients": [
+      "ActiveIngredient14"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_15"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-015",
+    "genericName": "GenericMed15",
+    "brandName": "BrandMed15",
+    "strength": "85mg",
+    "activeIngredients": [
+      "ActiveIngredient15"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_16"
+    ]
+  },
+  {
+    "medicationType": "LIQUID",
+    "medicationId": "MED-016",
+    "genericName": "GenericMed16",
+    "brandName": "BrandMed16",
+    "strength": "90mg",
+    "activeIngredients": [
+      "ActiveIngredient16"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_17"
+    ]
+  },
+  {
+    "medicationType": "INJECTION",
+    "medicationId": "MED-017",
+    "genericName": "GenericMed17",
+    "brandName": "BrandMed17",
+    "strength": "95mg",
+    "activeIngredients": [
+      "ActiveIngredient17"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_18"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-018",
+    "genericName": "GenericMed18",
+    "brandName": "BrandMed18",
+    "strength": "100mg",
+    "activeIngredients": [
+      "ActiveIngredient18"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_19"
+    ]
+  },
+  {
+    "medicationType": "LIQUID",
+    "medicationId": "MED-019",
+    "genericName": "GenericMed19",
+    "brandName": "BrandMed19",
+    "strength": "105mg",
+    "activeIngredients": [
+      "ActiveIngredient19"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_20"
+    ]
+  },
+  {
+    "medicationType": "INJECTION",
+    "medicationId": "MED-020",
+    "genericName": "GenericMed20",
+    "brandName": "BrandMed20",
+    "strength": "110mg",
+    "activeIngredients": [
+      "ActiveIngredient20"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_1"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-021",
+    "genericName": "GenericMed21",
+    "brandName": "BrandMed21",
+    "strength": "115mg",
+    "activeIngredients": [
+      "ActiveIngredient21"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_2"
+    ]
+  },
+  {
+    "medicationType": "LIQUID",
+    "medicationId": "MED-022",
+    "genericName": "GenericMed22",
+    "brandName": "BrandMed22",
+    "strength": "120mg",
+    "activeIngredients": [
+      "ActiveIngredient22"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_3"
+    ]
+  },
+  {
+    "medicationType": "INJECTION",
+    "medicationId": "MED-023",
+    "genericName": "GenericMed23",
+    "brandName": "BrandMed23",
+    "strength": "125mg",
+    "activeIngredients": [
+      "ActiveIngredient23"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_4"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-024",
+    "genericName": "GenericMed24",
+    "brandName": "BrandMed24",
+    "strength": "130mg",
+    "activeIngredients": [
+      "ActiveIngredient24"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_5"
+    ]
+  },
+  {
+    "medicationType": "LIQUID",
+    "medicationId": "MED-025",
+    "genericName": "GenericMed25",
+    "brandName": "BrandMed25",
+    "strength": "135mg",
+    "activeIngredients": [
+      "ActiveIngredient25"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_6"
+    ]
+  },
+  {
+    "medicationType": "INJECTION",
+    "medicationId": "MED-026",
+    "genericName": "GenericMed26",
+    "brandName": "BrandMed26",
+    "strength": "140mg",
+    "activeIngredients": [
+      "ActiveIngredient26"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_7"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-027",
+    "genericName": "GenericMed27",
+    "brandName": "BrandMed27",
+    "strength": "145mg",
+    "activeIngredients": [
+      "ActiveIngredient27"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_8"
+    ]
+  },
+  {
+    "medicationType": "LIQUID",
+    "medicationId": "MED-028",
+    "genericName": "GenericMed28",
+    "brandName": "BrandMed28",
+    "strength": "150mg",
+    "activeIngredients": [
+      "ActiveIngredient28"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_9"
+    ]
+  },
+  {
+    "medicationType": "INJECTION",
+    "medicationId": "MED-029",
+    "genericName": "GenericMed29",
+    "brandName": "BrandMed29",
+    "strength": "155mg",
+    "activeIngredients": [
+      "ActiveIngredient29"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_10"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-030",
+    "genericName": "GenericMed30",
+    "brandName": "BrandMed30",
+    "strength": "160mg",
+    "activeIngredients": [
+      "ActiveIngredient30"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_11"
+    ]
+  },
+  {
+    "medicationType": "LIQUID",
+    "medicationId": "MED-031",
+    "genericName": "GenericMed31",
+    "brandName": "BrandMed31",
+    "strength": "165mg",
+    "activeIngredients": [
+      "ActiveIngredient31"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_12"
+    ]
+  },
+  {
+    "medicationType": "INJECTION",
+    "medicationId": "MED-032",
+    "genericName": "GenericMed32",
+    "brandName": "BrandMed32",
+    "strength": "170mg",
+    "activeIngredients": [
+      "ActiveIngredient32"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_13"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-033",
+    "genericName": "GenericMed33",
+    "brandName": "BrandMed33",
+    "strength": "175mg",
+    "activeIngredients": [
+      "ActiveIngredient33"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_14"
+    ]
+  },
+  {
+    "medicationType": "LIQUID",
+    "medicationId": "MED-034",
+    "genericName": "GenericMed34",
+    "brandName": "BrandMed34",
+    "strength": "180mg",
+    "activeIngredients": [
+      "ActiveIngredient34"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_15"
+    ]
+  },
+  {
+    "medicationType": "INJECTION",
+    "medicationId": "MED-035",
+    "genericName": "GenericMed35",
+    "brandName": "BrandMed35",
+    "strength": "185mg",
+    "activeIngredients": [
+      "ActiveIngredient35"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_16"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-036",
+    "genericName": "GenericMed36",
+    "brandName": "BrandMed36",
+    "strength": "190mg",
+    "activeIngredients": [
+      "ActiveIngredient36"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_17"
+    ]
+  },
+  {
+    "medicationType": "LIQUID",
+    "medicationId": "MED-037",
+    "genericName": "GenericMed37",
+    "brandName": "BrandMed37",
+    "strength": "195mg",
+    "activeIngredients": [
+      "ActiveIngredient37"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_18"
+    ]
+  },
+  {
+    "medicationType": "INJECTION",
+    "medicationId": "MED-038",
+    "genericName": "GenericMed38",
+    "brandName": "BrandMed38",
+    "strength": "200mg",
+    "activeIngredients": [
+      "ActiveIngredient38"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_19"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-039",
+    "genericName": "GenericMed39",
+    "brandName": "BrandMed39",
+    "strength": "205mg",
+    "activeIngredients": [
+      "ActiveIngredient39"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_20"
+    ]
+  },
+  {
+    "medicationType": "LIQUID",
+    "medicationId": "MED-040",
+    "genericName": "GenericMed40",
+    "brandName": "BrandMed40",
+    "strength": "210mg",
+    "activeIngredients": [
+      "ActiveIngredient40"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_1"
+    ]
+  },
+  {
+    "medicationType": "INJECTION",
+    "medicationId": "MED-041",
+    "genericName": "GenericMed41",
+    "brandName": "BrandMed41",
+    "strength": "215mg",
+    "activeIngredients": [
+      "ActiveIngredient41"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_2"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-042",
+    "genericName": "GenericMed42",
+    "brandName": "BrandMed42",
+    "strength": "220mg",
+    "activeIngredients": [
+      "ActiveIngredient42"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_3"
+    ]
+  },
+  {
+    "medicationType": "LIQUID",
+    "medicationId": "MED-043",
+    "genericName": "GenericMed43",
+    "brandName": "BrandMed43",
+    "strength": "225mg",
+    "activeIngredients": [
+      "ActiveIngredient43"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_4"
+    ]
+  },
+  {
+    "medicationType": "INJECTION",
+    "medicationId": "MED-044",
+    "genericName": "GenericMed44",
+    "brandName": "BrandMed44",
+    "strength": "230mg",
+    "activeIngredients": [
+      "ActiveIngredient44"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_5"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-045",
+    "genericName": "GenericMed45",
+    "brandName": "BrandMed45",
+    "strength": "235mg",
+    "activeIngredients": [
+      "ActiveIngredient45"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_6"
+    ]
+  },
+  {
+    "medicationType": "LIQUID",
+    "medicationId": "MED-046",
+    "genericName": "GenericMed46",
+    "brandName": "BrandMed46",
+    "strength": "240mg",
+    "activeIngredients": [
+      "ActiveIngredient46"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_7"
+    ]
+  },
+  {
+    "medicationType": "INJECTION",
+    "medicationId": "MED-047",
+    "genericName": "GenericMed47",
+    "brandName": "BrandMed47",
+    "strength": "245mg",
+    "activeIngredients": [
+      "ActiveIngredient47"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_8"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-048",
+    "genericName": "GenericMed48",
+    "brandName": "BrandMed48",
+    "strength": "250mg",
+    "activeIngredients": [
+      "ActiveIngredient48"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_9"
+    ]
+  },
+  {
+    "medicationType": "LIQUID",
+    "medicationId": "MED-049",
+    "genericName": "GenericMed49",
+    "brandName": "BrandMed49",
+    "strength": "255mg",
+    "activeIngredients": [
+      "ActiveIngredient49"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_10"
+    ]
+  },
+  {
+    "medicationType": "INJECTION",
+    "medicationId": "MED-050",
+    "genericName": "GenericMed50",
+    "brandName": "BrandMed50",
+    "strength": "260mg",
+    "activeIngredients": [
+      "ActiveIngredient50"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_11"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-051",
+    "genericName": "GenericMed51",
+    "brandName": "BrandMed51",
+    "strength": "265mg",
+    "activeIngredients": [
+      "ActiveIngredient51"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_12"
+    ]
+  },
+  {
+    "medicationType": "LIQUID",
+    "medicationId": "MED-052",
+    "genericName": "GenericMed52",
+    "brandName": "BrandMed52",
+    "strength": "270mg",
+    "activeIngredients": [
+      "ActiveIngredient52"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_13"
+    ]
+  },
+  {
+    "medicationType": "INJECTION",
+    "medicationId": "MED-053",
+    "genericName": "GenericMed53",
+    "brandName": "BrandMed53",
+    "strength": "275mg",
+    "activeIngredients": [
+      "ActiveIngredient53"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_14"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-054",
+    "genericName": "GenericMed54",
+    "brandName": "BrandMed54",
+    "strength": "280mg",
+    "activeIngredients": [
+      "ActiveIngredient54"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_15"
+    ]
+  },
+  {
+    "medicationType": "LIQUID",
+    "medicationId": "MED-055",
+    "genericName": "GenericMed55",
+    "brandName": "BrandMed55",
+    "strength": "285mg",
+    "activeIngredients": [
+      "ActiveIngredient55"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_16"
+    ]
+  },
+  {
+    "medicationType": "INJECTION",
+    "medicationId": "MED-056",
+    "genericName": "GenericMed56",
+    "brandName": "BrandMed56",
+    "strength": "290mg",
+    "activeIngredients": [
+      "ActiveIngredient56"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_17"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-057",
+    "genericName": "GenericMed57",
+    "brandName": "BrandMed57",
+    "strength": "295mg",
+    "activeIngredients": [
+      "ActiveIngredient57"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_18"
+    ]
+  },
+  {
+    "medicationType": "LIQUID",
+    "medicationId": "MED-058",
+    "genericName": "GenericMed58",
+    "brandName": "BrandMed58",
+    "strength": "300mg",
+    "activeIngredients": [
+      "ActiveIngredient58"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_19"
+    ]
+  },
+  {
+    "medicationType": "INJECTION",
+    "medicationId": "MED-059",
+    "genericName": "GenericMed59",
+    "brandName": "BrandMed59",
+    "strength": "305mg",
+    "activeIngredients": [
+      "ActiveIngredient59"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_20"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-060",
+    "genericName": "GenericMed60",
+    "brandName": "BrandMed60",
+    "strength": "310mg",
+    "activeIngredients": [
+      "ActiveIngredient60"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_1"
+    ]
+  },
+  {
+    "medicationType": "LIQUID",
+    "medicationId": "MED-061",
+    "genericName": "GenericMed61",
+    "brandName": "BrandMed61",
+    "strength": "315mg",
+    "activeIngredients": [
+      "ActiveIngredient61"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_2"
+    ]
+  },
+  {
+    "medicationType": "INJECTION",
+    "medicationId": "MED-062",
+    "genericName": "GenericMed62",
+    "brandName": "BrandMed62",
+    "strength": "320mg",
+    "activeIngredients": [
+      "ActiveIngredient62"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_3"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-063",
+    "genericName": "GenericMed63",
+    "brandName": "BrandMed63",
+    "strength": "325mg",
+    "activeIngredients": [
+      "ActiveIngredient63"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_4"
+    ]
+  },
+  {
+    "medicationType": "LIQUID",
+    "medicationId": "MED-064",
+    "genericName": "GenericMed64",
+    "brandName": "BrandMed64",
+    "strength": "330mg",
+    "activeIngredients": [
+      "ActiveIngredient64"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_5"
+    ]
+  },
+  {
+    "medicationType": "INJECTION",
+    "medicationId": "MED-065",
+    "genericName": "GenericMed65",
+    "brandName": "BrandMed65",
+    "strength": "335mg",
+    "activeIngredients": [
+      "ActiveIngredient65"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_6"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-066",
+    "genericName": "GenericMed66",
+    "brandName": "BrandMed66",
+    "strength": "340mg",
+    "activeIngredients": [
+      "ActiveIngredient66"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_7"
+    ]
+  },
+  {
+    "medicationType": "LIQUID",
+    "medicationId": "MED-067",
+    "genericName": "GenericMed67",
+    "brandName": "BrandMed67",
+    "strength": "345mg",
+    "activeIngredients": [
+      "ActiveIngredient67"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_8"
+    ]
+  },
+  {
+    "medicationType": "INJECTION",
+    "medicationId": "MED-068",
+    "genericName": "GenericMed68",
+    "brandName": "BrandMed68",
+    "strength": "350mg",
+    "activeIngredients": [
+      "ActiveIngredient68"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_9"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-069",
+    "genericName": "GenericMed69",
+    "brandName": "BrandMed69",
+    "strength": "355mg",
+    "activeIngredients": [
+      "ActiveIngredient69"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_10"
+    ]
+  },
+  {
+    "medicationType": "LIQUID",
+    "medicationId": "MED-070",
+    "genericName": "GenericMed70",
+    "brandName": "BrandMed70",
+    "strength": "360mg",
+    "activeIngredients": [
+      "ActiveIngredient70"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_11"
+    ]
+  },
+  {
+    "medicationType": "INJECTION",
+    "medicationId": "MED-071",
+    "genericName": "GenericMed71",
+    "brandName": "BrandMed71",
+    "strength": "365mg",
+    "activeIngredients": [
+      "ActiveIngredient71"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_12"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-072",
+    "genericName": "GenericMed72",
+    "brandName": "BrandMed72",
+    "strength": "370mg",
+    "activeIngredients": [
+      "ActiveIngredient72"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_13"
+    ]
+  },
+  {
+    "medicationType": "LIQUID",
+    "medicationId": "MED-073",
+    "genericName": "GenericMed73",
+    "brandName": "BrandMed73",
+    "strength": "375mg",
+    "activeIngredients": [
+      "ActiveIngredient73"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_14"
+    ]
+  },
+  {
+    "medicationType": "INJECTION",
+    "medicationId": "MED-074",
+    "genericName": "GenericMed74",
+    "brandName": "BrandMed74",
+    "strength": "380mg",
+    "activeIngredients": [
+      "ActiveIngredient74"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_15"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-075",
+    "genericName": "GenericMed75",
+    "brandName": "BrandMed75",
+    "strength": "385mg",
+    "activeIngredients": [
+      "ActiveIngredient75"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_16"
+    ]
+  },
+  {
+    "medicationType": "LIQUID",
+    "medicationId": "MED-076",
+    "genericName": "GenericMed76",
+    "brandName": "BrandMed76",
+    "strength": "390mg",
+    "activeIngredients": [
+      "ActiveIngredient76"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_17"
+    ]
+  },
+  {
+    "medicationType": "INJECTION",
+    "medicationId": "MED-077",
+    "genericName": "GenericMed77",
+    "brandName": "BrandMed77",
+    "strength": "395mg",
+    "activeIngredients": [
+      "ActiveIngredient77"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_18"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-078",
+    "genericName": "GenericMed78",
+    "brandName": "BrandMed78",
+    "strength": "400mg",
+    "activeIngredients": [
+      "ActiveIngredient78"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_19"
+    ]
+  },
+  {
+    "medicationType": "LIQUID",
+    "medicationId": "MED-079",
+    "genericName": "GenericMed79",
+    "brandName": "BrandMed79",
+    "strength": "405mg",
+    "activeIngredients": [
+      "ActiveIngredient79"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_20"
+    ]
+  },
+  {
+    "medicationType": "INJECTION",
+    "medicationId": "MED-080",
+    "genericName": "GenericMed80",
+    "brandName": "BrandMed80",
+    "strength": "410mg",
+    "activeIngredients": [
+      "ActiveIngredient80"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_1"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-081",
+    "genericName": "GenericMed81",
+    "brandName": "BrandMed81",
+    "strength": "415mg",
+    "activeIngredients": [
+      "ActiveIngredient81"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_2"
+    ]
+  },
+  {
+    "medicationType": "LIQUID",
+    "medicationId": "MED-082",
+    "genericName": "GenericMed82",
+    "brandName": "BrandMed82",
+    "strength": "420mg",
+    "activeIngredients": [
+      "ActiveIngredient82"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_3"
+    ]
+  },
+  {
+    "medicationType": "INJECTION",
+    "medicationId": "MED-083",
+    "genericName": "GenericMed83",
+    "brandName": "BrandMed83",
+    "strength": "425mg",
+    "activeIngredients": [
+      "ActiveIngredient83"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_4"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-084",
+    "genericName": "GenericMed84",
+    "brandName": "BrandMed84",
+    "strength": "430mg",
+    "activeIngredients": [
+      "ActiveIngredient84"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_5"
+    ]
+  },
+  {
+    "medicationType": "LIQUID",
+    "medicationId": "MED-085",
+    "genericName": "GenericMed85",
+    "brandName": "BrandMed85",
+    "strength": "435mg",
+    "activeIngredients": [
+      "ActiveIngredient85"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_6"
+    ]
+  },
+  {
+    "medicationType": "INJECTION",
+    "medicationId": "MED-086",
+    "genericName": "GenericMed86",
+    "brandName": "BrandMed86",
+    "strength": "440mg",
+    "activeIngredients": [
+      "ActiveIngredient86"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_7"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-087",
+    "genericName": "GenericMed87",
+    "brandName": "BrandMed87",
+    "strength": "445mg",
+    "activeIngredients": [
+      "ActiveIngredient87"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_8"
+    ]
+  },
+  {
+    "medicationType": "LIQUID",
+    "medicationId": "MED-088",
+    "genericName": "GenericMed88",
+    "brandName": "BrandMed88",
+    "strength": "450mg",
+    "activeIngredients": [
+      "ActiveIngredient88"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_9"
+    ]
+  },
+  {
+    "medicationType": "INJECTION",
+    "medicationId": "MED-089",
+    "genericName": "GenericMed89",
+    "brandName": "BrandMed89",
+    "strength": "455mg",
+    "activeIngredients": [
+      "ActiveIngredient89"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_10"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-090",
+    "genericName": "GenericMed90",
+    "brandName": "BrandMed90",
+    "strength": "460mg",
+    "activeIngredients": [
+      "ActiveIngredient90"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_11"
+    ]
+  },
+  {
+    "medicationType": "LIQUID",
+    "medicationId": "MED-091",
+    "genericName": "GenericMed91",
+    "brandName": "BrandMed91",
+    "strength": "465mg",
+    "activeIngredients": [
+      "ActiveIngredient91"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_12"
+    ]
+  },
+  {
+    "medicationType": "INJECTION",
+    "medicationId": "MED-092",
+    "genericName": "GenericMed92",
+    "brandName": "BrandMed92",
+    "strength": "470mg",
+    "activeIngredients": [
+      "ActiveIngredient92"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_13"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-093",
+    "genericName": "GenericMed93",
+    "brandName": "BrandMed93",
+    "strength": "475mg",
+    "activeIngredients": [
+      "ActiveIngredient93"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_14"
+    ]
+  },
+  {
+    "medicationType": "LIQUID",
+    "medicationId": "MED-094",
+    "genericName": "GenericMed94",
+    "brandName": "BrandMed94",
+    "strength": "480mg",
+    "activeIngredients": [
+      "ActiveIngredient94"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_15"
+    ]
+  },
+  {
+    "medicationType": "INJECTION",
+    "medicationId": "MED-095",
+    "genericName": "GenericMed95",
+    "brandName": "BrandMed95",
+    "strength": "485mg",
+    "activeIngredients": [
+      "ActiveIngredient95"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_16"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-096",
+    "genericName": "GenericMed96",
+    "brandName": "BrandMed96",
+    "strength": "490mg",
+    "activeIngredients": [
+      "ActiveIngredient96"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_17"
+    ]
+  },
+  {
+    "medicationType": "LIQUID",
+    "medicationId": "MED-097",
+    "genericName": "GenericMed97",
+    "brandName": "BrandMed97",
+    "strength": "495mg",
+    "activeIngredients": [
+      "ActiveIngredient97"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_18"
+    ]
+  },
+  {
+    "medicationType": "INJECTION",
+    "medicationId": "MED-098",
+    "genericName": "GenericMed98",
+    "brandName": "BrandMed98",
+    "strength": "500mg",
+    "activeIngredients": [
+      "ActiveIngredient98"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_19"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-099",
+    "genericName": "GenericMed99",
+    "brandName": "BrandMed99",
+    "strength": "505mg",
+    "activeIngredients": [
+      "ActiveIngredient99"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_20"
+    ]
+  },
+  {
+    "medicationType": "LIQUID",
+    "medicationId": "MED-100",
+    "genericName": "GenericMed100",
+    "brandName": "BrandMed100",
+    "strength": "10mg",
+    "activeIngredients": [
+      "ActiveIngredient100"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_1"
+    ]
+  },
+  {
+    "medicationType": "INJECTION",
+    "medicationId": "MED-101",
+    "genericName": "GenericMed101",
+    "brandName": "BrandMed101",
+    "strength": "15mg",
+    "activeIngredients": [
+      "ActiveIngredient101"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_2"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-102",
+    "genericName": "GenericMed102",
+    "brandName": "BrandMed102",
+    "strength": "20mg",
+    "activeIngredients": [
+      "ActiveIngredient102"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_3"
+    ]
+  },
+  {
+    "medicationType": "LIQUID",
+    "medicationId": "MED-103",
+    "genericName": "GenericMed103",
+    "brandName": "BrandMed103",
+    "strength": "25mg",
+    "activeIngredients": [
+      "ActiveIngredient103"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_4"
+    ]
+  },
+  {
+    "medicationType": "INJECTION",
+    "medicationId": "MED-104",
+    "genericName": "GenericMed104",
+    "brandName": "BrandMed104",
+    "strength": "30mg",
+    "activeIngredients": [
+      "ActiveIngredient104"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_5"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-105",
+    "genericName": "GenericMed105",
+    "brandName": "BrandMed105",
+    "strength": "35mg",
+    "activeIngredients": [
+      "ActiveIngredient105"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_6"
+    ]
+  },
+  {
+    "medicationType": "LIQUID",
+    "medicationId": "MED-106",
+    "genericName": "GenericMed106",
+    "brandName": "BrandMed106",
+    "strength": "40mg",
+    "activeIngredients": [
+      "ActiveIngredient106"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_7"
+    ]
+  },
+  {
+    "medicationType": "INJECTION",
+    "medicationId": "MED-107",
+    "genericName": "GenericMed107",
+    "brandName": "BrandMed107",
+    "strength": "45mg",
+    "activeIngredients": [
+      "ActiveIngredient107"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_8"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-108",
+    "genericName": "GenericMed108",
+    "brandName": "BrandMed108",
+    "strength": "50mg",
+    "activeIngredients": [
+      "ActiveIngredient108"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_9"
+    ]
+  },
+  {
+    "medicationType": "LIQUID",
+    "medicationId": "MED-109",
+    "genericName": "GenericMed109",
+    "brandName": "BrandMed109",
+    "strength": "55mg",
+    "activeIngredients": [
+      "ActiveIngredient109"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_10"
+    ]
+  },
+  {
+    "medicationType": "INJECTION",
+    "medicationId": "MED-110",
+    "genericName": "GenericMed110",
+    "brandName": "BrandMed110",
+    "strength": "60mg",
+    "activeIngredients": [
+      "ActiveIngredient110"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_11"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-111",
+    "genericName": "GenericMed111",
+    "brandName": "BrandMed111",
+    "strength": "65mg",
+    "activeIngredients": [
+      "ActiveIngredient111"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_12"
+    ]
+  },
+  {
+    "medicationType": "LIQUID",
+    "medicationId": "MED-112",
+    "genericName": "GenericMed112",
+    "brandName": "BrandMed112",
+    "strength": "70mg",
+    "activeIngredients": [
+      "ActiveIngredient112"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_13"
+    ]
+  },
+  {
+    "medicationType": "INJECTION",
+    "medicationId": "MED-113",
+    "genericName": "GenericMed113",
+    "brandName": "BrandMed113",
+    "strength": "75mg",
+    "activeIngredients": [
+      "ActiveIngredient113"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_14"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-114",
+    "genericName": "GenericMed114",
+    "brandName": "BrandMed114",
+    "strength": "80mg",
+    "activeIngredients": [
+      "ActiveIngredient114"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_15"
+    ]
+  },
+  {
+    "medicationType": "LIQUID",
+    "medicationId": "MED-115",
+    "genericName": "GenericMed115",
+    "brandName": "BrandMed115",
+    "strength": "85mg",
+    "activeIngredients": [
+      "ActiveIngredient115"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_16"
+    ]
+  },
+  {
+    "medicationType": "INJECTION",
+    "medicationId": "MED-116",
+    "genericName": "GenericMed116",
+    "brandName": "BrandMed116",
+    "strength": "90mg",
+    "activeIngredients": [
+      "ActiveIngredient116"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_17"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-117",
+    "genericName": "GenericMed117",
+    "brandName": "BrandMed117",
+    "strength": "95mg",
+    "activeIngredients": [
+      "ActiveIngredient117"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_18"
+    ]
+  },
+  {
+    "medicationType": "LIQUID",
+    "medicationId": "MED-118",
+    "genericName": "GenericMed118",
+    "brandName": "BrandMed118",
+    "strength": "100mg",
+    "activeIngredients": [
+      "ActiveIngredient118"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_19"
+    ]
+  },
+  {
+    "medicationType": "INJECTION",
+    "medicationId": "MED-119",
+    "genericName": "GenericMed119",
+    "brandName": "BrandMed119",
+    "strength": "105mg",
+    "activeIngredients": [
+      "ActiveIngredient119"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_20"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-120",
+    "genericName": "GenericMed120",
+    "brandName": "BrandMed120",
+    "strength": "110mg",
+    "activeIngredients": [
+      "ActiveIngredient120"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_1"
+    ]
+  },
+  {
+    "medicationType": "LIQUID",
+    "medicationId": "MED-121",
+    "genericName": "GenericMed121",
+    "brandName": "BrandMed121",
+    "strength": "115mg",
+    "activeIngredients": [
+      "ActiveIngredient121"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_2"
+    ]
+  },
+  {
+    "medicationType": "INJECTION",
+    "medicationId": "MED-122",
+    "genericName": "GenericMed122",
+    "brandName": "BrandMed122",
+    "strength": "120mg",
+    "activeIngredients": [
+      "ActiveIngredient122"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_3"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-123",
+    "genericName": "GenericMed123",
+    "brandName": "BrandMed123",
+    "strength": "125mg",
+    "activeIngredients": [
+      "ActiveIngredient123"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_4"
+    ]
+  },
+  {
+    "medicationType": "LIQUID",
+    "medicationId": "MED-124",
+    "genericName": "GenericMed124",
+    "brandName": "BrandMed124",
+    "strength": "130mg",
+    "activeIngredients": [
+      "ActiveIngredient124"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_5"
+    ]
+  },
+  {
+    "medicationType": "INJECTION",
+    "medicationId": "MED-125",
+    "genericName": "GenericMed125",
+    "brandName": "BrandMed125",
+    "strength": "135mg",
+    "activeIngredients": [
+      "ActiveIngredient125"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_6"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-126",
+    "genericName": "GenericMed126",
+    "brandName": "BrandMed126",
+    "strength": "140mg",
+    "activeIngredients": [
+      "ActiveIngredient126"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_7"
+    ]
+  },
+  {
+    "medicationType": "LIQUID",
+    "medicationId": "MED-127",
+    "genericName": "GenericMed127",
+    "brandName": "BrandMed127",
+    "strength": "145mg",
+    "activeIngredients": [
+      "ActiveIngredient127"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_8"
+    ]
+  },
+  {
+    "medicationType": "INJECTION",
+    "medicationId": "MED-128",
+    "genericName": "GenericMed128",
+    "brandName": "BrandMed128",
+    "strength": "150mg",
+    "activeIngredients": [
+      "ActiveIngredient128"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_9"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-129",
+    "genericName": "GenericMed129",
+    "brandName": "BrandMed129",
+    "strength": "155mg",
+    "activeIngredients": [
+      "ActiveIngredient129"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_10"
+    ]
+  },
+  {
+    "medicationType": "LIQUID",
+    "medicationId": "MED-130",
+    "genericName": "GenericMed130",
+    "brandName": "BrandMed130",
+    "strength": "160mg",
+    "activeIngredients": [
+      "ActiveIngredient130"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_11"
+    ]
+  },
+  {
+    "medicationType": "INJECTION",
+    "medicationId": "MED-131",
+    "genericName": "GenericMed131",
+    "brandName": "BrandMed131",
+    "strength": "165mg",
+    "activeIngredients": [
+      "ActiveIngredient131"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_12"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-132",
+    "genericName": "GenericMed132",
+    "brandName": "BrandMed132",
+    "strength": "170mg",
+    "activeIngredients": [
+      "ActiveIngredient132"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_13"
+    ]
+  },
+  {
+    "medicationType": "LIQUID",
+    "medicationId": "MED-133",
+    "genericName": "GenericMed133",
+    "brandName": "BrandMed133",
+    "strength": "175mg",
+    "activeIngredients": [
+      "ActiveIngredient133"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_14"
+    ]
+  },
+  {
+    "medicationType": "INJECTION",
+    "medicationId": "MED-134",
+    "genericName": "GenericMed134",
+    "brandName": "BrandMed134",
+    "strength": "180mg",
+    "activeIngredients": [
+      "ActiveIngredient134"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_15"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-135",
+    "genericName": "GenericMed135",
+    "brandName": "BrandMed135",
+    "strength": "185mg",
+    "activeIngredients": [
+      "ActiveIngredient135"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_16"
+    ]
+  },
+  {
+    "medicationType": "LIQUID",
+    "medicationId": "MED-136",
+    "genericName": "GenericMed136",
+    "brandName": "BrandMed136",
+    "strength": "190mg",
+    "activeIngredients": [
+      "ActiveIngredient136"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_17"
+    ]
+  },
+  {
+    "medicationType": "INJECTION",
+    "medicationId": "MED-137",
+    "genericName": "GenericMed137",
+    "brandName": "BrandMed137",
+    "strength": "195mg",
+    "activeIngredients": [
+      "ActiveIngredient137"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_18"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-138",
+    "genericName": "GenericMed138",
+    "brandName": "BrandMed138",
+    "strength": "200mg",
+    "activeIngredients": [
+      "ActiveIngredient138"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_19"
+    ]
+  },
+  {
+    "medicationType": "LIQUID",
+    "medicationId": "MED-139",
+    "genericName": "GenericMed139",
+    "brandName": "BrandMed139",
+    "strength": "205mg",
+    "activeIngredients": [
+      "ActiveIngredient139"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_20"
+    ]
+  },
+  {
+    "medicationType": "INJECTION",
+    "medicationId": "MED-140",
+    "genericName": "GenericMed140",
+    "brandName": "BrandMed140",
+    "strength": "210mg",
+    "activeIngredients": [
+      "ActiveIngredient140"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_1"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-141",
+    "genericName": "GenericMed141",
+    "brandName": "BrandMed141",
+    "strength": "215mg",
+    "activeIngredients": [
+      "ActiveIngredient141"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_2"
+    ]
+  },
+  {
+    "medicationType": "LIQUID",
+    "medicationId": "MED-142",
+    "genericName": "GenericMed142",
+    "brandName": "BrandMed142",
+    "strength": "220mg",
+    "activeIngredients": [
+      "ActiveIngredient142"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_3"
+    ]
+  },
+  {
+    "medicationType": "INJECTION",
+    "medicationId": "MED-143",
+    "genericName": "GenericMed143",
+    "brandName": "BrandMed143",
+    "strength": "225mg",
+    "activeIngredients": [
+      "ActiveIngredient143"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_4"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-144",
+    "genericName": "GenericMed144",
+    "brandName": "BrandMed144",
+    "strength": "230mg",
+    "activeIngredients": [
+      "ActiveIngredient144"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_5"
+    ]
+  },
+  {
+    "medicationType": "LIQUID",
+    "medicationId": "MED-145",
+    "genericName": "GenericMed145",
+    "brandName": "BrandMed145",
+    "strength": "235mg",
+    "activeIngredients": [
+      "ActiveIngredient145"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_6"
+    ]
+  },
+  {
+    "medicationType": "INJECTION",
+    "medicationId": "MED-146",
+    "genericName": "GenericMed146",
+    "brandName": "BrandMed146",
+    "strength": "240mg",
+    "activeIngredients": [
+      "ActiveIngredient146"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_7"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-147",
+    "genericName": "GenericMed147",
+    "brandName": "BrandMed147",
+    "strength": "245mg",
+    "activeIngredients": [
+      "ActiveIngredient147"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_8"
+    ]
+  },
+  {
+    "medicationType": "LIQUID",
+    "medicationId": "MED-148",
+    "genericName": "GenericMed148",
+    "brandName": "BrandMed148",
+    "strength": "250mg",
+    "activeIngredients": [
+      "ActiveIngredient148"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_9"
+    ]
+  },
+  {
+    "medicationType": "INJECTION",
+    "medicationId": "MED-149",
+    "genericName": "GenericMed149",
+    "brandName": "BrandMed149",
+    "strength": "255mg",
+    "activeIngredients": [
+      "ActiveIngredient149"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_10"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-150",
+    "genericName": "GenericMed150",
+    "brandName": "BrandMed150",
+    "strength": "260mg",
+    "activeIngredients": [
+      "ActiveIngredient150"
+    ],
+    "interactionIdentifiers": [
+      "CLASS_11"
+    ]
+  }
+]

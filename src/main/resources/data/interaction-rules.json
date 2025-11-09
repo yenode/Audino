@@ -1,0 +1,385 @@
+{{
+
+  "drugAllergyInteractions": {  "drugAllergyInteractions": {
+
+    "penicillinAllergy": {    "penicillinAllergy": {
+
+      "allergyKeywords": ["penicillin", "amoxicillin", "ampicillin"],      "allergyKeywords": ["penicillin"],
+
+      "recommendation": "Avoid all penicillin-class antibiotics. Consider alternatives like macrolides (azithromycin, clarithromycin) or fluoroquinolones."      "recommendation": "Avoid penicillin-class antibiotics. Consider alternatives like macrolides or tetracyclines."
+
+    },    }
+
+    "sulfaAllergy": {  },
+
+      "allergyKeywords": ["sulfa", "sulfamethoxazole", "sulfasalazine"],  "drugDrugInteractions": {
+
+      "recommendation": "Avoid sulfonamide antibiotics and sulfa-containing medications. Use alternative antibiotics."    "warfarinNsaid": {
+
+    },      "drug1": "WARFARIN",
+
+    "aspirinAllergy": {      "drug2": "NSAID",
+
+      "allergyKeywords": ["aspirin", "acetylsalicylic"],      "severity": "CRITICAL",
+
+      "recommendation": "Avoid aspirin and potentially other NSAIDs. Consider acetaminophen for pain relief."      "description": "Concurrent use significantly increases the risk of major bleeding, especially gastrointestinal bleeding.",
+
+    },      "recommendation": "Avoid combination if possible. If necessary, monitor INR closely and check for signs of bleeding. Consider PPI for GI protection."
+
+    "codeine": {    }
+
+      "allergyKeywords": ["codeine"],  },
+
+      "recommendation": "Avoid codeine and related opioids. Consider alternative pain management strategies."  "drugConditionInteractions": {
+
+    }    "nsaidKidneyDisease": {
+
+  },      "conditionKeywords": ["kidney", "renal"],
+
+  "drugDrugInteractions": {      "medicationClasses": ["NSAID"],
+
+    "warfarinNsaid": {      "severity": "CRITICAL",
+
+      "drug1": "WARFARIN",      "description": "NSAIDs can reduce renal blood flow and cause acute kidney injury in patients with pre-existing kidney disease.",
+
+      "drug2": "NSAID",      "recommendation": "Avoid NSAIDs. Consider alternative analgesics like acetaminophen."
+
+      "severity": "CRITICAL",    },
+
+      "description": "Concurrent use significantly increases the risk of major bleeding, especially gastrointestinal bleeding.",    "aceInhibitorKidneyDisease": {
+
+      "recommendation": "Avoid combination if possible. If necessary, monitor INR closely and check for signs of bleeding. Consider PPI for GI protection."      "conditionKeywords": ["kidney", "renal"],
+
+    },      "medicationClasses": ["ACE_INHIBITOR"],
+
+    "warfarinAspirin": {      "severity": "WARNING",
+
+      "drug1": "WARFARIN",      "description": "ACE inhibitors can affect kidney function. Use with caution in patients with renal impairment.",
+
+      "drug2": "ASPIRIN",      "recommendation": "Start with a low dose and monitor serum creatinine and potassium levels regularly."
+
+      "severity": "CRITICAL",    }
+
+      "description": "Combination dramatically increases bleeding risk, particularly intracranial and GI hemorrhage.",  }
+
+      "recommendation": "Avoid unless specifically indicated. If necessary, use lowest aspirin dose and monitor closely."}
+    },
+    "anticoagulantAntiplatelet": {
+      "drug1": "ANTICOAGULANT",
+      "drug2": "ANTIPLATELET",
+      "severity": "WARNING",
+      "description": "Dual anticoagulation increases bleeding risk significantly.",
+      "recommendation": "Use only when benefits outweigh risks. Monitor for bleeding signs regularly."
+    },
+    "ssriNsaid": {
+      "drug1": "SSRI",
+      "drug2": "NSAID",
+      "severity": "WARNING",
+      "description": "SSRIs affect platelet function; combined with NSAIDs increases GI bleeding risk.",
+      "recommendation": "Monitor for signs of bleeding. Consider PPI for gastroprotection."
+    },
+    "doacAntiplatelet": {
+      "drug1": "DOAC",
+      "drug2": "ANTIPLATELET",
+      "severity": "WARNING",
+      "description": "Combined use increases bleeding risk substantially.",
+      "recommendation": "Use only when clinically necessary. Monitor closely for bleeding."
+    },
+    "aceInhibitorPotassiumSparing": {
+      "drug1": "ACE_INHIBITOR",
+      "drug2": "POTASSIUM_SPARING",
+      "severity": "WARNING",
+      "description": "Both classes can increase potassium levels, leading to hyperkalemia.",
+      "recommendation": "Monitor serum potassium regularly. Adjust doses if levels elevate."
+    },
+    "arbPotassiumSparing": {
+      "drug1": "ARB",
+      "drug2": "POTASSIUM_SPARING",
+      "severity": "WARNING",
+      "description": "Combined use significantly increases hyperkalemia risk.",
+      "recommendation": "Regular potassium monitoring essential. Consider alternative diuretics."
+    },
+    "lithiumDiuretic": {
+      "drug1": "MOOD_STABILIZER",
+      "drug2": "DIURETIC",
+      "severity": "CRITICAL",
+      "description": "Diuretics reduce lithium clearance, increasing risk of lithium toxicity.",
+      "recommendation": "Monitor lithium levels closely. May need dose reduction."
+    },
+    "digoxinDiuretic": {
+      "drug1": "CARDIAC_GLYCOSIDE",
+      "drug2": "LOOP_DIURETIC",
+      "severity": "WARNING",
+      "description": "Diuretics can cause hypokalemia, increasing digoxin toxicity risk.",
+      "recommendation": "Monitor potassium and digoxin levels. Supplement potassium if needed."
+    },
+    "statinFibrate": {
+      "drug1": "STATIN",
+      "drug2": "FIBRATE",
+      "severity": "WARNING",
+      "description": "Increased risk of myopathy and rhabdomyolysis.",
+      "recommendation": "Monitor for muscle pain, weakness. Check CPK if symptoms develop."
+    },
+    "macroli deStatin": {
+      "drug1": "MACROLIDE",
+      "drug2": "STATIN",
+      "severity": "WARNING",
+      "description": "Macrolides inhibit statin metabolism, increasing myopathy risk.",
+      "recommendation": "Consider temporarily holding statin during macrolide therapy."
+    },
+    "benzodiazepineOpioid": {
+      "drug1": "BENZODIAZEPINE",
+      "drug2": "OPIOID",
+      "severity": "CRITICAL",
+      "description": "Combined CNS depression significantly increases respiratory depression and overdose risk.",
+      "recommendation": "Avoid combination. If unavoidable, use lowest effective doses and monitor closely."
+    },
+    "ssriMaoi": {
+      "drug1": "SSRI",
+      "drug2": "SNRI",
+      "severity": "CRITICAL",
+      "description": "Risk of serotonin syndrome with excessive serotonergic activity.",
+      "recommendation": "Avoid combining multiple serotonergic agents. Monitor for serotonin syndrome symptoms."
+    },
+    "tramadolSsri": {
+      "drug1": "OPIOID",
+      "drug2": "SSRI",
+      "severity": "WARNING",
+      "description": "Tramadol combined with SSRIs increases serotonin syndrome risk.",
+      "recommendation": "Monitor for agitation, hyperthermia, hyperreflexia. Use alternative analgesics if possible."
+    },
+    "antipsychoticQtProlonging": {
+      "drug1": "ANTIPSYCHOTIC",
+      "drug2": "ANTIARRHYTHMIC",
+      "severity": "WARNING",
+      "description": "Both can prolong QT interval, increasing risk of torsades de pointes.",
+      "recommendation": "Monitor ECG. Avoid in patients with QT prolongation risk factors."
+    },
+    "fluoroquinoloneNsaid": {
+      "drug1": "FLUOROQUINOLONE",
+      "drug2": "NSAID",
+      "severity": "WARNING",
+      "description": "Increased risk of CNS stimulation and seizures.",
+      "recommendation": "Monitor for seizures, especially in patients with seizure disorders."
+    },
+    "methotrexateNsaid": {
+      "drug1": "DMARD",
+      "drug2": "NSAID",
+      "severity": "WARNING",
+      "description": "NSAIDs may increase methotrexate toxicity by reducing renal clearance.",
+      "recommendation": "Monitor methotrexate levels and CBC. Use with caution."
+    },
+    "immunosuppressantLiveVaccine": {
+      "drug1": "IMMUNOSUPPRESSANT",
+      "drug2": "VACCINE",
+      "severity": "CRITICAL",
+      "description": "Immunosuppression increases risk of infection from live vaccines.",
+      "recommendation": "Avoid live vaccines during immunosuppression. Use inactivated alternatives."
+    },
+    "calciumChannelBlockerBetaBlocker": {
+      "drug1": "CALCIUM_CHANNEL_BLOCKER",
+      "drug2": "BETA_BLOCKER",
+      "severity": "WARNING",
+      "description": "Combined negative chronotropic and inotropic effects can cause bradycardia and heart block.",
+      "recommendation": "Monitor heart rate and blood pressure. Use with caution in elderly."
+    },
+    "pde5InhibitorNitrate": {
+      "drug1": "PDE5_INHIBITOR",
+      "drug2": "NITRATE",
+      "severity": "CRITICAL",
+      "description": "Combination causes severe hypotension, potentially fatal.",
+      "recommendation": "Absolute contraindication. Never use together."
+    },
+    "insulinSulfonylurea": {
+      "drug1": "INSULIN",
+      "drug2": "SULFONYLUREA",
+      "severity": "WARNING",
+      "description": "Both lower glucose; combined use increases hypoglycemia risk.",
+      "recommendation": "Monitor blood glucose closely. Adjust doses to prevent hypoglycemia."
+    },
+    "corticosteroidNsaid": {
+      "drug1": "CORTICOSTEROID",
+      "drug2": "NSAID",
+      "severity": "WARNING",
+      "description": "Significantly increased risk of GI ulceration and bleeding.",
+      "recommendation": "Avoid if possible. Consider PPI for gastroprotection if necessary."
+    },
+    "azoleStatin": {
+      "drug1": "AZOLE",
+      "drug2": "STATIN",
+      "severity": "WARNING",
+      "description": "Azole antifungals inhibit statin metabolism, increasing myopathy risk.",
+      "recommendation": "Consider temporary statin discontinuation during azole therapy."
+    },
+    "tcaMaoi": {
+      "drug1": "TCA",
+      "drug2": "ANTIDEPRESSANT",
+      "severity": "CRITICAL",
+      "description": "Risk of hypertensive crisis and serotonin syndrome.",
+      "recommendation": "Allow 2-week washout period between switching classes."
+    },
+    "stimulantMaoi": {
+      "drug1": "STIMULANT",
+      "drug2": "ANTIDEPRESSANT",
+      "severity": "CRITICAL",
+      "description": "Risk of hypertensive crisis.",
+      "recommendation": "Avoid combination completely."
+    },
+    "theophyllineFluoroquinolone": {
+      "drug1": "BRONCHODILATOR",
+      "drug2": "FLUOROQUINOLONE",
+      "severity": "WARNING",
+      "description": "Fluoroquinolones may increase theophylline levels.",
+      "recommendation": "Monitor theophylline levels and adjust dose as needed."
+    },
+    "anticonvulsantOralContraceptive": {
+      "drug1": "ANTICONVULSANT",
+      "drug2": "CONTRACEPTIVE",
+      "severity": "WARNING",
+      "description": "Some anticonvulsants reduce contraceptive efficacy.",
+      "recommendation": "Use additional contraceptive methods or higher-dose contraceptives."
+    }
+  },
+  "drugConditionInteractions": {
+    "nsaidKidneyDisease": {
+      "conditionKeywords": ["kidney", "renal", "ckd", "chronic kidney"],
+      "medicationClasses": ["NSAID"],
+      "severity": "CRITICAL",
+      "description": "NSAIDs can reduce renal blood flow and cause acute kidney injury in patients with pre-existing kidney disease.",
+      "recommendation": "Avoid NSAIDs. Consider alternative analgesics like acetaminophen."
+    },
+    "nsaidHeartFailure": {
+      "conditionKeywords": ["heart failure", "hf", "chf"],
+      "medicationClasses": ["NSAID"],
+      "severity": "CRITICAL",
+      "description": "NSAIDs cause sodium retention and can exacerbate heart failure.",
+      "recommendation": "Avoid NSAIDs. Use acetaminophen for pain relief."
+    },
+    "aceInhibitorKidneyDisease": {
+      "conditionKeywords": ["kidney", "renal", "ckd"],
+      "medicationClasses": ["ACE_INHIBITOR"],
+      "severity": "WARNING",
+      "description": "ACE inhibitors can affect kidney function, especially in severe renal impairment.",
+      "recommendation": "Start with low dose and monitor serum creatinine and potassium levels regularly."
+    },
+    "betaBlockerAsthma": {
+      "conditionKeywords": ["asthma", "copd", "reactive airway"],
+      "medicationClasses": ["BETA_BLOCKER"],
+      "severity": "CRITICAL",
+      "description": "Beta-blockers can cause bronchospasm in patients with reactive airway disease.",
+      "recommendation": "Avoid non-selective beta-blockers. If essential, use cardioselective agents with caution."
+    },
+    "benzodiazepineCopd": {
+      "conditionKeywords": ["copd", "chronic obstructive"],
+      "medicationClasses": ["BENZODIAZEPINE"],
+      "severity": "WARNING",
+      "description": "Benzodiazepines may cause respiratory depression in COPD patients.",
+      "recommendation": "Use with extreme caution. Consider alternative anxiolytics."
+    },
+    "opioidSleepApnea": {
+      "conditionKeywords": ["sleep apnea", "osa", "obstructive sleep"],
+      "medicationClasses": ["OPIOID"],
+      "severity": "CRITICAL",
+      "description": "Opioids worsen respiratory depression in sleep apnea.",
+      "recommendation": "Avoid if possible. If necessary, use lowest effective dose and monitor closely."
+    },
+    "anticholinergicGlaucoma": {
+      "conditionKeywords": ["glaucoma", "narrow angle"],
+      "medicationClasses": ["TCA", "ANTIHISTAMINE"],
+      "severity": "WARNING",
+      "description": "Anticholinergics can increase intraocular pressure.",
+      "recommendation": "Avoid in narrow-angle glaucoma. Use with caution in open-angle glaucoma."
+    },
+    "corticosteroidDiabetes": {
+      "conditionKeywords": ["diabetes", "hyperglycemia"],
+      "medicationClasses": ["CORTICOSTEROID", "STEROID"],
+      "severity": "WARNING",
+      "description": "Corticosteroids increase blood glucose levels.",
+      "recommendation": "Monitor glucose closely. May need adjustment of diabetes medications."
+    },
+    "nsaidGastrointestinalDisease": {
+      "conditionKeywords": ["ulcer", "peptic", "gi bleeding", "gastritis"],
+      "medicationClasses": ["NSAID"],
+      "severity": "CRITICAL",
+      "description": "NSAIDs increase risk of GI bleeding and ulceration.",
+      "recommendation": "Avoid NSAIDs. If essential, use with PPI protection."
+    },
+    "antipsychoticDementia": {
+      "conditionKeywords": ["dementia", "alzheimer"],
+      "medicationClasses": ["ANTIPSYCHOTIC"],
+      "severity": "WARNING",
+      "description": "Antipsychotics increase mortality risk in elderly patients with dementia.",
+      "recommendation": "Use only when non-pharmacological measures fail. Use lowest effective dose."
+    },
+    "lithiumKidneyDisease": {
+      "conditionKeywords": ["kidney", "renal"],
+      "medicationClasses": ["MOOD_STABILIZER"],
+      "severity": "CRITICAL",
+      "description": "Lithium is renally cleared; impaired function increases toxicity risk.",
+      "recommendation": "Monitor lithium levels more frequently. May need significant dose reduction."
+    },
+    "metforminKidneyDisease": {
+      "conditionKeywords": ["kidney", "renal", "ckd"],
+      "medicationClasses": ["BIGUANIDE"],
+      "severity": "CRITICAL",
+      "description": "Risk of lactic acidosis in renal impairment.",
+      "recommendation": "Contraindicated in severe renal impairment (GFR <30). Reduce dose in moderate impairment."
+    },
+    "thiazolidinedioneHeartFailure": {
+      "conditionKeywords": ["heart failure", "hf"],
+      "medicationClasses": ["THIAZOLIDINEDIONE"],
+      "severity": "CRITICAL",
+      "description": "Thiazolidinediones cause fluid retention and worsen heart failure.",
+      "recommendation": "Contraindicated in Class III-IV heart failure."
+    },
+    "stimulantHypertension": {
+      "conditionKeywords": ["hypertension", "high blood pressure"],
+      "medicationClasses": ["STIMULANT", "ADHD"],
+      "severity": "WARNING",
+      "description": "Stimulants increase blood pressure and heart rate.",
+      "recommendation": "Monitor blood pressure regularly. Control hypertension before starting stimulants."
+    },
+    "nsaidHypertension": {
+      "conditionKeywords": ["hypertension", "high blood pressure"],
+      "medicationClasses": ["NSAID"],
+      "severity": "WARNING",
+      "description": "NSAIDs can elevate blood pressure and reduce antihypertensive efficacy.",
+      "recommendation": "Monitor blood pressure. Use acetaminophen as alternative."
+    },
+    "tricyclicCardiacDisease": {
+      "conditionKeywords": ["cardiac", "heart disease", "arrhythmia"],
+      "medicationClasses": ["TCA", "TRICYCLIC"],
+      "severity": "WARNING",
+      "description": "Tricyclics can cause cardiac conduction abnormalities and arrhythmias.",
+      "recommendation": "Avoid in recent MI or heart block. Monitor ECG if use necessary."
+    },
+    "fluoroquinoloneTendon": {
+      "conditionKeywords": ["tendon", "tendinopathy"],
+      "medicationClasses": ["FLUOROQUINOLONE"],
+      "severity": "WARNING",
+      "description": "Increased risk of tendon rupture, especially in elderly and those on corticosteroids.",
+      "recommendation": "Avoid in patients with tendon disorders. Discontinue if tendon pain develops."
+    },
+    "immunosuppressantInfection": {
+      "conditionKeywords": ["infection", "sepsis", "immunocompromised"],
+      "medicationClasses": ["IMMUNOSUPPRESSANT", "DMARD"],
+      "severity": "CRITICAL",
+      "description": "Immunosuppression increases infection risk and severity.",
+      "recommendation": "Screen for latent infections before starting. Monitor closely for signs of infection."
+    },
+    "potassiumSparingHyperkalemia": {
+      "conditionKeywords": ["hyperkalemia", "high potassium"],
+      "medicationClasses": ["POTASSIUM_SPARING", "ACE_INHIBITOR", "ARB"],
+      "severity": "CRITICAL",
+      "description": "Can worsen hyperkalemia, leading to cardiac arrhythmias.",
+      "recommendation": "Monitor potassium levels closely. Avoid in severe hyperkalemia."
+    },
+    "anticoagulantBleedingDisorder": {
+      "conditionKeywords": ["bleeding", "hemorrhage", "coagulopathy"],
+      "medicationClasses": ["ANTICOAGULANT", "ANTIPLATELET"],
+      "severity": "CRITICAL",
+      "description": "Dramatically increases bleeding risk in patients with bleeding disorders.",
+      "recommendation": "Generally contraindicated. If essential, requires hematology consultation."
+    }
+  }
+}

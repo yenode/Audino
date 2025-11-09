@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import java.lang.String?>
+
+<VBox styleClass="dialog-container" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.audino.controller.PatientDialogController">
+    <children>
+        <VBox styleClass="dialog-header">
+            <children>
+                <HBox alignment="CENTER_LEFT">
+                    <children>
+                        <Label styleClass="dialog-title" text="Patient Information" />
+                    </children>
+                </HBox>
+                <Label styleClass="dialog-subtitle" text="Enter or update patient details below" />
+            </children>
+        </VBox>
+        <VBox styleClass="dialog-content">
+            <children>
+                <VBox styleClass="form-section" spacing="15.0">
+                    <children>
+                        <HBox spacing="20.0">
+                            <children>
+                                <VBox HBox.hgrow="ALWAYS" spacing="8.0">
+                                    <children>
+                                        <Label styleClass="form-label" text="First Name" />
+                                        <TextField fx:id="firstNameField" promptText="Enter first name" styleClass="form-field" />
+                                    </children>
+                                </VBox>
+                                <VBox HBox.hgrow="ALWAYS" spacing="8.0">
+                                    <children>
+                                        <Label styleClass="form-label" text="Last Name" />
+                                        <TextField fx:id="lastNameField" promptText="Enter last name" styleClass="form-field" />
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
+                        <HBox spacing="20.0">
+                            <children>
+                                <VBox HBox.hgrow="ALWAYS" spacing="8.0">
+                                    <children>
+                                        <Label styleClass="form-label" text="Date of Birth" />
+                                        <DatePicker fx:id="dobPicker" maxWidth="Infinity" promptText="Select date of birth" styleClass="date-picker" />
+                                    </children>
+                                </VBox>
+                                <VBox HBox.hgrow="ALWAYS" spacing="8.0">
+                                    <children>
+                                        <Label styleClass="form-label" text="Gender" />
+                                        <ComboBox fx:id="genderComboBox" maxWidth="Infinity" promptText="Select gender" styleClass="combo-box">
+                                            <items>
+                                                <FXCollections fx:factory="observableArrayList">
+                                                    <String fx:value="Male" />
+                                                    <String fx:value="Female" />
+                                                    <String fx:value="Other" />
+                                                    <String fx:value="Prefer not to say" />
+                                                </FXCollections>
+                                            </items>
+                                        </ComboBox>
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
+                        <VBox spacing="8.0">
+                            <children>
+                                <Label styleClass="form-label" text="Contact Number" />
+                                <TextField fx:id="contactField" promptText="Enter phone number" styleClass="form-field" />
+                            </children>
+                        </VBox>
+                    </children>
+                </VBox>
+                <VBox styleClass="textarea-section" spacing="15.0">
+                    <children>
+                        <VBox styleClass="input-group" spacing="8.0">
+                            <children>
+                                <HBox alignment="CENTER_LEFT">
+                                    <children>
+                                        <Label styleClass="section-label" text="Allergies" />
+                                        <Region HBox.hgrow="ALWAYS" />
+                                        <Label styleClass="help-text" text="One per line" />
+                                    </children>
+                                </HBox>
+                                <TextArea fx:id="allergiesArea" prefHeight="100.0" promptText="List any known allergies..." styleClass="text-area" wrapText="true" />
+                            </children>
+                        </VBox>
+                        <VBox styleClass="input-group" spacing="8.0">
+                            <children>
+                                <HBox alignment="CENTER_LEFT">
+                                    <children>
+                                        <Label styleClass="section-label" text="Chronic Conditions" />
+                                        <Region HBox.hgrow="ALWAYS" />
+                                        <Label styleClass="help-text" text="One per line" />
+                                    </children>
+                                </HBox>
+                                <TextArea fx:id="conditionsArea" prefHeight="100.0" promptText="List any chronic conditions..." styleClass="text-area" wrapText="true" />
+                            </children>
+                        </VBox>
+                    </children>
+                </VBox>
+            </children>
+        </VBox>
+        <HBox alignment="BOTTOM_RIGHT" styleClass="dialog-actions">
+            <children>
+                <Button onAction="#handleCancel" styleClass="cancel-btn" text="Cancel" />
+                <Button onAction="#handleSave" styleClass="save-btn" text="Save Patient" />
+            </children>
+        </HBox>
+    </children>
+</VBox>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Medication.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Audino: Intelligent Prescription Manager</a> &gt; <a href="index.source.html" class="el_package">com.audino.model</a> &gt; <span class="el_source">Medication.java</span></div><h1>Medication.java</h1><pre class="source lang-java linenums">package com.audino.model;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = &quot;medicationType&quot;)
+@JsonSubTypes({
+    @JsonSubTypes.Type(value = TabletMedication.class, name = &quot;TABLET&quot;),
+    @JsonSubTypes.Type(value = LiquidMedication.class, name = &quot;LIQUID&quot;),
+    @JsonSubTypes.Type(value = InjectionMedication.class, name = &quot;INJECTION&quot;)
+})
+public abstract class Medication {
+
+    @JsonProperty(&quot;medicationId&quot;)
+    protected String medicationId;
+
+    @JsonProperty(&quot;genericName&quot;)
+    protected String genericName;
+
+    @JsonProperty(&quot;brandName&quot;)
+    protected String brandName;
+
+    @JsonProperty(&quot;activeIngredients&quot;)
+    protected List&lt;String&gt; activeIngredients;
+
+    @JsonProperty(&quot;interactionIdentifiers&quot;)
+    protected List&lt;String&gt; interactionIdentifiers;
+
+    @JsonProperty(&quot;medicationType&quot;)
+    protected MedicationType medicationType;
+
+<span class="fc" id="L37">    public Medication() {</span>
+<span class="fc" id="L38">        this.activeIngredients = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L39">        this.interactionIdentifiers = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L40">    }</span>
+
+    public Medication(String medicationId, String genericName, String brandName, MedicationType medicationType) {
+<span class="fc" id="L43">        this();</span>
+<span class="fc" id="L44">        this.medicationId = medicationId;</span>
+<span class="fc" id="L45">        this.genericName = genericName;</span>
+<span class="fc" id="L46">        this.brandName = brandName;</span>
+<span class="fc" id="L47">        this.medicationType = medicationType;</span>
+<span class="fc" id="L48">    }</span>
+
+    public abstract String getDosageInstructions(String dosage, String frequency, String duration);
+    
+    public abstract boolean isValidDosage(String dosage);
+
+    public String getDisplayName() {
+<span class="pc bpc" id="L55" title="1 of 4 branches missed.">        return (brandName != null &amp;&amp; !brandName.trim().isEmpty()) ? brandName : genericName;</span>
+    }
+
+    // Getters and Setters
+<span class="nc" id="L59">    public String getMedicationId() { return medicationId; }</span>
+<span class="fc" id="L60">    public void setMedicationId(String medicationId) { this.medicationId = medicationId; }</span>
+<span class="fc" id="L61">    public String getGenericName() { return genericName; }</span>
+<span class="fc" id="L62">    public void setGenericName(String genericName) { this.genericName = genericName; }</span>
+<span class="fc" id="L63">    public String getBrandName() { return brandName; }</span>
+<span class="fc" id="L64">    public void setBrandName(String brandName) { this.brandName = brandName; }</span>
+<span class="fc" id="L65">    public List&lt;String&gt; getActiveIngredients() { return new ArrayList&lt;&gt;(activeIngredients); }</span>
+<span class="fc" id="L66">    public void setActiveIngredients(List&lt;String&gt; ingredients) { this.activeIngredients = new ArrayList&lt;&gt;(ingredients); }</span>
+<span class="fc" id="L67">    public List&lt;String&gt; getInteractionIdentifiers() { return new ArrayList&lt;&gt;(interactionIdentifiers); }</span>
+<span class="fc" id="L68">    public void setInteractionIdentifiers(List&lt;String&gt; identifiers) { this.interactionIdentifiers = new ArrayList&lt;&gt;(identifiers); }</span>
+<span class="nc" id="L69">    public MedicationType getMedicationType() { return medicationType; }</span>
+<span class="nc" id="L70">    public void setMedicationType(MedicationType type) { this.medicationType = type; }</span>
+
+    @Override
+    public boolean equals(Object o) {
+<span class="nc bnc" id="L74" title="All 2 branches missed.">        if (this == o) return true;</span>
+<span class="nc bnc" id="L75" title="All 4 branches missed.">        if (o == null || getClass() != o.getClass()) return false;</span>
+<span class="nc" id="L76">        Medication that = (Medication) o;</span>
+<span class="nc" id="L77">        return Objects.equals(medicationId, that.medicationId);</span>
+    }
+
+    @Override
+    public int hashCode() {
+<span class="nc" id="L82">        return Objects.hash(medicationId);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PatientDialogController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Audino: Intelligent Prescription Manager</a> &gt; <a href="index.source.html" class="el_package">com.audino.controller</a> &gt; <span class="el_source">PatientDialogController.java</span></div><h1>PatientDialogController.java</h1><pre class="source lang-java linenums">package com.audino.controller;
+
+import com.audino.model.Patient;
+import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+<span class="nc" id="L16">public class PatientDialogController {</span>
+
+    @FXML private TextField firstNameField;
+    @FXML private TextField lastNameField;
+    @FXML private DatePicker dobPicker;
+    @FXML private ComboBox&lt;String&gt; genderComboBox;
+    @FXML private TextField contactField;
+    @FXML private TextArea allergiesArea;
+    @FXML private TextArea conditionsArea;
+
+    private Stage dialogStage;
+    private Patient patient;
+<span class="nc" id="L28">    private boolean saved = false;</span>
+
+    public void setDialogStage(Stage dialogStage) {
+<span class="nc" id="L31">        this.dialogStage = dialogStage;</span>
+<span class="nc" id="L32">    }</span>
+
+    public void setPatient(Patient patient) {
+<span class="nc" id="L35">        this.patient = patient;</span>
+<span class="nc bnc" id="L36" title="All 2 branches missed.">        if (patient != null) {</span>
+<span class="nc" id="L37">            firstNameField.setText(patient.getFirstName());</span>
+<span class="nc" id="L38">            lastNameField.setText(patient.getLastName());</span>
+<span class="nc" id="L39">            dobPicker.setValue(patient.getDateOfBirth());</span>
+<span class="nc" id="L40">            genderComboBox.setValue(patient.getGender());</span>
+<span class="nc" id="L41">            contactField.setText(patient.getContactNumber());</span>
+<span class="nc" id="L42">            allergiesArea.setText(String.join(&quot;\n&quot;, patient.getAllergies()));</span>
+<span class="nc" id="L43">            conditionsArea.setText(String.join(&quot;\n&quot;, patient.getChronicConditions()));</span>
+        }
+<span class="nc" id="L45">    }</span>
+
+    public boolean isSaved() {
+<span class="nc" id="L48">        return saved;</span>
+    }
+
+    @FXML
+    private void handleSave() {
+<span class="nc bnc" id="L53" title="All 2 branches missed.">        if (isInputValid()) {</span>
+<span class="nc" id="L54">            patient.setFirstName(firstNameField.getText());</span>
+<span class="nc" id="L55">            patient.setLastName(lastNameField.getText());</span>
+<span class="nc" id="L56">            patient.setDateOfBirth(dobPicker.getValue());</span>
+<span class="nc" id="L57">            patient.setGender(genderComboBox.getValue());</span>
+<span class="nc" id="L58">            patient.setContactNumber(contactField.getText());</span>
+
+<span class="nc" id="L60">            List&lt;String&gt; allergies = Arrays.stream(allergiesArea.getText().split(&quot;\n&quot;))</span>
+<span class="nc bnc" id="L61" title="All 2 branches missed.">                .map(String::trim).filter(s -&gt; !s.isEmpty()).collect(Collectors.toList());</span>
+<span class="nc" id="L62">            patient.setAllergies(allergies);</span>
+
+<span class="nc" id="L64">            List&lt;String&gt; conditions = Arrays.stream(conditionsArea.getText().split(&quot;\n&quot;))</span>
+<span class="nc bnc" id="L65" title="All 2 branches missed.">                .map(String::trim).filter(s -&gt; !s.isEmpty()).collect(Collectors.toList());</span>
+<span class="nc" id="L66">            patient.setChronicConditions(conditions);</span>
+
+<span class="nc" id="L68">            saved = true;</span>
+<span class="nc" id="L69">            dialogStage.close();</span>
+        }
+<span class="nc" id="L71">    }</span>
+
+    @FXML
+    private void handleCancel() {
+<span class="nc" id="L75">        dialogStage.close();</span>
+<span class="nc" id="L76">    }</span>
+
+    private boolean isInputValid() {
+<span class="nc" id="L79">        String errorMessage = &quot;&quot;;</span>
+<span class="nc bnc" id="L80" title="All 4 branches missed.">        if (firstNameField.getText() == null || firstNameField.getText().isEmpty()) {</span>
+<span class="nc" id="L81">            errorMessage += &quot;No valid first name!\n&quot;;</span>
+        }
+<span class="nc bnc" id="L83" title="All 4 branches missed.">        if (lastNameField.getText() == null || lastNameField.getText().isEmpty()) {</span>
+<span class="nc" id="L84">            errorMessage += &quot;No valid last name!\n&quot;;</span>
+        }
+<span class="nc bnc" id="L86" title="All 4 branches missed.">        if (dobPicker.getValue() == null || dobPicker.getValue().isAfter(LocalDate.now())) {</span>
+<span class="nc" id="L87">            errorMessage += &quot;No valid date of birth!\n&quot;;</span>
+        }
+
+<span class="nc bnc" id="L90" title="All 2 branches missed.">        if (errorMessage.isEmpty()) {</span>
+<span class="nc" id="L91">            return true;</span>
+        } else {
+<span class="nc" id="L93">            Alert alert = new Alert(Alert.AlertType.ERROR);</span>
+<span class="nc" id="L94">            alert.initOwner(dialogStage);</span>
+<span class="nc" id="L95">            alert.setTitle(&quot;Invalid Fields&quot;);</span>
+<span class="nc" id="L96">            alert.setHeaderText(&quot;Please correct invalid fields&quot;);</span>
+<span class="nc" id="L97">            alert.setContentText(errorMessage);</span>
+<span class="nc" id="L98">            alert.showAndWait();</span>
+<span class="nc" id="L99">            return false;</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

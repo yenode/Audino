@@ -1,0 +1,5 @@
+com\audino\model\MedicationTest.class
+com\audino\model\PatientTest.class
+com\audino\service\DataServiceTest.class
+com\audino\service\InteractionEngineTest.class
+com\audino\TestSuite.class

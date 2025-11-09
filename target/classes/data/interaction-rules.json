@@ -1,0 +1,33 @@
+{
+  "drugAllergyInteractions": {
+    "penicillinAllergy": {
+      "allergyKeywords": ["penicillin"],
+      "recommendation": "Avoid penicillin-class antibiotics. Consider alternatives like macrolides or tetracyclines."
+    }
+  },
+  "drugDrugInteractions": {
+    "warfarinNsaid": {
+      "drug1": "WARFARIN",
+      "drug2": "NSAID",
+      "severity": "CRITICAL",
+      "description": "Concurrent use significantly increases the risk of major bleeding, especially gastrointestinal bleeding.",
+      "recommendation": "Avoid combination if possible. If necessary, monitor INR closely and check for signs of bleeding. Consider PPI for GI protection."
+    }
+  },
+  "drugConditionInteractions": {
+    "nsaidKidneyDisease": {
+      "conditionKeywords": ["kidney", "renal"],
+      "medicationClasses": ["NSAID"],
+      "severity": "CRITICAL",
+      "description": "NSAIDs can reduce renal blood flow and cause acute kidney injury in patients with pre-existing kidney disease.",
+      "recommendation": "Avoid NSAIDs. Consider alternative analgesics like acetaminophen."
+    },
+    "aceInhibitorKidneyDisease": {
+      "conditionKeywords": ["kidney", "renal"],
+      "medicationClasses": ["ACE_INHIBITOR"],
+      "severity": "WARNING",
+      "description": "ACE inhibitors can affect kidney function. Use with caution in patients with renal impairment.",
+      "recommendation": "Start with a low dose and monitor serum creatinine and potassium levels regularly."
+    }
+  }
+}

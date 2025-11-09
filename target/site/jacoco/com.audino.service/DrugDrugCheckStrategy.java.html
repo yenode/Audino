@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DrugDrugCheckStrategy.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Audino: Intelligent Prescription Manager</a> &gt; <a href="index.source.html" class="el_package">com.audino.service</a> &gt; <span class="el_source">DrugDrugCheckStrategy.java</span></div><h1>DrugDrugCheckStrategy.java</h1><pre class="source lang-java linenums">package com.audino.service;
+
+import com.audino.model.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+<span class="fc" id="L10">public class DrugDrugCheckStrategy implements InteractionCheckStrategy {</span>
+    @Override
+    public String getStrategyName() {
+<span class="nc" id="L13">        return &quot;Drug-Drug Interaction Check&quot;;</span>
+    }
+
+    @Override
+    @SuppressWarnings(&quot;unchecked&quot;)
+    public List&lt;InteractionAlert&gt; check(Patient patient, Prescription prescription, Map&lt;String, Object&gt; rules) {
+<span class="fc" id="L19">        List&lt;InteractionAlert&gt; alerts = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L20">        List&lt;Medication&gt; meds = prescription.getMedications();</span>
+<span class="pc bpc" id="L21" title="1 of 4 branches missed.">        if (meds.size() &lt; 2 || rules == null) {</span>
+<span class="fc" id="L22">            return alerts;</span>
+        }
+
+<span class="fc" id="L25">        Map&lt;String, Object&gt; drugDrugRules = (Map&lt;String, Object&gt;) rules.get(&quot;drugDrugInteractions&quot;);</span>
+<span class="pc bpc" id="L26" title="1 of 2 branches missed.">        if (drugDrugRules == null) return alerts;</span>
+
+<span class="fc bfc" id="L28" title="All 2 branches covered.">        for (int i = 0; i &lt; meds.size(); i++) {</span>
+<span class="fc bfc" id="L29" title="All 2 branches covered.">            for (int j = i + 1; j &lt; meds.size(); j++) {</span>
+<span class="fc" id="L30">                Medication med1 = meds.get(i);</span>
+<span class="fc" id="L31">                Medication med2 = meds.get(j);</span>
+
+<span class="fc" id="L33">                Set&lt;String&gt; ids1 = new HashSet&lt;&gt;(med1.getInteractionIdentifiers());</span>
+<span class="fc" id="L34">                Set&lt;String&gt; ids2 = new HashSet&lt;&gt;(med2.getInteractionIdentifiers());</span>
+
+<span class="fc" id="L36">                drugDrugRules.forEach((key, ruleObj) -&gt; {</span>
+<span class="fc" id="L37">                    Map&lt;String, Object&gt; rule = (Map&lt;String, Object&gt;) ruleObj;</span>
+<span class="fc" id="L38">                    String drug1Class = (String) rule.get(&quot;drug1&quot;);</span>
+<span class="fc" id="L39">                    String drug2Class = (String) rule.get(&quot;drug2&quot;);</span>
+                    
+<span class="pc bpc" id="L41" title="2 of 4 branches missed.">                    if (drug1Class != null &amp;&amp; drug2Class != null) {</span>
+<span class="pc bpc" id="L42" title="1 of 2 branches missed.">                        boolean pair1Match = ids1.stream().anyMatch(id -&gt; id.equalsIgnoreCase(drug1Class)) &amp;&amp;</span>
+<span class="pc bnc" id="L43" title="All 2 branches missed.">                                             ids2.stream().anyMatch(id -&gt; id.equalsIgnoreCase(drug2Class));</span>
+                        
+<span class="pc bpc" id="L45" title="1 of 2 branches missed.">                        boolean pair2Match = ids1.stream().anyMatch(id -&gt; id.equalsIgnoreCase(drug2Class)) &amp;&amp;</span>
+<span class="pc bpc" id="L46" title="1 of 2 branches missed.">                                             ids2.stream().anyMatch(id -&gt; id.equalsIgnoreCase(drug1Class));</span>
+                        
+<span class="pc bpc" id="L48" title="2 of 4 branches missed.">                        if (pair1Match || pair2Match) {</span>
+<span class="fc" id="L49">                            alerts.add(createAlert(med1, med2, rule));</span>
+                        }
+                    }
+<span class="fc" id="L52">                });</span>
+            }
+        }
+<span class="fc" id="L55">        return alerts;</span>
+    }
+
+    private InteractionAlert createAlert(Medication m1, Medication m2, Map&lt;String, Object&gt; rule) {
+<span class="fc" id="L59">        String severity = (String) rule.get(&quot;severity&quot;);</span>
+<span class="pc bpc" id="L60" title="1 of 2 branches missed.">        AlertLevel level = &quot;CRITICAL&quot;.equalsIgnoreCase(severity) ? AlertLevel.CRITICAL : AlertLevel.WARNING;</span>
+<span class="fc" id="L61">        String message = String.format(</span>
+            &quot;%s and %s may interact. %s&quot;,
+<span class="fc" id="L63">            m1.getDisplayName(), m2.getDisplayName(), rule.get(&quot;description&quot;)</span>
+        );
+<span class="fc" id="L65">        String involved = m1.getDisplayName() + &quot; &amp; &quot; + m2.getDisplayName();</span>
+        
+<span class="fc" id="L67">        return new InteractionAlert(</span>
+            level,
+            AlertType.DRUG_DRUG,
+            &quot;Drug-Drug Interaction&quot;,
+            message,
+<span class="fc" id="L72">            (String) rule.get(&quot;recommendation&quot;),</span>
+            involved,
+            null
+        );
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

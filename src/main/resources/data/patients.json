@@ -1,0 +1,105 @@
+[
+  {
+    "patientId": "PAT-A1B2C3D4",
+    "firstName": "John",
+    "lastName": "Smith",
+    "dateOfBirth": "1965-03-15",
+    "allergies": [
+      "Penicillin"
+    ],
+    "chronicConditions": [
+      "Hypertension",
+      "Chronic Kidney Disease"
+    ]
+  },
+  {
+    "patientId": "PAT-E5F6G7H8",
+    "firstName": "Jane",
+    "lastName": "Doe",
+    "dateOfBirth": "1980-07-22",
+    "allergies": [
+      "Sulfa"
+    ],
+    "chronicConditions": [
+      "Type 2 Diabetes",
+      "Asthma"
+    ]
+  },
+  {
+    "patientId": "PAT-I9J0K1L2",
+    "firstName": "Robert",
+    "lastName": "Johnson",
+    "dateOfBirth": "1952-11-30",
+    "allergies": [],
+    "chronicConditions": [
+      "Atrial Fibrillation",
+      "Heart Failure"
+    ]
+  },
+  {
+    "patientId": "PAT-M3N4O5P6",
+    "firstName": "Emily",
+    "lastName": "Williams",
+    "dateOfBirth": "1991-09-01",
+    "allergies": [
+      "Aspirin",
+      "Codeine"
+    ],
+    "chronicConditions": [
+      "Migraine"
+    ]
+  },
+  {
+    "patientId": "PAT-Q7R8S9T0",
+    "firstName": "Mridankan",
+    "lastName": "Mandal",
+    "dateOfBirth": "1998-05-14",
+    "allergies": [
+      "Latex",
+      "Ibuprofen"
+    ],
+    "chronicConditions": [
+      "Seasonal Allergies",
+      "Mild Asthma"
+    ]
+  },
+  {
+    "patientId": "PAT-U1V2W3X4",
+    "firstName": "Aditya",
+    "lastName": "Pachauri",
+    "dateOfBirth": "1995-08-23",
+    "allergies": [],
+    "chronicConditions": [
+      "Hypertension",
+      "Hyperlipidemia"
+    ]
+  },
+  {
+    "patientId": "PAT-Y5Z6A7B8",
+    "firstName": "Sayan",
+    "lastName": "Samajpati",
+    "dateOfBirth": "1997-12-07",
+    "allergies": [
+      "Sulfa",
+      "Shellfish"
+    ],
+    "chronicConditions": [
+      "Type 1 Diabetes",
+      "Thyroid Disorder"
+    ]
+  },
+  {
+    "patientId": "PAT-C9D0E1F2",
+    "firstName": "Sanskriti",
+    "lastName": "Wakale",
+    "dateOfBirth": "1999-03-19",
+    "allergies": [
+      "Penicillin",
+      "Peanuts"
+    ],
+    "chronicConditions": [
+      "Iron Deficiency Anemia",
+      "PCOS"
+    ]
+  }
+]

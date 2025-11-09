@@ -1,0 +1,52 @@
+[
+  {
+    "patientId": "PAT-A1B2C3D4",
+    "firstName": "John",
+    "lastName": "Smith",
+    "dateOfBirth": "1965-03-15",
+    "allergies": [
+      "Penicillin"
+    ],
+    "chronicConditions": [
+      "Hypertension",
+      "Chronic Kidney Disease"
+    ]
+  },
+  {
+    "patientId": "PAT-E5F6G7H8",
+    "firstName": "Jane",
+    "lastName": "Doe",
+    "dateOfBirth": "1980-07-22",
+    "allergies": [
+      "Sulfa"
+    ],
+    "chronicConditions": [
+      "Type 2 Diabetes",
+      "Asthma"
+    ]
+  },
+  {
+    "patientId": "PAT-I9J0K1L2",
+    "firstName": "Robert",
+    "lastName": "Johnson",
+    "dateOfBirth": "1952-11-30",
+    "allergies": [],
+    "chronicConditions": [
+      "Atrial Fibrillation",
+      "Heart Failure"
+    ]
+  },
+  {
+    "patientId": "PAT-M3N4O5P6",
+    "firstName": "Emily",
+    "lastName": "Williams",
+    "dateOfBirth": "1991-09-01",
+    "allergies": [
+      "Aspirin",
+      "Codeine"
+    ],
+    "chronicConditions": [
+      "Migraine"
+    ]
+  }
+]
