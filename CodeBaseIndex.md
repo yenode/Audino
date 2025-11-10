@@ -1,71 +1,71 @@
-# Audino - CodeBase Index:
+# Audino: CodeBase Index:
 
 ## Project Structure:
 
 ### Root Files:
-- `pom.xml` - Maven project configuration and dependencies.
-- `README.md` - Project overview and quick start guide.
-- `start.ps1` - PowerShell script to run the application.
-- `setup.ps1` - PowerShell script to set up the project environment.
+- `pom.xml`: Maven project configuration and dependencies.
+- `README.md`: Project overview and quick start guide.
+- `start.ps1`: PowerShell script to run the application.
+- `setup.ps1`: PowerShell script to set up the project environment.
 
 ### Source Code (`src/main/java/com/audino/`):
 
 #### Main Application:
-- `AudinoApplication.java` - Main entry point for the JavaFX application.
+- `AudinoApplication.java`: Main entry point for the JavaFX application.
 
 #### Controller Package (`controller/`):
-- `MainController.java` - Handles UI interactions and connects view with business logic.
+- `MainController.java`: Handles UI interactions and connects view with business logic.
 
 #### Model Package (`model/`):
-- `AlertLevel.java` - Enumeration for alert severity levels.
-- `AlertType.java` - Enumeration for types of drug interaction alerts.
-- `InjectionMedication.java` - Represents injectable medications.
-- `InteractionAlert.java` - Model for drug interaction warnings.
-- `LiquidMedication.java` - Represents liquid medications.
-- `Medication.java` - Base abstract class for all medications.
-- `MedicationType.java` - Enumeration for medication form types.
-- `Patient.java` - Represents patient information and medical history.
-- `PrescribedDrug.java` - Links medication to prescription with dosage details.
-- `Prescription.java` - Represents a patient's prescription with multiple drugs.
-- `PrescriptionStatus.java` - Enumeration for prescription lifecycle status.
-- `TabletMedication.java` - Represents tablet/capsule medications.
+- `AlertLevel.java`: Enumeration for alert severity levels.
+- `AlertType.java`: Enumeration for types of drug interaction alerts.
+- `InjectionMedication.java`: Represents injectable medications.
+- `InteractionAlert.java`: Model for drug interaction warnings.
+- `LiquidMedication.java`: Represents liquid medications.
+- `Medication.java`: Base abstract class for all medications.
+- `MedicationType.java`: Enumeration for medication form types.
+- `Patient.java`: Represents patient information and medical history.
+- `PrescribedDrug.java`: Links medication to prescription with dosage details.
+- `Prescription.java`: Represents a patient's prescription with multiple drugs.
+- `PrescriptionStatus.java`: Enumeration for prescription lifecycle status.
+- `TabletMedication.java`: Represents tablet/capsule medications.
 
 #### Service Package (`service/`):
-- `AllergyCheckStrategy.java` - Strategy for checking patient allergies against medications.
-- `ConditionCheckStrategy.java` - Strategy for checking drug-condition interactions.
-- `DataService.java` - Handles data loading and persistence operations.
-- `DrugDrugCheckStrategy.java` - Strategy for checking drug-drug interactions.
-- `InteractionCheckStrategy.java` - Interface defining interaction checking strategy.
-- `InteractionEngine.java` - Core engine orchestrating all interaction checks.
+- `AllergyCheckStrategy.java`: Strategy for checking patient allergies against medications.
+- `ConditionCheckStrategy.java`: Strategy for checking drug-condition interactions.
+- `DataService.java`: Handles data loading and persistence operations.
+- `DrugDrugCheckStrategy.java`: Strategy for checking drug-drug interactions.
+- `InteractionCheckStrategy.java`: Interface defining interaction checking strategy.
+- `InteractionEngine.java`: Core engine orchestrating all interaction checks.
 
 #### Utility Package (`util/`):
-- `ConfigurationManager.java` - Manages application configuration and settings.
+- `ConfigurationManager.java`: Manages application configuration and settings.
 
 ### Resources (`src/main/resources/`):
 
 #### CSS Stylesheets (`css/`):
-- `application.css` - Application-wide styling definitions.
+- `application.css`: Application-wide styling definitions.
 
 #### Data Files (`data/`):
-- `interaction-rules.json` - Database of drug interaction rules and conditions.
-- `medications.json` - Comprehensive medication database with 150 medications.
-- `patients.json` - Sample patient records (8 patients including Mridankan Mandal, Aditya Pachauri, Sayan Samajpati, and Sanskriti Wakale).
+- `interaction-rules.json`: Database of drug interaction rules and conditions.
+- `medications.json`: Comprehensive medication database with 150 medications.
+- `patients.json`: Sample patient records (8 patients including Mridankan Mandal, Aditya Pachauri, Sayan Samajpati, and Sanskriti Wakale).
 
 #### FXML Views (`fxml/`):
-- `MainWindow.fxml` - Main application window layout definition.
+- `MainWindow.fxml`: Main application window layout definition.
 
 ### Test Code (`src/test/java/com/audino/`):
 
 #### Model Tests (`model/`):
-- `MedicationTest.java` - Unit tests for medication classes.
-- `PatientTest.java` - Unit tests for patient model.
+- `MedicationTest.java`: Unit tests for medication classes.
+- `PatientTest.java`: Unit tests for patient model.
 
 #### Service Tests (`service/`):
-- `DataServiceTest.java` - Tests for data service operations.
-- `InteractionEngineTest.java` - Tests for interaction detection logic.
+- `DataServiceTest.java`: Tests for data service operations.
+- `InteractionEngineTest.java`: Tests for interaction detection logic.
 
 #### Test Suite:
-- `TestSuite.java` - Aggregated test suite runner.
+- `TestSuite.java`: Aggregated test suite runner.
 
 ## Key Design Patterns:
 
@@ -101,3 +101,17 @@
 - Implement new interaction checks via `InteractionCheckStrategy` interface.
 - Expand data sources in `DataService`.
 - Customize UI through FXML and CSS files.
+
+## User Interface Screenshots:
+
+### Main Application Window
+![Main Window](visuals/AudinoMainWindowWithPatientData.png)
+**Description**: Complete view of the application showing patient list, prescription form, medication selector, and real-time interaction alerts panel.
+
+### Patient Management Dialogs
+
+![Add Patient](visuals/AudinoAddPatientDataWindow.png)
+**Description**: Dialog for adding new patients with fields for name, birth date, allergies, and medical conditions.
+
+![Edit Patient](visuals/AudinoEditPatientDataWindow.png)
+**Description**: Dialog for modifying existing patient records allowing updates to allergies, conditions, and personal information.

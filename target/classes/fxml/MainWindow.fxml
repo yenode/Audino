@@ -142,13 +142,13 @@
                                     <VBox spacing="8.0" HBox.hgrow="ALWAYS">
                                        <children>
                                           <Label styleClass="form-label" text="Dosage" />
-                                          <TextField fx:id="dosageField" promptText="e.g., 1" styleClass="form-field" />
+                                          <TextField fx:id="dosageField" promptText="like 1" styleClass="form-field" />
                                        </children>
                                     </VBox>
                                     <VBox spacing="8.0" HBox.hgrow="ALWAYS">
                                        <children>
                                           <Label styleClass="form-label" text="Frequency" />
-                                          <TextField fx:id="frequencyField" promptText="e.g., Twice daily" styleClass="form-field" />
+                                          <TextField fx:id="frequencyField" promptText="like Twice daily" styleClass="form-field" />
                                        </children>
                                     </VBox>
                                  </children>
@@ -158,7 +158,7 @@
                                     <VBox spacing="8.0" HBox.hgrow="ALWAYS">
                                        <children>
                                           <Label styleClass="form-label" text="Duration" />
-                                          <TextField fx:id="durationField" promptText="e.g., 7 days" styleClass="form-field" />
+                                          <TextField fx:id="durationField" promptText="like 7 days" styleClass="form-field" />
                                        </children>
                                     </VBox>
                                     <VBox alignment="BOTTOM_RIGHT" spacing="8.0" HBox.hgrow="ALWAYS">

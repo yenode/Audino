@@ -1,0 +1,57 @@
+[
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-001",
+    "genericName": "Lisinopril",
+    "brandName": "Zestril",
+    "strength": "10mg",
+    "activeIngredients": ["Lisinopril"],
+    "interactionIdentifiers": ["ACE_INHIBITOR", "POTASSIUM_SPARING"]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-002",
+    "genericName": "Warfarin",
+    "brandName": "Coumadin",
+    "strength": "5mg",
+    "activeIngredients": ["Warfarin Sodium"],
+    "interactionIdentifiers": ["ANTICOAGULANT", "WARFARIN"]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-003",
+    "genericName": "Ibuprofen",
+    "brandName": "Advil",
+    "strength": "200mg",
+    "activeIngredients": ["Ibuprofen"],
+    "interactionIdentifiers": ["NSAID"]
+  },
+  {
+    "medicationType": "LIQUID",
+    "medicationId": "MED-004",
+    "genericName": "Amoxicillin",
+    "brandName": "Amoxil",
+    "concentration": "250mg/5mL",
+    "activeIngredients": ["Amoxicillin"],
+    "interactionIdentifiers": ["PENICILLIN", "ANTIBIOTIC"]
+  },
+  {
+    "medicationType": "INJECTION",
+    "medicationId": "MED-005",
+    "genericName": "Insulin Glargine",
+    "brandName": "Lantus",
+    "concentration": "100 units/mL",
+    "route": "Subcutaneous",
+    "activeIngredients": ["Insulin Glargine"],
+    "interactionIdentifiers": ["INSULIN", "ANTIDIABETIC"]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-006",
+    "genericName": "Aspirin",
+    "brandName": "Bayer",
+    "strength": "81mg",
+    "activeIngredients": ["Acetylsalicylic Acid"],
+    "interactionIdentifiers": ["NSAID", "ANTIPLATELET", "ASPIRIN"]
+  }
+]

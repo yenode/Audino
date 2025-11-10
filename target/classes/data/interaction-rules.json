@@ -1,33 +1,242 @@
 {
   "drugAllergyInteractions": {
     "penicillinAllergy": {
-      "allergyKeywords": ["penicillin"],
-      "recommendation": "Avoid penicillin-class antibiotics. Consider alternatives like macrolides or tetracyclines."
+      "allergyKeywords": [
+        "penicillin",
+        "amoxicillin",
+        "amoxil",
+        "pen-vk"
+      ],
+      "medicationClasses": [
+        "ANTIBIOTIC_PENICILLIN"
+      ],
+      "severity": "CRITICAL",
+      "recommendation": "Avoid all penicillin-class antibiotics. Consider alternatives like macrolides or tetracyclines."
+    },
+    "sulfaAllergy": {
+      "allergyKeywords": [
+        "sulfa",
+        "sulfonamide",
+        "bactrim"
+      ],
+      "medicationClasses": [
+        "ANTIBIOTIC_SULFA",
+        "DIURETIC_LOOP",
+        "DIURETIC_THIAZIDE"
+      ],
+      "severity": "CRITICAL",
+      "recommendation": "Avoid sulfonamide antibiotics. Use caution with non-antibiotic sulfonamides (like some diuretics), as cross-reactivity is possible but rare. Assess specific allergy history."
+    },
+    "nsaidAllergy": {
+      "allergyKeywords": [
+        "nsaid",
+        "ibuprofen",
+        "naproxen",
+        "advil",
+        "aleve",
+        "aspirin"
+      ],
+      "medicationClasses": [
+        "NSAID",
+        "NSAID_COX2"
+      ],
+      "severity": "CRITICAL",
+      "recommendation": "Avoid all NSAIDs. Consider alternative analgesics like acetaminophen."
     }
   },
   "drugDrugInteractions": {
     "warfarinNsaid": {
       "drug1": "WARFARIN",
-      "drug2": "NSAID",
+      "drug2": [
+        "NSAID",
+        "NSAID_COX2"
+      ],
       "severity": "CRITICAL",
-      "description": "Concurrent use significantly increases the risk of major bleeding, especially gastrointestinal bleeding.",
+      "description": "Concurrent use significantly increases the risk of major bleeding, especially gastrointestinal bleeding, due to antiplatelet effects of NSAIDs and anticoagulation from warfarin.",
       "recommendation": "Avoid combination if possible. If necessary, monitor INR closely and check for signs of bleeding. Consider PPI for GI protection."
+    },
+    "opioidBenzo": {
+      "drug1": [
+        "OPIOID_WEAK",
+        "OPIOID_STRONG"
+      ],
+      "drug2": [
+        "BENZODIAZEPINE_SHORT_ACTING",
+        "BENZODIAZEPINE_LONG_ACTING"
+      ],
+      "severity": "CRITICAL",
+      "description": "Concomitant use of opioids and benzodiazepines causes synergistic CNS depression, leading to profound sedation, respiratory depression, coma, and death.",
+      "recommendation": "Avoid combination. If medically necessary, limit doses and duration to the minimum possible and monitor patient closely for sedation and respiratory depression."
+    },
+    "ssriMaoi": {
+      "drug1": [
+        "SSRI",
+        "SNRI"
+      ],
+      "drug2": "MAOI",
+      "severity": "CRITICAL",
+      "description": "Combination can cause serotonin syndrome, a life-threatening condition (symptoms: hyperthermia, rigidity, myoclonus, autonomic instability).",
+      "recommendation": "Combination is contraindicated. A washout period of at least 2 weeks (5 weeks for fluoxetine) is required when switching between these classes."
+    },
+    "aceiPotassiumSparingDiuretic": {
+      "drug1": [
+        "ACE_INHIBITOR",
+        "ARB"
+      ],
+      "drug2": [
+        "DIURETIC_POTASSIUM_SPARING",
+        "ALDOSTERONE_ANTAGONIST"
+      ],
+      "severity": "CRITICAL",
+      "description": "Both drug classes increase serum potassium. Concurrent use significantly increases the risk of life-threatening hyperkalemia.",
+      "recommendation": "Avoid combination, especially in patients with renal impairment or diabetes. If used, monitor serum potassium levels very closely (like within 1 week of initiation)."
+    },
+    "statinStrongCyp3a4Inhibitor": {
+      "drug1": "CYP3A4_SUBSTRATE",
+      "drug2": "CYP3A4_INHIBITOR",
+      "severity": "WARNING",
+      "description": "Strong CYP3A4 inhibitors (like macrolide antibiotics) can significantly increase plasma concentrations of CYP3A4-metabolized statins (like atorvastatin, simvastatin), increasing the risk of myopathy and rhabdomyolysis.",
+      "recommendation": "Avoid combination. If a CYP3A4 inhibitor is required short-term, temporarily hold the statin. Consider statins not metabolized by CYP3A4 (like rosuvastatin, pravastatin)."
+    },
+    "clopidogrelPpi": {
+      "drug1": "CYP2C19_PRODRUG",
+      "drug2": "CYP2C19_INHIBITOR",
+      "severity": "WARNING",
+      "description": "Clopidogrel is a prodrug activated by CYP2C19. Strong CYP2C19 inhibitors (like omeprazole) can reduce its conversion to the active metabolite, decreasing its antiplatelet effect and increasing risk of cardiovascular events.",
+      "recommendation": "Avoid combination, particularly with omeprazole and esomeprazole. Consider H2-blockers (like famotidine) or PPIs with weaker CYP2C19 inhibition (like pantoprazole) if acid suppression is needed."
+    },
+    "ssriNsaid": {
+      "drug1": [
+        "SSRI",
+        "SNRI"
+      ],
+      "drug2": [
+        "NSAID",
+        "NSAID_COX2"
+      ],
+      "severity": "WARNING",
+      "description": "Both classes independently increase the risk of gastrointestinal bleeding. The combined risk is synergistic.",
+      "recommendation": "Use combination with caution. Monitor for signs of GI bleeding. Consider prescribing a gastroprotective agent (like a PPI) for high-risk patients."
+    },
+    "lithiumNsaid": {
+      "drug1": "MOOD_STABILIZER_LITHIUM",
+      "drug2": [
+        "NSAID",
+        "NSAID_COX2"
+      ],
+      "severity": "CRITICAL",
+      "description": "NSAIDs can reduce renal clearance of lithium, leading to increased serum lithium levels and potential toxicity (symptoms: tremor, confusion, ataxia, seizures).",
+      "recommendation": "Avoid combination. Acetaminophen is a safer alternative for analgesia. If NSAID use is unavoidable, monitor lithium levels closely and adjust lithium dose."
+    },
+    "methotrexateNsaid": {
+      "drug1": "DMARD_METHOTREXATE",
+      "drug2": [
+        "NSAID",
+        "NSAID_COX2"
+      ],
+      "severity": "CRITICAL",
+      "description": "NSAIDs can decrease the renal excretion of methotrexate, leading to elevated and prolonged methotrexate concentrations, which can result in severe hematologic and gastrointestinal toxicity.",
+      "recommendation": "Avoid combination, especially with high-dose methotrexate. Use with extreme caution in patients on low-dose (like rheumatologic) methotrexate and monitor for signs of toxicity."
     }
   },
   "drugConditionInteractions": {
     "nsaidKidneyDisease": {
-      "conditionKeywords": ["kidney", "renal"],
-      "medicationClasses": ["NSAID"],
+      "conditionKeywords": [
+        "kidney",
+        "renal",
+        "ckd",
+        "nephropathy"
+      ],
+      "medicationClasses": [
+        "NSAID",
+        "NSAID_COX2"
+      ],
       "severity": "CRITICAL",
-      "description": "NSAIDs can reduce renal blood flow and cause acute kidney injury in patients with pre-existing kidney disease.",
+      "description": "NSAIDs inhibit prostaglandins, which are crucial for maintaining renal blood flow. In patients with pre-existing kidney disease, NSAIDs can cause acute kidney injury (AKI) or accelerate progression of chronic kidney disease.",
       "recommendation": "Avoid NSAIDs. Consider alternative analgesics like acetaminophen."
     },
+    "metforminRenalImpairment": {
+      "conditionKeywords": [
+        "kidney",
+        "renal",
+        "ckd",
+        "egfr < 30"
+      ],
+      "medicationClasses": [
+        "BIGUANIDE"
+      ],
+      "severity": "CRITICAL",
+      "description": "Metformin is renally cleared. In severe renal impairment (like eGFR < 30 mL/min/1.73m²), the drug accumulates, increasing the risk of metformin-associated lactic acidosis (MALA), a rare but life-threatening complication.",
+      "recommendation": "Metformin is contraindicated in patients with eGFR < 30. Use with caution and dose reduction for eGFR 30-45. Monitor renal function regularly."
+    },
+    "nonselectiveBetaBlockerAsthma": {
+      "conditionKeywords": [
+        "asthma",
+        "copd",
+        "emphysema",
+        "bronchitis",
+        "wheezing"
+      ],
+      "medicationClasses": [
+        "BETA_BLOCKER_NONSELECTIVE_ALPHA1"
+      ],
+      "severity": "CRITICAL",
+      "description": "Non-selective beta-blockers (like carvedilol, propranolol) block beta-2 receptors in the lungs, which can cause bronchospasm and antagonize the effects of bronchodilators (like albuterol).",
+      "recommendation": "Avoid non-selective beta-blockers. If a beta-blocker is required, use a cardioselective (beta-1 selective) agent like Metoprolol Succinate, starting at a low dose."
+    },
     "aceInhibitorKidneyDisease": {
-      "conditionKeywords": ["kidney", "renal"],
-      "medicationClasses": ["ACE_INHIBITOR"],
+      "conditionKeywords": [
+        "kidney",
+        "renal",
+        "ckd"
+      ],
+      "medicationClasses": [
+        "ACE_INHIBITOR",
+        "ARB"
+      ],
       "severity": "WARNING",
-      "description": "ACE inhibitors can affect kidney function. Use with caution in patients with renal impairment.",
-      "recommendation": "Start with a low dose and monitor serum creatinine and potassium levels regularly."
+      "description": "ACE inhibitors and ARBs can cause a mild, expected decrease in eGFR upon initiation. However, they can also cause acute kidney injury (especially in bilateral renal artery stenosis) or hyperkalemia.",
+      "recommendation": "Use is often protective in CKD (like diabetic nephropathy). Start with a low dose. Monitor serum creatinine and potassium levels 1-2 weeks after initiation or dose titration."
+    },
+    "corticosteroidDiabetes": {
+      "conditionKeywords": [
+        "diabetes",
+        "hyperglycemia",
+        "dm2"
+      ],
+      "medicationClasses": [
+        "CORTICOSTEROID_SYSTEMIC"
+      ],
+      "severity": "WARNING",
+      "description": "Systemic corticosteroids (like prednisone) promote gluconeogenesis and insulin resistance, leading to significant hyperglycemia in patients with diabetes.",
+      "recommendation": "Monitor blood glucose levels closely. Proactive adjustment of diabetes medications (like insulin) is often necessary during and after the corticosteroid course."
+    },
+    "decongestantHypertension": {
+      "conditionKeywords": [
+        "hypertension",
+        "high blood pressure",
+        "htn"
+      ],
+      "medicationClasses": [
+        "DECONGESTANT"
+      ],
+      "severity": "WARNING",
+      "description": "Systemic decongestants (like pseudoephedrine) are sympathomimetics that can cause vasoconstriction, leading to an increase in blood pressure.",
+      "recommendation": "Avoid in patients with uncontrolled hypertension. Use with caution in controlled hypertension and monitor blood pressure. Consider topical/nasal decongestants for short-term use."
+    },
+    "anticholinergicBph": {
+      "conditionKeywords": [
+        "bph",
+        "prostate",
+        "urinary retention",
+        "difficulty urinating"
+      ],
+      "medicationClasses": [
+        "ANTICHOLINERGIC"
+      ],
+      "severity": "WARNING",
+      "description": "Anticholinergic drugs (like diphenhydramine) can decrease detrusor muscle contractility and tighten the bladder neck, worsening symptoms of Benign Prostatic Hyperplasia (BPH) and potentially causing acute urinary retention.",
+      "recommendation": "Avoid or use with extreme caution in patients with BPH. Consider alternative medications without anticholinergic properties (like loratadine for allergies)."
     }
   }
 }

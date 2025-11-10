@@ -82,6 +82,8 @@ public class MainController implements Initializable {
     private final ObservableList<Prescription> prescriptionList = FXCollections.observableArrayList();
     private final ObservableList<InteractionAlert> alertList = FXCollections.observableArrayList();
     private final ObservableList<PrescribedDrug> prescribedDrugList = FXCollections.observableArrayList();
+    
+    private boolean dataLoadedSuccessfully = false;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -110,8 +112,10 @@ public class MainController implements Initializable {
             patientList.setAll(dataService.getAllPatients());
             medicationList.setAll(dataService.getAllMedications());
             prescriptionList.setAll(dataService.getAllPrescriptions());
+            dataLoadedSuccessfully = true;
             statusLabel.setText("Data loaded successfully.");
         } catch (Exception e) {
+            dataLoadedSuccessfully = false;
             statusLabel.setText("Error loading data.");
             showErrorAlert("Data Loading Error", "Could not load application data from the database.", e.getMessage());
         }
@@ -567,9 +571,12 @@ public class MainController implements Initializable {
     }
 
     public void shutdown() {
-        // Save all data before shutting down
-        if (dataService != null) {
+        // Save all data before shutting down - only if data was loaded successfully
+        if (dataService != null && dataLoadedSuccessfully && !patientList.isEmpty()) {
+            System.out.println("Saving data on shutdown...");
             dataService.saveAllData(new ArrayList<>(patientList), new ArrayList<>(prescriptionList));
+        } else {
+            System.out.println("Skipping save - data was not loaded successfully or is empty.");
         }
         
         if (interactionEngine != null) {

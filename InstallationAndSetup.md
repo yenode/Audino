@@ -165,6 +165,16 @@ mvn clean package -Pprod
 
 ## Running the Application:
 
+### Using Launcher (Easiest Method):
+
+#### Windows Batch File:
+Double-click `Audino.bat` or run from command prompt:
+```batch
+Audino.bat
+```
+
+This launcher automatically compiles the application if needed and runs it with proper JavaFX configuration.
+
 ### Using Start Script:
 
 #### Windows:
@@ -188,6 +198,13 @@ mvn javafx:run
 ```powershell
 java -jar target/audino-1.0.jar
 ```
+
+## Application Interface:
+
+Once successfully launched, you will see the main application window:
+
+![Main Application Interface](visuals/AudinoMainWindowWithPatientData.png)
+**Description**: Main application window after successful launch showing patient management, prescription creation, and alert monitoring panels.
 
 ## Database Initialization:
 

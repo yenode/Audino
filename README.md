@@ -68,8 +68,17 @@ mvn clean compile
 
 ### Running the Application
 
+**Windows Users - Easy Launch:**
+Double-click `Audino.bat` file to run the application.
+
+**Or use command line:**
 ```bash
 mvn javafx:run
+```
+
+**Or use PowerShell script:**
+```powershell
+.\start.ps1
 ```
 
 ### Running Tests
@@ -77,6 +86,29 @@ mvn javafx:run
 ```bash
 mvn test
 ```
+
+### Building Executable Package
+
+To create a distributable JAR with all dependencies:
+```bash
+mvn clean package -DskipTests
+```
+
+This creates `target/audino-1.1.0.jar` - however, JavaFX applications require special handling. Use the `Audino.bat` launcher for the best experience.
+
+## Application Screenshots
+
+### Main Window with Patient Data
+![Main Window](visuals/AudinoMainWindowWithPatientData.png)
+**Description**: The main interface showing the patient list on the left, prescription creation form in the center, and interaction alerts panel displaying real-time drug safety warnings.
+
+### Add Patient Dialog
+![Add Patient](visuals/AudinoAddPatientDataWindow.png)
+**Description**: Dialog window for adding new patient information including name, date of birth, known allergies, and chronic medical conditions.
+
+### Edit Patient Dialog
+![Edit Patient](visuals/AudinoEditPatientDataWindow.png)
+**Description**: Dialog window for editing existing patient information, allowing healthcare providers to update allergies, conditions, and personal details.
 
 ## Architecture Overview
 

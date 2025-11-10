@@ -1,1 +1,621 @@
-[ ]
+[ {
+  "prescriptionId" : "RX-001-RAJ",
+  "patientId" : "PAT-A1B2C3D4",
+  "prescribedDrugs" : [ {
+    "medicationId" : "MED-001",
+    "dosage" : "10mg",
+    "frequency" : "Once daily",
+    "duration" : "Ongoing",
+    "specialInstructions" : "Take in the morning for blood pressure control",
+    "prescribedBy" : null,
+    "medication" : {
+      "medicationType" : "TABLET",
+      "displayName" : "Zestril",
+      "medicationId" : "MED-001",
+      "genericName" : "Lisinopril",
+      "brandName" : "Zestril",
+      "activeIngredients" : [ "Lisinopril" ],
+      "interactionIdentifiers" : [ "ACE_INHIBITOR" ],
+      "medicationType" : "TABLET",
+      "strength" : "10mg"
+    },
+    "valid" : false
+  }, {
+    "medicationId" : "MED-010",
+    "dosage" : "40mg",
+    "frequency" : "Once daily",
+    "duration" : "Ongoing",
+    "specialInstructions" : "For fluid management in CKD",
+    "prescribedBy" : null,
+    "medication" : {
+      "medicationType" : "TABLET",
+      "displayName" : "Lasix",
+      "medicationId" : "MED-010",
+      "genericName" : "Furosemide",
+      "brandName" : "Lasix",
+      "activeIngredients" : [ "Furosemide" ],
+      "interactionIdentifiers" : [ "DIURETIC_LOOP" ],
+      "medicationType" : "TABLET",
+      "strength" : "40mg"
+    },
+    "valid" : false
+  }, {
+    "medicationId" : "MED-005",
+    "dosage" : "250mg",
+    "frequency" : "Twice daily",
+    "duration" : "7 days",
+    "specialInstructions" : "For respiratory infection - safe alternative to Penicillin",
+    "prescribedBy" : null,
+    "medication" : {
+      "medicationType" : "TABLET",
+      "displayName" : "Zithromax",
+      "medicationId" : "MED-005",
+      "genericName" : "Azithromycin",
+      "brandName" : "Zithromax",
+      "activeIngredients" : [ "Azithromycin" ],
+      "interactionIdentifiers" : [ "ANTIBIOTIC_MACROLIDE", "CYP3A4_INHIBITOR", "QT_PROLONGING" ],
+      "medicationType" : "TABLET",
+      "strength" : "250mg"
+    },
+    "valid" : false
+  } ],
+  "createdAt" : null,
+  "prescribedBy" : null,
+  "status" : "APPROVED",
+  "alerts" : [ {
+    "alertId" : null,
+    "alertLevel" : "INFO",
+    "alertType" : "DRUG_ALLERGY",
+    "title" : "Allergy Alert - Safe Alternative Used",
+    "message" : "Patient has documented Penicillin allergy. Azithromycin prescribed as safe alternative antibiotic.",
+    "recommendation" : "Continue with macrolide antibiotic. Monitor for allergic reactions.",
+    "involvedMedications" : "Azithromycin",
+    "patientFactor" : "Penicillin",
+    "createdAt" : null,
+    "acknowledged" : false,
+    "formattedMessage" : "Alert Type: Drug-Allergy Interaction\nLevel: Information\n\nDetails:\nPatient has documented Penicillin allergy. Azithromycin prescribed as safe alternative antibiotic.\n\nRecommendation:\nContinue with macrolide antibiotic. Monitor for allergic reactions.",
+    "cssClass" : "alert-info"
+  } ],
+  "empty" : false
+}, {
+  "prescriptionId" : "RX-002-PRI",
+  "patientId" : "PAT-E5F6G7H8",
+  "prescribedDrugs" : [ {
+    "medicationId" : "MED-003",
+    "dosage" : "500mg",
+    "frequency" : "Twice daily with meals",
+    "duration" : "Ongoing",
+    "specialInstructions" : "For Type 2 Diabetes management",
+    "prescribedBy" : null,
+    "medication" : {
+      "medicationType" : "TABLET",
+      "displayName" : "Glucophage",
+      "medicationId" : "MED-003",
+      "genericName" : "Metformin",
+      "brandName" : "Glucophage",
+      "activeIngredients" : [ "Metformin" ],
+      "interactionIdentifiers" : [ "BIGUANIDE" ],
+      "medicationType" : "TABLET",
+      "strength" : "500mg"
+    },
+    "valid" : false
+  }, {
+    "medicationId" : "MED-014",
+    "dosage" : "90mcg",
+    "frequency" : "2 puffs as needed",
+    "duration" : "Ongoing",
+    "specialInstructions" : "Rescue inhaler for asthma",
+    "prescribedBy" : null,
+    "medication" : {
+      "medicationType" : "LIQUID",
+      "displayName" : "ProAir HFA",
+      "medicationId" : "MED-014",
+      "genericName" : "Albuterol",
+      "brandName" : "ProAir HFA",
+      "activeIngredients" : [ "Albuterol Sulfate" ],
+      "interactionIdentifiers" : [ "SABA" ],
+      "medicationType" : "LIQUID",
+      "concentration" : "90mcg/actuation"
+    },
+    "valid" : false
+  }, {
+    "medicationId" : "MED-015",
+    "dosage" : "110mcg",
+    "frequency" : "2 puffs twice daily",
+    "duration" : "Ongoing",
+    "specialInstructions" : "Controller medication for asthma",
+    "prescribedBy" : null,
+    "medication" : {
+      "medicationType" : "LIQUID",
+      "displayName" : "Flovent HFA",
+      "medicationId" : "MED-015",
+      "genericName" : "Fluticasone Propionate",
+      "brandName" : "Flovent HFA",
+      "activeIngredients" : [ "Fluticasone Propionate" ],
+      "interactionIdentifiers" : [ "CORTICOSTEROID_INHALED" ],
+      "medicationType" : "LIQUID",
+      "concentration" : "110mcg/actuation"
+    },
+    "valid" : false
+  } ],
+  "createdAt" : null,
+  "prescribedBy" : null,
+  "status" : "APPROVED",
+  "alerts" : [ ],
+  "empty" : false
+}, {
+  "prescriptionId" : "RX-003-SUR",
+  "patientId" : "PAT-I9J0K1L2",
+  "prescribedDrugs" : [ {
+    "medicationId" : "MED-021",
+    "dosage" : "5mg",
+    "frequency" : "Once daily",
+    "duration" : "Ongoing",
+    "specialInstructions" : "For atrial fibrillation - monitor INR regularly",
+    "prescribedBy" : null,
+    "medication" : {
+      "medicationType" : "TABLET",
+      "displayName" : "Coumadin",
+      "medicationId" : "MED-021",
+      "genericName" : "Warfarin",
+      "brandName" : "Coumadin",
+      "activeIngredients" : [ "Warfarin Sodium" ],
+      "interactionIdentifiers" : [ "ANTICOAGULANT_VK", "WARFARIN" ],
+      "medicationType" : "TABLET",
+      "strength" : "5mg"
+    },
+    "valid" : false
+  }, {
+    "medicationId" : "MED-022",
+    "dosage" : "400mg",
+    "frequency" : "Three times daily",
+    "duration" : "14 days",
+    "specialInstructions" : "For arthritis pain",
+    "prescribedBy" : null,
+    "medication" : {
+      "medicationType" : "TABLET",
+      "displayName" : "Advil",
+      "medicationId" : "MED-022",
+      "genericName" : "Ibuprofen",
+      "brandName" : "Advil",
+      "activeIngredients" : [ "Ibuprofen" ],
+      "interactionIdentifiers" : [ "NSAID" ],
+      "medicationType" : "TABLET",
+      "strength" : "200mg"
+    },
+    "valid" : false
+  }, {
+    "medicationId" : "MED-010",
+    "dosage" : "40mg",
+    "frequency" : "Once daily",
+    "duration" : "Ongoing",
+    "specialInstructions" : "For heart failure management",
+    "prescribedBy" : null,
+    "medication" : {
+      "medicationType" : "TABLET",
+      "displayName" : "Lasix",
+      "medicationId" : "MED-010",
+      "genericName" : "Furosemide",
+      "brandName" : "Lasix",
+      "activeIngredients" : [ "Furosemide" ],
+      "interactionIdentifiers" : [ "DIURETIC_LOOP" ],
+      "medicationType" : "TABLET",
+      "strength" : "40mg"
+    },
+    "valid" : false
+  } ],
+  "createdAt" : null,
+  "prescribedBy" : null,
+  "status" : "APPROVED",
+  "alerts" : [ {
+    "alertId" : null,
+    "alertLevel" : "CRITICAL",
+    "alertType" : "DRUG_DRUG",
+    "title" : "Critical Drug Interaction: Warfarin + NSAID",
+    "message" : "Concurrent use of Warfarin and Ibuprofen significantly increases bleeding risk. NSAIDs can impair platelet function and increase risk of GI bleeding.",
+    "recommendation" : "Consider Acetaminophen instead of Ibuprofen. If NSAID necessary, use lowest effective dose for shortest duration. Monitor INR more frequently. Watch for signs of bleeding.",
+    "involvedMedications" : "Warfarin, Ibuprofen",
+    "patientFactor" : null,
+    "createdAt" : null,
+    "acknowledged" : false,
+    "formattedMessage" : "Alert Type: Drug-Drug Interaction\nLevel: Critical\n\nDetails:\nConcurrent use of Warfarin and Ibuprofen significantly increases bleeding risk. NSAIDs can impair platelet function and increase risk of GI bleeding.\n\nRecommendation:\nConsider Acetaminophen instead of Ibuprofen. If NSAID necessary, use lowest effective dose for shortest duration. Monitor INR more frequently. Watch for signs of bleeding.",
+    "cssClass" : "alert-critical"
+  } ],
+  "empty" : false
+}, {
+  "prescriptionId" : "RX-004-ANJ",
+  "patientId" : "PAT-M3N4O5P6",
+  "prescribedDrugs" : [ {
+    "medicationId" : "MED-020",
+    "dosage" : "500mg",
+    "frequency" : "Every 6 hours as needed",
+    "duration" : "Ongoing",
+    "specialInstructions" : "For migraine pain - safe alternative to Aspirin",
+    "prescribedBy" : null,
+    "medication" : {
+      "medicationType" : "TABLET",
+      "displayName" : "Tylenol",
+      "medicationId" : "MED-020",
+      "genericName" : "Acetaminophen",
+      "brandName" : "Tylenol",
+      "activeIngredients" : [ "Acetaminophen" ],
+      "interactionIdentifiers" : [ "ANALGESIC_OTHER" ],
+      "medicationType" : "TABLET",
+      "strength" : "500mg"
+    },
+    "valid" : false
+  }, {
+    "medicationId" : "MED-023",
+    "dosage" : "50mg",
+    "frequency" : "Every 8 hours as needed",
+    "duration" : "30 days",
+    "specialInstructions" : "For severe migraine episodes - avoid Codeine due to allergy",
+    "prescribedBy" : null,
+    "medication" : {
+      "medicationType" : "TABLET",
+      "displayName" : "Ultram",
+      "medicationId" : "MED-023",
+      "genericName" : "Tramadol",
+      "brandName" : "Ultram",
+      "activeIngredients" : [ "Tramadol" ],
+      "interactionIdentifiers" : [ "OPIOID_WEAK", "SNRI" ],
+      "medicationType" : "TABLET",
+      "strength" : "50mg"
+    },
+    "valid" : false
+  }, {
+    "medicationId" : "MED-013",
+    "dosage" : "300mg",
+    "frequency" : "Three times daily",
+    "duration" : "Ongoing",
+    "specialInstructions" : "Migraine prophylaxis",
+    "prescribedBy" : null,
+    "medication" : {
+      "medicationType" : "TABLET",
+      "displayName" : "Neurontin",
+      "medicationId" : "MED-013",
+      "genericName" : "Gabapentin",
+      "brandName" : "Neurontin",
+      "activeIngredients" : [ "Gabapentin" ],
+      "interactionIdentifiers" : [ "GABAPENTINOID" ],
+      "medicationType" : "TABLET",
+      "strength" : "300mg"
+    },
+    "valid" : false
+  } ],
+  "createdAt" : null,
+  "prescribedBy" : null,
+  "status" : "APPROVED",
+  "alerts" : [ {
+    "alertId" : null,
+    "alertLevel" : "INFO",
+    "alertType" : "DRUG_ALLERGY",
+    "title" : "Allergy Alert - Safe Alternatives Selected",
+    "message" : "Patient has documented allergies to Aspirin and Codeine. Using Acetaminophen and Tramadol as safe alternatives for pain management.",
+    "recommendation" : "Avoid all NSAIDs and codeine-containing products. Monitor effectiveness of alternative pain management.",
+    "involvedMedications" : "Acetaminophen, Tramadol",
+    "patientFactor" : "Aspirin, Codeine",
+    "createdAt" : null,
+    "acknowledged" : false,
+    "formattedMessage" : "Alert Type: Drug-Allergy Interaction\nLevel: Information\n\nDetails:\nPatient has documented allergies to Aspirin and Codeine. Using Acetaminophen and Tramadol as safe alternatives for pain management.\n\nRecommendation:\nAvoid all NSAIDs and codeine-containing products. Monitor effectiveness of alternative pain management.",
+    "cssClass" : "alert-info"
+  } ],
+  "empty" : false
+}, {
+  "prescriptionId" : "RX-005-MRI",
+  "patientId" : "PAT-Q7R8S9T0",
+  "prescribedDrugs" : [ {
+    "medicationId" : "MED-014",
+    "dosage" : "90mcg",
+    "frequency" : "2 puffs as needed",
+    "duration" : "Ongoing",
+    "specialInstructions" : "For mild asthma exacerbations",
+    "prescribedBy" : null,
+    "medication" : {
+      "medicationType" : "LIQUID",
+      "displayName" : "ProAir HFA",
+      "medicationId" : "MED-014",
+      "genericName" : "Albuterol",
+      "brandName" : "ProAir HFA",
+      "activeIngredients" : [ "Albuterol Sulfate" ],
+      "interactionIdentifiers" : [ "SABA" ],
+      "medicationType" : "LIQUID",
+      "concentration" : "90mcg/actuation"
+    },
+    "valid" : false
+  }, {
+    "medicationId" : "MED-015",
+    "dosage" : "110mcg",
+    "frequency" : "2 puffs twice daily",
+    "duration" : "Ongoing",
+    "specialInstructions" : "Daily controller for asthma",
+    "prescribedBy" : null,
+    "medication" : {
+      "medicationType" : "LIQUID",
+      "displayName" : "Flovent HFA",
+      "medicationId" : "MED-015",
+      "genericName" : "Fluticasone Propionate",
+      "brandName" : "Flovent HFA",
+      "activeIngredients" : [ "Fluticasone Propionate" ],
+      "interactionIdentifiers" : [ "CORTICOSTEROID_INHALED" ],
+      "medicationType" : "LIQUID",
+      "concentration" : "110mcg/actuation"
+    },
+    "valid" : false
+  }, {
+    "medicationId" : "MED-020",
+    "dosage" : "500mg",
+    "frequency" : "Every 6 hours as needed",
+    "duration" : "Ongoing",
+    "specialInstructions" : "For pain relief - safe alternative to Ibuprofen",
+    "prescribedBy" : null,
+    "medication" : {
+      "medicationType" : "TABLET",
+      "displayName" : "Tylenol",
+      "medicationId" : "MED-020",
+      "genericName" : "Acetaminophen",
+      "brandName" : "Tylenol",
+      "activeIngredients" : [ "Acetaminophen" ],
+      "interactionIdentifiers" : [ "ANALGESIC_OTHER" ],
+      "medicationType" : "TABLET",
+      "strength" : "500mg"
+    },
+    "valid" : false
+  } ],
+  "createdAt" : null,
+  "prescribedBy" : null,
+  "status" : "APPROVED",
+  "alerts" : [ {
+    "alertId" : null,
+    "alertLevel" : "INFO",
+    "alertType" : "DRUG_ALLERGY",
+    "title" : "Ibuprofen Allergy - Alternative Used",
+    "message" : "Patient has documented Ibuprofen allergy. Acetaminophen prescribed as safe alternative analgesic.",
+    "recommendation" : "Avoid all NSAIDs (Ibuprofen, Naproxen, etc.). Use Acetaminophen for pain relief.",
+    "involvedMedications" : "Acetaminophen",
+    "patientFactor" : "Ibuprofen",
+    "createdAt" : null,
+    "acknowledged" : false,
+    "formattedMessage" : "Alert Type: Drug-Allergy Interaction\nLevel: Information\n\nDetails:\nPatient has documented Ibuprofen allergy. Acetaminophen prescribed as safe alternative analgesic.\n\nRecommendation:\nAvoid all NSAIDs (Ibuprofen, Naproxen, etc.). Use Acetaminophen for pain relief.",
+    "cssClass" : "alert-info"
+  } ],
+  "empty" : false
+}, {
+  "prescriptionId" : "RX-006-ADI",
+  "patientId" : "PAT-U1V2W3X4",
+  "prescribedDrugs" : [ {
+    "medicationId" : "MED-006",
+    "dosage" : "50mg",
+    "frequency" : "Once daily",
+    "duration" : "Ongoing",
+    "specialInstructions" : "For hypertension control",
+    "prescribedBy" : null,
+    "medication" : {
+      "medicationType" : "TABLET",
+      "displayName" : "Cozaar",
+      "medicationId" : "MED-006",
+      "genericName" : "Losartan",
+      "brandName" : "Cozaar",
+      "activeIngredients" : [ "Losartan" ],
+      "interactionIdentifiers" : [ "ARB" ],
+      "medicationType" : "TABLET",
+      "strength" : "50mg"
+    },
+    "valid" : false
+  }, {
+    "medicationId" : "MED-002",
+    "dosage" : "20mg",
+    "frequency" : "Once daily at bedtime",
+    "duration" : "Ongoing",
+    "specialInstructions" : "For cholesterol management",
+    "prescribedBy" : null,
+    "medication" : {
+      "medicationType" : "TABLET",
+      "displayName" : "Lipitor",
+      "medicationId" : "MED-002",
+      "genericName" : "Atorvastatin",
+      "brandName" : "Lipitor",
+      "activeIngredients" : [ "Atorvastatin" ],
+      "interactionIdentifiers" : [ "STATIN", "CYP3A4_SUBSTRATE" ],
+      "medicationType" : "TABLET",
+      "strength" : "20mg"
+    },
+    "valid" : false
+  }, {
+    "medicationId" : "MED-005",
+    "dosage" : "500mg",
+    "frequency" : "Once daily",
+    "duration" : "5 days",
+    "specialInstructions" : "For sinus infection",
+    "prescribedBy" : null,
+    "medication" : {
+      "medicationType" : "TABLET",
+      "displayName" : "Zithromax",
+      "medicationId" : "MED-005",
+      "genericName" : "Azithromycin",
+      "brandName" : "Zithromax",
+      "activeIngredients" : [ "Azithromycin" ],
+      "interactionIdentifiers" : [ "ANTIBIOTIC_MACROLIDE", "CYP3A4_INHIBITOR", "QT_PROLONGING" ],
+      "medicationType" : "TABLET",
+      "strength" : "250mg"
+    },
+    "valid" : false
+  } ],
+  "createdAt" : null,
+  "prescribedBy" : null,
+  "status" : "APPROVED",
+  "alerts" : [ {
+    "alertId" : null,
+    "alertLevel" : "WARNING",
+    "alertType" : "DRUG_DRUG",
+    "title" : "Drug Interaction: Statin + Macrolide Antibiotic",
+    "message" : "Azithromycin may increase Atorvastatin levels and risk of myopathy. Both drugs can prolong QT interval.",
+    "recommendation" : "Monitor for muscle pain, weakness, or dark urine. Consider brief statin holiday during antibiotic course or use alternative antibiotic. Monitor for cardiac symptoms.",
+    "involvedMedications" : "Atorvastatin, Azithromycin",
+    "patientFactor" : null,
+    "createdAt" : null,
+    "acknowledged" : false,
+    "formattedMessage" : "Alert Type: Drug-Drug Interaction\nLevel: Warning\n\nDetails:\nAzithromycin may increase Atorvastatin levels and risk of myopathy. Both drugs can prolong QT interval.\n\nRecommendation:\nMonitor for muscle pain, weakness, or dark urine. Consider brief statin holiday during antibiotic course or use alternative antibiotic. Monitor for cardiac symptoms.",
+    "cssClass" : "alert-warning"
+  } ],
+  "empty" : false
+}, {
+  "prescriptionId" : "RX-007-SAY",
+  "patientId" : "PAT-Y5Z6A7B8",
+  "prescribedDrugs" : [ {
+    "medicationId" : "MED-018",
+    "dosage" : "20 units",
+    "frequency" : "Once daily at bedtime",
+    "duration" : "Ongoing",
+    "specialInstructions" : "For Type 1 Diabetes - basal insulin",
+    "prescribedBy" : null,
+    "medication" : {
+      "medicationType" : "INJECTION",
+      "displayName" : "Lantus",
+      "medicationId" : "MED-018",
+      "genericName" : "Insulin Glargine",
+      "brandName" : "Lantus",
+      "activeIngredients" : [ "Insulin Glargine" ],
+      "interactionIdentifiers" : [ "INSULIN_LONG_ACTING" ],
+      "medicationType" : "INJECTION",
+      "concentration" : "100 units/mL",
+      "route" : "subcutaneous"
+    },
+    "valid" : true
+  }, {
+    "medicationId" : "MED-017",
+    "dosage" : "100mcg",
+    "frequency" : "Once daily on empty stomach",
+    "duration" : "Ongoing",
+    "specialInstructions" : "For thyroid disorder - take 30min before breakfast",
+    "prescribedBy" : null,
+    "medication" : {
+      "medicationType" : "TABLET",
+      "displayName" : "Synthroid",
+      "medicationId" : "MED-017",
+      "genericName" : "Levothyroxine",
+      "brandName" : "Synthroid",
+      "activeIngredients" : [ "Levothyroxine Sodium" ],
+      "interactionIdentifiers" : [ "THYROID_HORMONE" ],
+      "medicationType" : "TABLET",
+      "strength" : "100mcg"
+    },
+    "valid" : false
+  }, {
+    "medicationId" : "MED-027",
+    "dosage" : "500mg",
+    "frequency" : "Twice daily",
+    "duration" : "10 days",
+    "specialInstructions" : "For UTI - safe alternative to Sulfa antibiotics",
+    "prescribedBy" : null,
+    "medication" : {
+      "medicationType" : "TABLET",
+      "displayName" : "Cipro",
+      "medicationId" : "MED-027",
+      "genericName" : "Ciprofloxacin",
+      "brandName" : "Cipro",
+      "activeIngredients" : [ "Ciprofloxacin" ],
+      "interactionIdentifiers" : [ "ANTIBIOTIC_FLUOROQUINOLONE", "QT_PROLONGING" ],
+      "medicationType" : "TABLET",
+      "strength" : "500mg"
+    },
+    "valid" : false
+  } ],
+  "createdAt" : null,
+  "prescribedBy" : null,
+  "status" : "APPROVED",
+  "alerts" : [ {
+    "alertId" : null,
+    "alertLevel" : "INFO",
+    "alertType" : "DRUG_ALLERGY",
+    "title" : "Sulfa Allergy - Alternative Antibiotic Selected",
+    "message" : "Patient has documented Sulfa allergy. Ciprofloxacin prescribed as safe alternative antibiotic for UTI treatment.",
+    "recommendation" : "Avoid all Sulfonamide antibiotics (Bactrim, Septra). Monitor for fluoroquinolone side effects including tendon issues.",
+    "involvedMedications" : "Ciprofloxacin",
+    "patientFactor" : "Sulfa",
+    "createdAt" : null,
+    "acknowledged" : false,
+    "formattedMessage" : "Alert Type: Drug-Allergy Interaction\nLevel: Information\n\nDetails:\nPatient has documented Sulfa allergy. Ciprofloxacin prescribed as safe alternative antibiotic for UTI treatment.\n\nRecommendation:\nAvoid all Sulfonamide antibiotics (Bactrim, Septra). Monitor for fluoroquinolone side effects including tendon issues.",
+    "cssClass" : "alert-info"
+  } ],
+  "empty" : false
+}, {
+  "prescriptionId" : "RX-008-SAN",
+  "patientId" : "PAT-C9D0E1F2",
+  "prescribedDrugs" : [ {
+    "medicationId" : "MED-032",
+    "dosage" : "325mg",
+    "frequency" : "Once daily",
+    "duration" : "Ongoing",
+    "specialInstructions" : "For iron deficiency anemia - take with vitamin C",
+    "prescribedBy" : null,
+    "medication" : {
+      "medicationType" : "TABLET",
+      "displayName" : "Wellbutrin XL",
+      "medicationId" : "MED-032",
+      "genericName" : "Bupropion",
+      "brandName" : "Wellbutrin XL",
+      "activeIngredients" : [ "Bupropion" ],
+      "interactionIdentifiers" : [ "NDRI", "SEIZURE_THRESHOLD_LOWERING" ],
+      "medicationType" : "TABLET",
+      "strength" : "150mg"
+    },
+    "valid" : false
+  }, {
+    "medicationId" : "MED-003",
+    "dosage" : "500mg",
+    "frequency" : "Twice daily with meals",
+    "duration" : "Ongoing",
+    "specialInstructions" : "For PCOS and insulin resistance",
+    "prescribedBy" : null,
+    "medication" : {
+      "medicationType" : "TABLET",
+      "displayName" : "Glucophage",
+      "medicationId" : "MED-003",
+      "genericName" : "Metformin",
+      "brandName" : "Glucophage",
+      "activeIngredients" : [ "Metformin" ],
+      "interactionIdentifiers" : [ "BIGUANIDE" ],
+      "medicationType" : "TABLET",
+      "strength" : "500mg"
+    },
+    "valid" : false
+  }, {
+    "medicationId" : "MED-029",
+    "dosage" : "100mg",
+    "frequency" : "Twice daily",
+    "duration" : "14 days",
+    "specialInstructions" : "For acne related to PCOS - avoid Penicillin due to allergy",
+    "prescribedBy" : null,
+    "medication" : {
+      "medicationType" : "TABLET",
+      "displayName" : "Vibramycin",
+      "medicationId" : "MED-029",
+      "genericName" : "Doxycycline",
+      "brandName" : "Vibramycin",
+      "activeIngredients" : [ "Doxycycline" ],
+      "interactionIdentifiers" : [ "ANTIBIOTIC_TETRACYCLINE" ],
+      "medicationType" : "TABLET",
+      "strength" : "100mg"
+    },
+    "valid" : false
+  } ],
+  "createdAt" : null,
+  "prescribedBy" : null,
+  "status" : "APPROVED",
+  "alerts" : [ {
+    "alertId" : null,
+    "alertLevel" : "INFO",
+    "alertType" : "DRUG_ALLERGY",
+    "title" : "Penicillin Allergy - Alternative Antibiotic Used",
+    "message" : "Patient has documented Penicillin allergy. Doxycycline prescribed as safe alternative for acne treatment.",
+    "recommendation" : "Avoid all Penicillin and Cephalosporin antibiotics. Monitor for photosensitivity with Doxycycline - use sunscreen.",
+    "involvedMedications" : "Doxycycline",
+    "patientFactor" : "Penicillin",
+    "createdAt" : null,
+    "acknowledged" : false,
+    "formattedMessage" : "Alert Type: Drug-Allergy Interaction\nLevel: Information\n\nDetails:\nPatient has documented Penicillin allergy. Doxycycline prescribed as safe alternative for acne treatment.\n\nRecommendation:\nAvoid all Penicillin and Cephalosporin antibiotics. Monitor for photosensitivity with Doxycycline - use sunscreen.",
+    "cssClass" : "alert-info"
+  } ],
+  "empty" : false
+} ]

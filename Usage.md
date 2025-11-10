@@ -33,6 +33,9 @@ The application includes 8 sample patients for demonstration:
 - Fill in required fields: name, date of birth, allergies, conditions.
 - Save the patient record.
 
+![Add Patient Dialog](visuals/AudinoAddPatientDataWindow.png)
+**Description**: Add new patient window where you can enter patient name, birth date, allergies like Penicillin, and chronic conditions like Hypertension.
+
 ### 2. Medication Database:
 
 #### Browsing Medications:
@@ -46,6 +49,9 @@ The application includes 8 sample patients for demonstration:
 - **Injections**: Injectable medications with dosage in milliliters.
 
 ### 3. Prescription Creation:
+
+![Main Application Window](visuals/AudinoMainWindowWithPatientData.png)
+**Description**: Main window showing patient list on left, medication prescription form in center with dosage and frequency fields, and drug interaction alerts displayed at the bottom.
 
 #### Creating a New Prescription:
 - Select the patient for whom the prescription is being created.
@@ -108,6 +114,9 @@ The system automatically performs three types of checks:
 - Select prescription from patient's history.
 - Modify medications or dosages as needed.
 - Re-check for interactions after changes.
+
+![Edit Patient Information](visuals/AudinoEditPatientDataWindow.png)
+**Description**: Edit patient dialog allowing you to update existing patient information including allergies, chronic conditions, and contact details.
 
 #### Prescription History:
 - View all past prescriptions for a patient.

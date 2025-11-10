@@ -5,53 +5,929 @@
     "genericName": "Lisinopril",
     "brandName": "Zestril",
     "strength": "10mg",
-    "activeIngredients": ["Lisinopril"],
-    "interactionIdentifiers": ["ACE_INHIBITOR", "POTASSIUM_SPARING"]
+    "activeIngredients": [
+      "Lisinopril"
+    ],
+    "interactionIdentifiers": [
+      "ACE_INHIBITOR"
+    ]
   },
   {
     "medicationType": "TABLET",
     "medicationId": "MED-002",
-    "genericName": "Warfarin",
-    "brandName": "Coumadin",
-    "strength": "5mg",
-    "activeIngredients": ["Warfarin Sodium"],
-    "interactionIdentifiers": ["ANTICOAGULANT", "WARFARIN"]
+    "genericName": "Atorvastatin",
+    "brandName": "Lipitor",
+    "strength": "20mg",
+    "activeIngredients": [
+      "Atorvastatin"
+    ],
+    "interactionIdentifiers": [
+      "STATIN",
+      "CYP3A4_SUBSTRATE"
+    ]
   },
   {
     "medicationType": "TABLET",
     "medicationId": "MED-003",
-    "genericName": "Ibuprofen",
-    "brandName": "Advil",
-    "strength": "200mg",
-    "activeIngredients": ["Ibuprofen"],
-    "interactionIdentifiers": ["NSAID"]
+    "genericName": "Metformin",
+    "brandName": "Glucophage",
+    "strength": "500mg",
+    "activeIngredients": [
+      "Metformin"
+    ],
+    "interactionIdentifiers": [
+      "BIGUANIDE"
+    ]
   },
   {
-    "medicationType": "LIQUID",
+    "medicationType": "TABLET",
     "medicationId": "MED-004",
     "genericName": "Amoxicillin",
     "brandName": "Amoxil",
-    "concentration": "250mg/5mL",
-    "activeIngredients": ["Amoxicillin"],
-    "interactionIdentifiers": ["PENICILLIN", "ANTIBIOTIC"]
+    "strength": "500mg",
+    "activeIngredients": [
+      "Amoxicillin"
+    ],
+    "interactionIdentifiers": [
+      "ANTIBIOTIC_PENICILLIN"
+    ]
   },
   {
-    "medicationType": "INJECTION",
+    "medicationType": "TABLET",
     "medicationId": "MED-005",
-    "genericName": "Insulin Glargine",
-    "brandName": "Lantus",
-    "concentration": "100 units/mL",
-    "route": "Subcutaneous",
-    "activeIngredients": ["Insulin Glargine"],
-    "interactionIdentifiers": ["INSULIN", "ANTIDIABETIC"]
+    "genericName": "Azithromycin",
+    "brandName": "Zithromax",
+    "strength": "250mg",
+    "activeIngredients": [
+      "Azithromycin"
+    ],
+    "interactionIdentifiers": [
+      "ANTIBIOTIC_MACROLIDE",
+      "CYP3A4_INHIBITOR",
+      "QT_PROLONGING"
+    ]
   },
   {
     "medicationType": "TABLET",
     "medicationId": "MED-006",
-    "genericName": "Aspirin",
-    "brandName": "Bayer",
-    "strength": "81mg",
-    "activeIngredients": ["Acetylsalicylic Acid"],
-    "interactionIdentifiers": ["NSAID", "ANTIPLATELET", "ASPIRIN"]
+    "genericName": "Losartan",
+    "brandName": "Cozaar",
+    "strength": "50mg",
+    "activeIngredients": [
+      "Losartan"
+    ],
+    "interactionIdentifiers": [
+      "ARB"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-007",
+    "genericName": "Metoprolol Succinate",
+    "brandName": "Toprol XL",
+    "strength": "50mg",
+    "activeIngredients": [
+      "Metoprolol Succinate"
+    ],
+    "interactionIdentifiers": [
+      "BETA_BLOCKER_B1_SELECTIVE"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-008",
+    "genericName": "Amlodipine",
+    "brandName": "Norvasc",
+    "strength": "5mg",
+    "activeIngredients": [
+      "Amlodipine"
+    ],
+    "interactionIdentifiers": [
+      "CALCIUM_CHANNEL_BLOCKER_DIHYDRO"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-009",
+    "genericName": "Hydrochlorothiazide",
+    "brandName": "Microzide",
+    "strength": "25mg",
+    "activeIngredients": [
+      "Hydrochlorothiazide"
+    ],
+    "interactionIdentifiers": [
+      "DIURETIC_THIAZIDE"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-010",
+    "genericName": "Furosemide",
+    "brandName": "Lasix",
+    "strength": "40mg",
+    "activeIngredients": [
+      "Furosemide"
+    ],
+    "interactionIdentifiers": [
+      "DIURETIC_LOOP"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-011",
+    "genericName": "Omeprazole",
+    "brandName": "Prilosec",
+    "strength": "20mg",
+    "activeIngredients": [
+      "Omeprazole"
+    ],
+    "interactionIdentifiers": [
+      "PPI",
+      "CYP2C19_INHIBITOR"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-012",
+    "genericName": "Sertraline",
+    "brandName": "Zoloft",
+    "strength": "50mg",
+    "activeIngredients": [
+      "Sertraline"
+    ],
+    "interactionIdentifiers": [
+      "SSRI"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-013",
+    "genericName": "Gabapentin",
+    "brandName": "Neurontin",
+    "strength": "300mg",
+    "activeIngredients": [
+      "Gabapentin"
+    ],
+    "interactionIdentifiers": [
+      "GABAPENTINOID"
+    ]
+  },
+  {
+    "medicationType": "LIQUID",
+    "medicationId": "MED-014",
+    "genericName": "Albuterol",
+    "brandName": "ProAir HFA",
+    "concentration": "90mcg/actuation",
+    "activeIngredients": [
+      "Albuterol Sulfate"
+    ],
+    "interactionIdentifiers": [
+      "SABA"
+    ]
+  },
+  {
+    "medicationType": "LIQUID",
+    "medicationId": "MED-015",
+    "genericName": "Fluticasone Propionate",
+    "brandName": "Flovent HFA",
+    "concentration": "110mcg/actuation",
+    "activeIngredients": [
+      "Fluticasone Propionate"
+    ],
+    "interactionIdentifiers": [
+      "CORTICOSTEROID_INHALED"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-016",
+    "genericName": "Prednisone",
+    "brandName": "Deltasone",
+    "strength": "10mg",
+    "activeIngredients": [
+      "Prednisone"
+    ],
+    "interactionIdentifiers": [
+      "CORTICOSTEROID_SYSTEMIC"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-017",
+    "genericName": "Levothyroxine",
+    "brandName": "Synthroid",
+    "strength": "100mcg",
+    "activeIngredients": [
+      "Levothyroxine Sodium"
+    ],
+    "interactionIdentifiers": [
+      "THYROID_HORMONE"
+    ]
+  },
+  {
+    "medicationType": "INJECTION",
+    "medicationId": "MED-018",
+    "genericName": "Insulin Glargine",
+    "brandName": "Lantus",
+    "concentration": "100 units/mL",
+    "route": "subcutaneous",
+    "activeIngredients": [
+      "Insulin Glargine"
+    ],
+    "interactionIdentifiers": [
+      "INSULIN_LONG_ACTING"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-019",
+    "genericName": "Clopidogrel",
+    "brandName": "Plavix",
+    "strength": "75mg",
+    "activeIngredients": [
+      "Clopidogrel"
+    ],
+    "interactionIdentifiers": [
+      "ANTIPLATELET_P2Y12",
+      "CYP2C19_PRODRUG"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-020",
+    "genericName": "Acetaminophen",
+    "brandName": "Tylenol",
+    "strength": "500mg",
+    "activeIngredients": [
+      "Acetaminophen"
+    ],
+    "interactionIdentifiers": [
+      "ANALGESIC_OTHER"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-021",
+    "genericName": "Warfarin",
+    "brandName": "Coumadin",
+    "strength": "5mg",
+    "activeIngredients": [
+      "Warfarin Sodium"
+    ],
+    "interactionIdentifiers": [
+      "ANTICOAGULANT_VK",
+      "WARFARIN"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-022",
+    "genericName": "Ibuprofen",
+    "brandName": "Advil",
+    "strength": "200mg",
+    "activeIngredients": [
+      "Ibuprofen"
+    ],
+    "interactionIdentifiers": [
+      "NSAID"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-023",
+    "genericName": "Tramadol",
+    "brandName": "Ultram",
+    "strength": "50mg",
+    "activeIngredients": [
+      "Tramadol"
+    ],
+    "interactionIdentifiers": [
+      "OPIOID_WEAK",
+      "SNRI"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-024",
+    "genericName": "Oxycodone",
+    "brandName": "OxyContin",
+    "strength": "10mg",
+    "activeIngredients": [
+      "Oxycodone"
+    ],
+    "interactionIdentifiers": [
+      "OPIOID_STRONG"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-025",
+    "genericName": "Alprazolam",
+    "brandName": "Xanax",
+    "strength": "0.5mg",
+    "activeIngredients": [
+      "Alprazolam"
+    ],
+    "interactionIdentifiers": [
+      "BENZODIAZEPINE_SHORT_ACTING"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-026",
+    "genericName": "Diazepam",
+    "brandName": "Valium",
+    "strength": "5mg",
+    "activeIngredients": [
+      "Diazepam"
+    ],
+    "interactionIdentifiers": [
+      "BENZODIAZEPINE_LONG_ACTING"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-027",
+    "genericName": "Ciprofloxacin",
+    "brandName": "Cipro",
+    "strength": "500mg",
+    "activeIngredients": [
+      "Ciprofloxacin"
+    ],
+    "interactionIdentifiers": [
+      "ANTIBIOTIC_FLUOROQUINOLONE",
+      "QT_PROLONGING"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-028",
+    "genericName": "Sulfamethoxazole/Trimethoprim",
+    "brandName": "Bactrim DS",
+    "strength": "800-160mg",
+    "activeIngredients": [
+      "Sulfamethoxazole",
+      "Trimethoprim"
+    ],
+    "interactionIdentifiers": [
+      "ANTIBIOTIC_SULFA"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-029",
+    "genericName": "Doxycycline",
+    "brandName": "Vibramycin",
+    "strength": "100mg",
+    "activeIngredients": [
+      "Doxycycline"
+    ],
+    "interactionIdentifiers": [
+      "ANTIBIOTIC_TETRACYCLINE"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-030",
+    "genericName": "Fluoxetine",
+    "brandName": "Prozac",
+    "strength": "20mg",
+    "activeIngredients": [
+      "Fluoxetine"
+    ],
+    "interactionIdentifiers": [
+      "SSRI",
+      "CYP2D6_INHIBITOR",
+      "QT_PROLONGING"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-031",
+    "genericName": "Venlafaxine",
+    "brandName": "Effexor XR",
+    "strength": "75mg",
+    "activeIngredients": [
+      "Venlafaxine"
+    ],
+    "interactionIdentifiers": [
+      "SNRI"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-032",
+    "genericName": "Bupropion",
+    "brandName": "Wellbutrin XL",
+    "strength": "150mg",
+    "activeIngredients": [
+      "Bupropion"
+    ],
+    "interactionIdentifiers": [
+      "NDRI",
+      "SEIZURE_THRESHOLD_LOWERING"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-033",
+    "genericName": "Trazodone",
+    "brandName": "Desyrel",
+    "strength": "50mg",
+    "activeIngredients": [
+      "Trazodone"
+    ],
+    "interactionIdentifiers": [
+      "SARI"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-034",
+    "genericName": "Risperidone",
+    "brandName": "Risperdal",
+    "strength": "1mg",
+    "activeIngredients": [
+      "Risperidone"
+    ],
+    "interactionIdentifiers": [
+      "ANTIPSYCHOTIC_ATYPICAL"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-035",
+    "genericName": "Quetiapine",
+    "brandName": "Seroquel",
+    "strength": "25mg",
+    "activeIngredients": [
+      "Quetiapine"
+    ],
+    "interactionIdentifiers": [
+      "ANTIPSYCHOTIC_ATYPICAL"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-036",
+    "genericName": "Spironolactone",
+    "brandName": "Aldactone",
+    "strength": "25mg",
+    "activeIngredients": [
+      "Spironolactone"
+    ],
+    "interactionIdentifiers": [
+      "DIURETIC_POTASSIUM_SPARING",
+      "ALDOSTERONE_ANTAGONIST"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-037",
+    "genericName": "Carvedilol",
+    "brandName": "Coreg",
+    "strength": "12.5mg",
+    "activeIngredients": [
+      "Carvedilol"
+    ],
+    "interactionIdentifiers": [
+      "BETA_BLOCKER_NONSELECTIVE_ALPHA1"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-038",
+    "genericName": "Simvastatin",
+    "brandName": "Zocor",
+    "strength": "40mg",
+    "activeIngredients": [
+      "Simvastatin"
+    ],
+    "interactionIdentifiers": [
+      "STATIN",
+      "CYP3A4_SUBSTRATE"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-039",
+    "genericName": "Rosuvastatin",
+    "brandName": "Crestor",
+    "strength": "10mg",
+    "activeIngredients": [
+      "Rosuvastatin"
+    ],
+    "interactionIdentifiers": [
+      "STATIN"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-040",
+    "genericName": "Ezetimibe",
+    "brandName": "Zetia",
+    "strength": "10mg",
+    "activeIngredients": [
+      "Ezetimibe"
+    ],
+    "interactionIdentifiers": [
+      "CHOLESTEROL_ABSORPTION_INHIBITOR"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-041",
+    "genericName": "Apixaban",
+    "brandName": "Eliquis",
+    "strength": "5mg",
+    "activeIngredients": [
+      "Apixaban"
+    ],
+    "interactionIdentifiers": [
+      "ANTICOAGULANT_DOAC_FXA"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-042",
+    "genericName": "Rivaroxaban",
+    "brandName": "Xarelto",
+    "strength": "20mg",
+    "activeIngredients": [
+      "Rivaroxaban"
+    ],
+    "interactionIdentifiers": [
+      "ANTICOAGULANT_DOAC_FXA"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-043",
+    "genericName": "Dabigatran",
+    "brandName": "Pradaxa",
+    "strength": "150mg",
+    "activeIngredients": [
+      "Dabigatran"
+    ],
+    "interactionIdentifiers": [
+      "ANTICOAGULANT_DOAC_DTI"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-044",
+    "genericName": "Montelukast",
+    "brandName": "Singulair",
+    "strength": "10mg",
+    "activeIngredients": [
+      "Montelukast"
+    ],
+    "interactionIdentifiers": [
+      "LEUKOTRIENE_INHIBITOR"
+    ]
+  },
+  {
+    "medicationType": "LIQUID",
+    "medicationId": "MED-045",
+    "genericName": "Tiotropium",
+    "brandName": "Spiriva",
+    "concentration": "2.5mcg/actuation",
+    "activeIngredients": [
+      "Tiotropium Bromide"
+    ],
+    "interactionIdentifiers": [
+      "LAMA"
+    ]
+  },
+  {
+    "medicationType": "LIQUID",
+    "medicationId": "MED-046",
+    "genericName": "Salmeterol",
+    "brandName": "Serevent",
+    "concentration": "50mcg/actuation",
+    "activeIngredients": [
+      "Salmeterol Xinafoate"
+    ],
+    "interactionIdentifiers": [
+      "LABA"
+    ]
+  },
+  {
+    "medicationType": "LIQUID",
+    "medicationId": "MED-047",
+    "genericName": "Fluticasone/Salmeterol",
+    "brandName": "Advair Diskus",
+    "concentration": "250/50mcg",
+    "activeIngredients": [
+      "Fluticasone Propionate",
+      "Salmeterol"
+    ],
+    "interactionIdentifiers": [
+      "CORTICOSTEROID_INHALED",
+      "LABA"
+    ]
+  },
+  {
+    "medicationType": "LIQUID",
+    "medicationId": "MED-048",
+    "genericName": "Mometasone",
+    "brandName": "Nasonex",
+    "concentration": "50mcg/spray",
+    "activeIngredients": [
+      "Mometasone Furoate"
+    ],
+    "interactionIdentifiers": [
+      "CORTICOSTEROID_NASAL"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-049",
+    "genericName": "Loratadine",
+    "brandName": "Claritin",
+    "strength": "10mg",
+    "activeIngredients": [
+      "Loratadine"
+    ],
+    "interactionIdentifiers": [
+      "ANTIHISTAMINE_NONSEDATING"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-050",
+    "genericName": "Diphenhydramine",
+    "brandName": "Benadryl",
+    "strength": "25mg",
+    "activeIngredients": [
+      "Diphenhydramine HCl"
+    ],
+    "interactionIdentifiers": [
+      "ANTIHISTAMINE_SEDATING",
+      "ANTICHOLINERGIC"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-051",
+    "genericName": "Pseudoephedrine",
+    "brandName": "Sudafed",
+    "strength": "30mg",
+    "activeIngredients": [
+      "Pseudoephedrine HCl"
+    ],
+    "interactionIdentifiers": [
+      "DECONGESTANT"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-052",
+    "genericName": "Phenelzine",
+    "brandName": "Nardil",
+    "strength": "15mg",
+    "activeIngredients": [
+      "Phenelzine"
+    ],
+    "interactionIdentifiers": [
+      "MAOI"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-053",
+    "genericName": "Lithium Carbonate",
+    "brandName": "Lithobid",
+    "strength": "300mg",
+    "activeIngredients": [
+      "Lithium Carbonate"
+    ],
+    "interactionIdentifiers": [
+      "MOOD_STABILIZER_LITHIUM"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-054",
+    "genericName": "Valproic Acid",
+    "brandName": "Depakote",
+    "strength": "250mg",
+    "activeIngredients": [
+      "Divalproex Sodium"
+    ],
+    "interactionIdentifiers": [
+      "ANTICONVULSANT_VALPROATE"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-055",
+    "genericName": "Lamotrigine",
+    "brandName": "Lamictal",
+    "strength": "100mg",
+    "activeIngredients": [
+      "Lamotrigine"
+    ],
+    "interactionIdentifiers": [
+      "ANTICONVULSANT_LAMOTRIGINE"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-056",
+    "genericName": "Topiramate",
+    "brandName": "Topamax",
+    "strength": "25mg",
+    "activeIngredients": [
+      "Topiramate"
+    ],
+    "interactionIdentifiers": [
+      "ANTICONVULSANT_OTHER"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-057",
+    "genericName": "Allopurinol",
+    "brandName": "Zyloprim",
+    "strength": "100mg",
+    "activeIngredients": [
+      "Allopurinol"
+    ],
+    "interactionIdentifiers": [
+      "XANTHINE_OXIDASE_INHIBITOR"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-058",
+    "genericName": "Colchicine",
+    "brandName": "Colcrys",
+    "strength": "0.6mg",
+    "activeIngredients": [
+      "Colchicine"
+    ],
+    "interactionIdentifiers": [
+      "ANTIGOUT"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-059",
+    "genericName": "Naproxen",
+    "brandName": "Aleve",
+    "strength": "220mg",
+    "activeIngredients": [
+      "Naproxen Sodium"
+    ],
+    "interactionIdentifiers": [
+      "NSAID"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-060",
+    "genericName": "Celecoxib",
+    "brandName": "Celebrex",
+    "strength": "200mg",
+    "activeIngredients": [
+      "Celecoxib"
+    ],
+    "interactionIdentifiers": [
+      "NSAID_COX2"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-061",
+    "genericName": "Methotrexate",
+    "brandName": "Trexall",
+    "strength": "2.5mg",
+    "activeIngredients": [
+      "Methotrexate"
+    ],
+    "interactionIdentifiers": [
+      "DMARD_METHOTREXATE"
+    ]
+  },
+  {
+    "medicationType": "INJECTION",
+    "medicationId": "MED-062",
+    "genericName": "Adalimumab",
+    "brandName": "Humira",
+    "concentration": "40mg/0.8mL",
+    "route": "subcutaneous",
+    "activeIngredients": [
+      "Adalimumab"
+    ],
+    "interactionIdentifiers": [
+      "BIOLOGIC_TNF_INHIBITOR"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-063",
+    "genericName": "Sildenafil",
+    "brandName": "Viagra",
+    "strength": "50mg",
+    "activeIngredients": [
+      "Sildenafil"
+    ],
+    "interactionIdentifiers": [
+      "PDE5_INHIBITOR"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-064",
+    "genericName": "Tamsulosin",
+    "brandName": "Flomax",
+    "strength": "0.4mg",
+    "activeIngredients": [
+      "Tamsulosin HCl"
+    ],
+    "interactionIdentifiers": [
+      "ALPHA_BLOCKER"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-065",
+    "genericName": "Finasteride",
+    "brandName": "Proscar",
+    "strength": "5mg",
+    "activeIngredients": [
+      "Finasteride"
+    ],
+    "interactionIdentifiers": [
+      "5ARI"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-066",
+    "genericName": "Ondansetron",
+    "brandName": "Zofran",
+    "strength": "4mg",
+    "activeIngredients": [
+      "Ondansetron"
+    ],
+    "interactionIdentifiers": [
+      "ANTIEMETIC_5HT3",
+      "QT_PROLONGING"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-067",
+    "genericName": "Metoclopramide",
+    "brandName": "Reglan",
+    "strength": "10mg",
+    "activeIngredients": [
+      "Metoclopramide"
+    ],
+    "interactionIdentifiers": [
+      "ANTIEMETIC_DOPAMINE_ANTAGONIST"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-068",
+    "genericName": "Pantoprazole",
+    "brandName": "Protonix",
+    "strength": "40mg",
+    "activeIngredients": [
+      "Pantoprazole"
+    ],
+    "interactionIdentifiers": [
+      "PPI"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-069",
+    "genericName": "Famotidine",
+    "brandName": "Pepcid",
+    "strength": "20mg",
+    "activeIngredients": [
+      "Famotidine"
+    ],
+    "interactionIdentifiers": [
+      "H2_BLOCKER"
+    ]
+  },
+  {
+    "medicationType": "TABLET",
+    "medicationId": "MED-070",
+    "genericName": "Citalopram",
+    "brandName": "Celexa",
+    "strength": "20mg",
+    "activeIngredients": [
+      "Citalopram"
+    ],
+    "interactionIdentifiers": [
+      "SSRI",
+      "QT_PROLONGING"
+    ]
   }
 ]
