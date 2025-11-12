@@ -1,37 +1,55 @@
-# Audino: Intelligent Prescription Manager:
+# 🏥 Audino: Intelligent Prescription Manager
 
-## Overview:
+## 🚀 Quick Start
 
-Audino is a comprehensive Java-based desktop application designed to help healthcare professionals prevent adverse drug events by providing real-time drug interaction analysis during prescription creation. The application demonstrates advanced Object-Oriented Programming concepts, design patterns, and modern software engineering practices.
+### Automated Setup (Recommended)
+```bash
+./audino.sh          # Quick start launcher
+# OR
+./setup.sh && ./start.sh  # Full setup then launch
+```
 
-## Features:
+### Manual Launch
+```bash
+mvn javafx:run       # Using Maven (most reliable)
+# OR
+java -jar target/audino-1.1.0.jar  # Direct JAR execution
+```
 
-### Core Functionality:
-- **Patient Management System**: A simple, searchable interface for patient records.
-- **Medication Database**: Comprehensive repository with external JSON data loading.
-- **Prescription Builder**: Interactive prescription creation with real-time validation.
-- **Intelligent Interaction Engine**: Rule-based system detecting three types of conflicts:
-  - Drug-Allergy Interactions.
-  - Drug-Drug Interactions.
-  - Drug-Condition Contraindications.
-- **Real-time Alerts**: Color-coded warnings with detailed explanations and recommendations.
+## 📋 System Requirements
 
-### Technical Highlights:
-- **MVC Architecture**: Strict separation of concerns between data, logic, and UI.
-- **Design Patterns**: Implements Strategy, Observer, Singleton, and Composition patterns.
-- **Object-Oriented Design**: Leverages Inheritance, Polymorphism, and Encapsulation.
-- **Asynchronous Processing**: Non-blocking interaction checking for a responsive UI.
-- **Comprehensive Testing**: Includes a JUnit 5 test suite.
+- **OS**: Linux (Ubuntu/Debian preferred)
+- **Java**: Version 17+ (Java 24 tested and working)
+- **Memory**: Minimum 512 MB RAM
+- **Dependencies**: Maven, OpenJFX runtime (auto-installed by setup script)
 
-## Technology Stack:
+## ✨ Features
 
-- **Language**: Java 17+.
-- **GUI**: JavaFX 19+.
-- **UI Layout**: FXML.
-- **Styling**: CSS.
-- **Build Tool**: Maven.
-- **Data Serialization**: Jackson.
-- **Testing**: JUnit 5.
+### Core Functionality
+- **Patient Management**: Searchable patient records with comprehensive data
+- **Medication Database**: Extensive drug repository with interaction data
+- **Prescription Builder**: Real-time prescription creation with validation
+- **Drug Interaction Engine**: Intelligent detection of:
+  - Drug-Allergy Interactions
+  - Drug-Drug Interactions  
+  - Drug-Condition Contraindications
+- **Real-time Alerts**: Color-coded warnings with detailed recommendations
+
+### Technical Highlights
+- **MVC Architecture**: Clean separation of concerns
+- **Design Patterns**: Strategy, Observer, Singleton, and Composition
+- **Object-Oriented Design**: Full OOP principles implementation
+- **Asynchronous Processing**: Non-blocking UI for responsive experience
+- **Comprehensive Testing**: JUnit 5 test suite included
+
+## 🛠️ Technology Stack
+
+- **Language**: Java 17+
+- **GUI**: JavaFX 19+ with FXML layouts
+- **Styling**: Custom CSS themes
+- **Build Tool**: Maven with automated dependency management
+- **Data**: Jackson JSON serialization
+- **Testing**: JUnit 5 framework
 
 ## Project Structure:
 

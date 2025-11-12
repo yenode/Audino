@@ -1,0 +1,28 @@
+# Build artifacts
+target/
+dependency-reduced-pom.xml
+
+# IDE files
+.idea/
+*.iml
+.vscode/
+.eclipse/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Test reports
+surefire-reports/
+jacoco.exec
+
+# Temporary files
+*.tmp
+*.bak
+*~
+
+# Desktop entries
+*.desktop
