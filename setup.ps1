@@ -55,24 +55,33 @@ try {
         Write-Host "Warning: Some tests failed. Review output above." -ForegroundColor Yellow
     }
 
-    Write-Host "Verifying data files..." -ForegroundColor Cyan
-    
-    $dataPath = Join-Path $projectRoot "src\main\resources\data"
-    
-    $requiredFiles = @(
-        "medications.json",
-        "patients.json",
-        "interaction-rules.json"
-    )
-    
-    foreach ($file in $requiredFiles) {
-        $filePath = Join-Path $dataPath $file
-        if (-not (Test-Path $filePath)) {
-            Write-Host "Warning: $file not found in data directory." -ForegroundColor Yellow
-            Write-Host "Creating empty file..." -ForegroundColor Cyan
-            New-Item -Path $filePath -ItemType File -Force | Out-Null
-            Set-Content -Path $filePath -Value "{}"
+    Write-Host "Preparing SQLite storage..." -ForegroundColor Cyan
+
+    $sqliteRelativePath = "data/audino.db"
+    $configPath = Join-Path $projectRoot "src\main\resources\application.properties"
+
+    if (Test-Path $configPath) {
+        $sqlitePathLine = Select-String -Path $configPath -Pattern '^\s*sqlite\.database\.path\s*=\s*(.+)\s*$' | Select-Object -First 1
+        if ($sqlitePathLine) {
+            $sqliteRelativePath = $sqlitePathLine.Matches[0].Groups[1].Value.Trim()
         }
+    }
+
+    $sqlitePath = if ([System.IO.Path]::IsPathRooted($sqliteRelativePath)) {
+        $sqliteRelativePath
+    } else {
+        Join-Path $projectRoot $sqliteRelativePath
+    }
+
+    $sqliteDirectory = Split-Path -Parent $sqlitePath
+    if ($sqliteDirectory -and -not (Test-Path $sqliteDirectory)) {
+        New-Item -Path $sqliteDirectory -ItemType Directory -Force | Out-Null
+    }
+
+    if (Test-Path $sqlitePath) {
+        Write-Host "SQLite database found at: $sqlitePath" -ForegroundColor Green
+    } else {
+        Write-Host "SQLite database will be created on first run at: $sqlitePath" -ForegroundColor Cyan
     }
 
     Write-Host "Setup completed successfully!" -ForegroundColor Green

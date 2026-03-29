@@ -1,55 +1,52 @@
-# Audino: Intelligent Prescription Manager
+# Audino: Intelligent Prescription Manager:
 
-## Quick Start
+## Quick Start:
 
-### Automated Setup (Recommended)
+### Automated Setup (Recommended):
 ```bash
 ./audino.sh          # Quick start launcher
 # OR
 ./setup.sh && ./start.sh  # Full setup then launch
 ```
 
-### Manual Launch
+### Manual Launch:
 ```bash
 mvn javafx:run       # Using Maven (most reliable)
 # OR
 java -jar target/audino-1.1.0.jar  # Direct JAR execution
 ```
 
-## System Requirements
+## System Requirements:
 
-- **OS**: Linux (Ubuntu/Debian preferred)
-- **Java**: Version 17+ (Java 24 tested and working)
-- **Memory**: Minimum 512 MB RAM
-- **Dependencies**: Maven, OpenJFX runtime (auto-installed by setup script)
+- **OS**: Linux (Ubuntu/Debian preferred).
+- **Java**: Version 17+ (Java 24 tested and working).
+- **Memory**: Minimum 512 MB RAM.
+- **Dependencies**: Maven, OpenJFX runtime (auto-installed by setup script).
 
-## Features
+## Features:
 
-### Core Functionality
-- **Patient Management**: Searchable patient records with comprehensive data
-- **Medication Database**: Extensive drug repository with interaction data
-- **Prescription Builder**: Real-time prescription creation with validation
-- **Drug Interaction Engine**: Intelligent detection of:
-  - Drug-Allergy Interactions
-  - Drug-Drug Interactions  
-  - Drug-Condition Contraindications
-- **Real-time Alerts**: Color-coded warnings with detailed recommendations
+### Core Functionality:
+- **Patient Management**: Searchable patient records with comprehensive data.
+- **Medication Database**: Extensive drug repository with interaction data.
+- **Prescription Builder**: Real-time prescription creation with validation.
+- **Drug Interaction Engine**: Intelligent detection of drug-allergy interactions, drug-drug interactions, and drug-condition contraindications.
+- **Real-time Alerts**: Color-coded warnings with detailed recommendations.
 
-### Technical Highlights
-- **MVC Architecture**: Clean separation of concerns
-- **Design Patterns**: Strategy, Observer, Singleton, and Composition
-- **Object-Oriented Design**: Full OOP principles implementation
-- **Asynchronous Processing**: Non-blocking UI for responsive experience
-- **Comprehensive Testing**: JUnit 5 test suite included
+### Technical Highlights:
+- **MVC Architecture**: Clean separation of concerns.
+- **Design Patterns**: Strategy, Observer, Singleton, and Composition.
+- **Object-Oriented Design**: Full OOP principles implementation.
+- **Asynchronous Processing**: Non-blocking UI for responsive experience.
+- **Comprehensive Testing**: JUnit 5 test suite included.
 
-## Technology Stack
+## Technology Stack:
 
-- **Language**: Java 17+
-- **GUI**: JavaFX 19+ with FXML layouts
-- **Styling**: Custom CSS themes
-- **Build Tool**: Maven with automated dependency management
-- **Data**: Jackson JSON serialization
-- **Testing**: JUnit 5 framework
+- **Language**: Java 17+.
+- **GUI**: JavaFX 19+ with FXML layouts.
+- **Styling**: Custom CSS themes.
+- **Build Tool**: Maven with automated dependency management.
+- **Data**: SQLite RDBMS with JDBC and baseline in-code seeding.
+- **Testing**: JUnit 5 framework.
 
 ## Project Structure:
 
@@ -163,12 +160,14 @@ All model classes have private fields, with access controlled through public get
 
 ## Data Management:
 
-Data for patients, medications, and interaction rules are stored in human-readable JSON files located in `src/main/resources/data/`. This approach allows for easy updates to the application's knowledge base without needing to recompile the source code. The `DataService` class handles the loading and parsing of these files.
+Runtime data for patients and prescriptions is stored in a SQLite database, configured via `sqlite.database.path` in `application.properties`. On first run, when the database is empty, the application seeds baseline medications, patients, and interaction rules directly through `DataService`. The `DataService` class handles schema creation, baseline seeding, and transactional CRUD operations.
+
+Detailed database documentation is available in `DataBase.md`.
 
 ### Sample Data:
 
-The application includes demonstration data featuring:
-- **150 Medications**: Including common drugs like Lisinopril, Warfarin, and Ibuprofen, plus a comprehensive generic medication database.
-- **8 Sample Patients**: Realistic patient profiles including Mridankan Mandal, Aditya Pachauri, Sayan Samajpati, and Sanskriti Wakale, each with unique medical histories, allergies, and chronic conditions.
+The application includes baseline demonstration data featuring:
+- **4 Medications**: Core examples including Amoxicillin, Ibuprofen, Warfarin, and Lisinopril.
+- **3 Sample Patients**: Realistic profiles including allergy and chronic-condition scenarios.
 - **Interaction Rules**: Pre-configured rules for drug-drug, drug-allergy, and drug-condition interactions.
 
