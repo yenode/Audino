@@ -1,0 +1,30 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+Audino: Intelligent Prescription Manager,com.audino,AudinoApplication,111,0,2,0,29,0,6,0,5,0
+Audino: Intelligent Prescription Manager,com.audino.service,DataService.new TypeReference() {...},0,6,0,0,0,1,0,1,0,1
+Audino: Intelligent Prescription Manager,com.audino.service,DataService.new TypeReference() {...},0,6,0,0,0,1,0,1,0,1
+Audino: Intelligent Prescription Manager,com.audino.service,DataService.new TypeReference() {...},0,6,0,0,0,1,0,1,0,1
+Audino: Intelligent Prescription Manager,com.audino.service,DataService.new TypeReference() {...},0,6,0,0,0,1,0,1,0,1
+Audino: Intelligent Prescription Manager,com.audino.service,InteractionEngine,42,90,8,2,9,16,11,7,6,7
+Audino: Intelligent Prescription Manager,com.audino.service,AllergyCheckStrategy,5,182,6,16,1,34,7,14,1,9
+Audino: Intelligent Prescription Manager,com.audino.service,ConditionCheckStrategy,8,201,9,17,2,38,10,14,1,10
+Audino: Intelligent Prescription Manager,com.audino.service,DataService,266,176,9,11,62,32,22,13,15,10
+Audino: Intelligent Prescription Manager,com.audino.service,DrugDrugCheckStrategy,18,293,10,32,1,56,11,22,2,10
+Audino: Intelligent Prescription Manager,com.audino.util,ConfigurationManager,33,100,2,4,9,29,3,13,1,12
+Audino: Intelligent Prescription Manager,com.audino.controller,MainController.new ListCell() {...},22,0,2,0,4,0,3,0,2,0
+Audino: Intelligent Prescription Manager,com.audino.controller,MainController.new ListCell() {...},19,0,2,0,4,0,3,0,2,0
+Audino: Intelligent Prescription Manager,com.audino.controller,PatientDialogController,222,0,22,0,48,0,20,0,9,0
+Audino: Intelligent Prescription Manager,com.audino.controller,MainController.new ListCell() {...},105,0,10,0,14,0,8,0,2,0
+Audino: Intelligent Prescription Manager,com.audino.controller,MainController.new TableCell() {...},55,0,2,0,14,0,4,0,3,0
+Audino: Intelligent Prescription Manager,com.audino.controller,MainController,1570,0,132,0,368,0,123,0,57,0
+Audino: Intelligent Prescription Manager,com.audino.model,PrescriptionStatus,9,46,0,0,3,9,3,2,3,2
+Audino: Intelligent Prescription Manager,com.audino.model,Prescription,63,96,7,3,14,24,14,12,10,11
+Audino: Intelligent Prescription Manager,com.audino.model,MedicationType,6,32,0,0,2,7,2,2,2,2
+Audino: Intelligent Prescription Manager,com.audino.model,InjectionMedication,30,25,2,2,3,7,5,4,3,4
+Audino: Intelligent Prescription Manager,com.audino.model,AlertType,9,46,0,0,3,9,3,2,3,2
+Audino: Intelligent Prescription Manager,com.audino.model,TabletMedication,20,47,2,6,2,12,4,6,2,4
+Audino: Intelligent Prescription Manager,com.audino.model,Patient,72,151,15,13,11,31,18,21,6,19
+Audino: Intelligent Prescription Manager,com.audino.model,PrescribedDrug,87,86,19,7,11,21,20,12,8,11
+Audino: Intelligent Prescription Manager,com.audino.model,LiquidMedication,22,21,2,2,2,6,4,3,2,3
+Audino: Intelligent Prescription Manager,com.audino.model,Medication,41,87,7,3,7,21,8,14,4,13
+Audino: Intelligent Prescription Manager,com.audino.model,AlertLevel,12,44,0,0,4,9,4,2,4,2
+Audino: Intelligent Prescription Manager,com.audino.model,InteractionAlert,121,88,14,0,26,26,21,14,13,14

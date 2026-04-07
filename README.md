@@ -2,6 +2,13 @@
 
 ## Quick Start:
 
+### Automated Setup (Recommended):
+```bash
+./audino.sh          # Quick start launcher
+# OR
+./setup.sh && ./start.sh  # Full setup then launch
+```
+
 ### Manual Launch:
 ```bash
 mvn javafx:run       # Using Maven (most reliable)
@@ -11,10 +18,10 @@ java -jar target/audino-1.1.0.jar  # Direct JAR execution
 
 ## System Requirements:
 
-- **OS**: Windows 10/11 and Linux (Ubuntu/Debian preferred).
+- **OS**: Linux (Ubuntu/Debian preferred).
 - **Java**: Version 17+ (Java 24 tested and working).
 - **Memory**: Minimum 512 MB RAM.
-- **Dependencies**: Maven, OpenJFX runtime.
+- **Dependencies**: Maven, OpenJFX runtime (auto-installed by setup script).
 
 ## Features:
 
@@ -31,7 +38,6 @@ java -jar target/audino-1.1.0.jar  # Direct JAR execution
 - **Object-Oriented Design**: Full OOP principles implementation.
 - **Asynchronous Processing**: Non-blocking UI for responsive experience.
 - **Comprehensive Testing**: JUnit 5 test suite included.
-- **Cross-Platform Runtime**: Works on both Windows and Linux.
 
 ## Technology Stack:
 
@@ -41,7 +47,6 @@ java -jar target/audino-1.1.0.jar  # Direct JAR execution
 - **Build Tool**: Maven with automated dependency management.
 - **Data**: SQLite RDBMS with JDBC and baseline in-code seeding.
 - **Testing**: JUnit 5 framework.
-- **Platform**: Windows and Linux.
 
 ## Project Structure:
 
@@ -156,8 +161,6 @@ All model classes have private fields, with access controlled through public get
 ## Data Management:
 
 Runtime data for patients and prescriptions is stored in a SQLite database, configured via `sqlite.database.path` in `application.properties`. On first run, when the database is empty, the application seeds baseline medications, patients, and interaction rules directly through `DataService`. The `DataService` class handles schema creation, baseline seeding, and transactional CRUD operations.
-
-The repository includes a SQLite database file at `data/audino.db`.
 
 Detailed database documentation is available in `DataBase.md`.
 
