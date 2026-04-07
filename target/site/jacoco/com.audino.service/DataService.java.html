@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DataService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Audino: Intelligent Prescription Manager</a> &gt; <a href="index.source.html" class="el_package">com.audino.service</a> &gt; <span class="el_source">DataService.java</span></div><h1>DataService.java</h1><pre class="source lang-java linenums">package com.audino.service;
+
+import com.audino.model.Medication;
+import com.audino.model.Patient;
+import com.audino.model.Prescription;
+import com.audino.util.ConfigurationManager;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.File;
+import java.io.InputStream;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+public class DataService {
+
+    private final ObjectMapper objectMapper;
+    private final ConfigurationManager config;
+<span class="fc" id="L21">    private List&lt;Patient&gt; patients = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L22">    private List&lt;Medication&gt; medications = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L23">    private List&lt;Prescription&gt; prescriptions = new ArrayList&lt;&gt;();</span>
+    private Map&lt;String, Object&gt; interactionRules;
+<span class="fc" id="L25">    public DataService() {</span>
+<span class="fc" id="L26">        this.config = ConfigurationManager.getInstance();</span>
+<span class="fc" id="L27">        this.objectMapper = config.getObjectMapper();</span>
+<span class="fc" id="L28">    }</span>
+
+    public void loadAllData() {
+<span class="fc" id="L31">        patients = loadData(config.getPatientsDataFile(), new TypeReference&lt;&gt;() {});</span>
+<span class="fc" id="L32">        medications = loadData(config.getMedicationsDataFile(), new TypeReference&lt;&gt;() {});</span>
+<span class="fc" id="L33">        interactionRules = loadData(config.getInteractionRulesDataFile(), new TypeReference&lt;&gt;() {});</span>
+<span class="fc" id="L34">        prescriptions = loadData(config.getPrescriptionsDataFile(), new TypeReference&lt;&gt;() {});</span>
+<span class="fc" id="L35">        System.out.println(&quot;All data loaded.&quot;);</span>
+<span class="fc" id="L36">    }</span>
+
+    private &lt;T&gt; T loadData(String filePath, TypeReference&lt;T&gt; typeRef) {
+<span class="fc" id="L39">        try (InputStream inputStream = DataService.class.getResourceAsStream(filePath)) {</span>
+<span class="pc bpc" id="L40" title="1 of 2 branches missed.">            if (inputStream == null) {</span>
+<span class="nc" id="L41">                throw new RuntimeException(&quot;Cannot find resource file: &quot; + filePath);</span>
+            }
+<span class="fc" id="L43">            return objectMapper.readValue(inputStream, typeRef);</span>
+<span class="nc" id="L44">        } catch (Exception e) {</span>
+<span class="nc" id="L45">            e.printStackTrace();</span>
+<span class="nc" id="L46">            throw new RuntimeException(&quot;Failed to load data from &quot; + filePath, e);</span>
+        }
+    }
+    
+    public List&lt;Patient&gt; getAllPatients() {
+<span class="fc" id="L51">        return new ArrayList&lt;&gt;(patients);</span>
+    }
+
+    public List&lt;Medication&gt; getAllMedications() {
+<span class="fc" id="L55">        return new ArrayList&lt;&gt;(medications);</span>
+    }
+    
+    public List&lt;Prescription&gt; getAllPrescriptions() {
+<span class="nc" id="L59">        return new ArrayList&lt;&gt;(prescriptions);</span>
+    }
+
+    public Map&lt;String, Object&gt; getInteractionRules() {
+<span class="fc" id="L63">        return interactionRules;</span>
+    }
+    
+    public List&lt;Patient&gt; searchPatients(String searchTerm) {
+<span class="pc bpc" id="L67" title="1 of 4 branches missed.">        if (searchTerm == null || searchTerm.trim().isEmpty()) {</span>
+<span class="fc" id="L68">            return getAllPatients();</span>
+        }
+<span class="fc" id="L70">        String lowerCaseTerm = searchTerm.toLowerCase();</span>
+<span class="fc" id="L71">        return patients.stream()</span>
+<span class="fc" id="L72">                .filter(p -&gt; p.getFullName().toLowerCase().contains(lowerCaseTerm))</span>
+<span class="fc" id="L73">                .collect(Collectors.toList());</span>
+    }
+
+    public List&lt;Medication&gt; searchMedications(String searchTerm) {
+<span class="pc bpc" id="L77" title="1 of 4 branches missed.">        if (searchTerm == null || searchTerm.trim().isEmpty()) {</span>
+<span class="fc" id="L78">            return getAllMedications();</span>
+        }
+<span class="fc" id="L80">        String lowerCaseTerm = searchTerm.toLowerCase();</span>
+<span class="fc" id="L81">        return medications.stream()</span>
+<span class="pc bpc" id="L82" title="1 of 2 branches missed.">                .filter(m -&gt; m.getGenericName().toLowerCase().contains(lowerCaseTerm) ||</span>
+<span class="pc bpc" id="L83" title="1 of 4 branches missed.">                             (m.getBrandName() != null &amp;&amp; m.getBrandName().toLowerCase().contains(lowerCaseTerm)))</span>
+<span class="fc" id="L84">                .collect(Collectors.toList());</span>
+    }
+
+    public void savePatient(Patient patient) {
+<span class="nc" id="L88">        patients.add(patient);</span>
+        // Persist changes immediately to files
+<span class="nc" id="L90">        saveAllData();</span>
+<span class="nc" id="L91">    }</span>
+
+    public void updatePatient(Patient patient) {
+        // Patient is already in the list by reference
+        // Persist changes immediately to files
+<span class="nc" id="L96">        saveAllData();</span>
+<span class="nc" id="L97">    }</span>
+
+    public void deletePatient(Patient patient) {
+<span class="nc" id="L100">        patients.remove(patient);</span>
+        // Persist changes immediately to files
+<span class="nc" id="L102">        saveAllData();</span>
+<span class="nc" id="L103">    }</span>
+
+    public void savePrescription(Prescription prescription) {
+        // Remove any existing prescriptions for this patient to ensure only one active prescription
+<span class="nc" id="L107">        prescriptions.removeIf(p -&gt; p.getPatientId().equals(prescription.getPatientId()));</span>
+<span class="nc" id="L108">        prescriptions.add(prescription);</span>
+        // Persist changes immediately to files
+<span class="nc" id="L110">        saveAllData();</span>
+<span class="nc" id="L111">    }</span>
+
+    public boolean addMedicationToExistingPrescription(String patientId, Medication medication, String dosage, String frequency, String duration, String prescribingPhysician) {
+        // Find existing prescription for the patient
+<span class="nc" id="L115">        Prescription existingPrescription = prescriptions.stream()</span>
+<span class="nc" id="L116">                .filter(p -&gt; p.getPatientId().equals(patientId))</span>
+<span class="nc" id="L117">                .findFirst()</span>
+<span class="nc" id="L118">                .orElse(null);</span>
+        
+<span class="nc bnc" id="L120" title="All 2 branches missed.">        if (existingPrescription != null) {</span>
+            // Add medication to existing prescription
+<span class="nc" id="L122">            existingPrescription.addPrescribedDrug(new com.audino.model.PrescribedDrug(</span>
+                medication, dosage, frequency, duration, &quot;&quot;, prescribingPhysician));
+            // Persist changes immediately to files
+<span class="nc" id="L125">            saveAllData();</span>
+<span class="nc" id="L126">            return true;</span>
+        }
+<span class="nc" id="L128">        return false; // No existing prescription found</span>
+    }
+
+    public List&lt;Prescription&gt; getPrescriptionsForPatient(Patient patient) {
+<span class="nc" id="L132">        return prescriptions.stream()</span>
+<span class="nc" id="L133">                .filter(p -&gt; p.getPatientId().equals(patient.getPatientId()))</span>
+<span class="nc" id="L134">                .collect(Collectors.toList());</span>
+    }
+    
+    public Prescription getActivePrescriberionForPatient(String patientId) {
+<span class="nc" id="L138">        return prescriptions.stream()</span>
+<span class="nc" id="L139">                .filter(p -&gt; p.getPatientId().equals(patientId))</span>
+<span class="nc" id="L140">                .findFirst()</span>
+<span class="nc" id="L141">                .orElse(null);</span>
+    }
+    
+    public void saveAllData() {
+        try {
+<span class="nc" id="L146">            saveDataToFile(patients, config.getPatientsDataFile());</span>
+<span class="nc" id="L147">            saveDataToFile(prescriptions, config.getPrescriptionsDataFile());</span>
+<span class="nc" id="L148">            System.out.println(&quot;All data saved successfully.&quot;);</span>
+<span class="nc" id="L149">        } catch (Exception e) {</span>
+<span class="nc" id="L150">            System.err.println(&quot;Error saving data: &quot; + e.getMessage());</span>
+<span class="nc" id="L151">            e.printStackTrace();</span>
+<span class="nc" id="L152">        }</span>
+<span class="nc" id="L153">    }</span>
+    
+    public void saveAllData(List&lt;Patient&gt; currentPatients, List&lt;Prescription&gt; currentPrescriptions) {
+        try {
+<span class="nc" id="L157">            saveDataToFile(currentPatients, config.getPatientsDataFile());</span>
+<span class="nc" id="L158">            saveDataToFile(currentPrescriptions, config.getPrescriptionsDataFile());</span>
+<span class="nc" id="L159">            System.out.println(&quot;All data saved successfully.&quot;);</span>
+<span class="nc" id="L160">        } catch (Exception e) {</span>
+<span class="nc" id="L161">            System.err.println(&quot;Error saving data: &quot; + e.getMessage());</span>
+<span class="nc" id="L162">            e.printStackTrace();</span>
+<span class="nc" id="L163">        }</span>
+<span class="nc" id="L164">    }</span>
+    
+    private &lt;T&gt; void saveDataToFile(T data, String resourcePath) throws Exception {
+<span class="nc" id="L167">        String projectRoot = System.getProperty(&quot;user.dir&quot;);</span>
+        
+        // Save to source directory (src/main/resources)
+<span class="nc" id="L170">        String sourceFilePath = Paths.get(projectRoot, &quot;src&quot;, &quot;main&quot;, &quot;resources&quot;, resourcePath).toString();</span>
+<span class="nc" id="L171">        File sourceFile = new File(sourceFilePath);</span>
+<span class="nc" id="L172">        sourceFile.getParentFile().mkdirs();</span>
+<span class="nc" id="L173">        objectMapper.writerWithDefaultPrettyPrinter().writeValue(sourceFile, data);</span>
+<span class="nc" id="L174">        System.out.println(&quot;Saved data to source: &quot; + sourceFilePath);</span>
+        
+        // Also save to target directory (target/classes) for immediate effect
+<span class="nc" id="L177">        String targetFilePath = Paths.get(projectRoot, &quot;target&quot;, &quot;classes&quot;, resourcePath).toString();</span>
+<span class="nc" id="L178">        File targetFile = new File(targetFilePath);</span>
+<span class="nc bnc" id="L179" title="All 2 branches missed.">        if (targetFile.getParentFile().exists()) {</span>
+<span class="nc" id="L180">            targetFile.getParentFile().mkdirs();</span>
+<span class="nc" id="L181">            objectMapper.writerWithDefaultPrettyPrinter().writeValue(targetFile, data);</span>
+<span class="nc" id="L182">            System.out.println(&quot;Saved data to target: &quot; + targetFilePath);</span>
+        }
+<span class="nc" id="L184">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

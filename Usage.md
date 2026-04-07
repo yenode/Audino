@@ -21,12 +21,10 @@ The main window will open displaying the Audino interface.
 - View current allergies and medical conditions.
 
 #### Sample Demonstration Patients:
-The application includes 8 sample patients for demonstration:
-- **Mridankan Mandal** (Born: May 14, 1998) - Has seasonal allergies and mild asthma, allergic to Latex and Ibuprofen.
-- **Aditya Pachauri** (Born: August 23, 1995) - Manages hypertension and hyperlipidemia, no known drug allergies.
-- **Sayan Samajpati** (Born: December 7, 1997) - Type 1 Diabetes and thyroid disorder, allergic to Sulfa and Shellfish.
-- **Sanskriti Wakale** (Born: March 19, 1999) - Iron deficiency anemia and PCOS, allergic to Penicillin and Peanuts.
-- Plus 4 additional sample patients (John Smith, Jane Doe, Robert Johnson, Emily Williams).
+The application includes baseline patients for demonstration:
+- **Mridankan Mandal** (Born: April 12, 1998) - Mild asthma and pollen allergy profile.
+- **Ravi Kumar** (Born: September 21, 1985) - Hypertension and chronic kidney disease profile with penicillin allergy.
+- **Neha Patel** (Born: February 3, 1991) - General profile for non-alert and mixed-prescription scenarios.
 
 #### Adding a New Patient:
 - Click the "Add Patient" button.
@@ -158,13 +156,13 @@ The system automatically performs three types of checks:
 - Review console output for error messages.
 
 #### Data Not Loading:
-- Ensure JSON files exist in `src/main/resources/data/`.
-- Validate JSON file syntax.
-- Check file permissions.
+- Ensure the configured SQLite directory is writable.
+- Verify `sqlite.database.path` in `application.properties`.
+- Check filesystem permissions for the database file path.
 
 #### Interaction Checks Not Working:
-- Verify `interaction-rules.json` is populated.
-- Check medication IDs match between files.
+- Verify interaction rules exist in the `interaction_rules` table.
+- Check medication identifiers and patient allergy/condition values.
 - Review console for service errors.
 
 ## Getting Help:

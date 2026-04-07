@@ -49,10 +49,7 @@ public class ConfigurationManager {
     }
 
     private void setDefaultProperties() {
-        applicationProperties.setProperty("data.medications.file", "/data/medications.json");
-        applicationProperties.setProperty("data.interactions.file", "/data/interaction-rules.json");
-        applicationProperties.setProperty("mongodb.uri", "mongodb://localhost:27017");
-        applicationProperties.setProperty("mongodb.database", "audino");
+        applicationProperties.setProperty("sqlite.database.path", "data/audino.db");
     }
 
     private void initializeObjectMapper() {
@@ -65,20 +62,12 @@ public class ConfigurationManager {
         return applicationProperties.getProperty(key, defaultValue);
     }
     
-    public String getPatientsDataFile() {
-        return getProperty("data.patients.file", "/data/patients.json");
-    }
-    
-    public String getMedicationsDataFile() {
-        return getProperty("data.medications.file", "/data/medications.json");
-    }
-
-    public String getInteractionRulesDataFile() {
-        return getProperty("data.interactions.file", "/data/interaction-rules.json");
-    }
-    
-    public String getPrescriptionsDataFile() {
-        return getProperty("data.prescriptions.file", "/data/prescriptions.json");
+    public String getSqliteDatabasePath() {
+        String override = System.getProperty("audino.sqlite.path");
+        if (override != null && !override.trim().isEmpty()) {
+            return override.trim();
+        }
+        return getProperty("sqlite.database.path", "data/audino.db");
     }
 
     public ObjectMapper getObjectMapper() {
