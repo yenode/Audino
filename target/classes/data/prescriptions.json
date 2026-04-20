@@ -599,23 +599,29 @@
       "strength" : "100mg"
     },
     "valid" : false
+  }, {
+    "medicationId" : "MED-009",
+    "dosage" : "1",
+    "frequency" : "Once daily",
+    "duration" : "9 days",
+    "specialInstructions" : "",
+    "prescribedBy" : "Dr. User",
+    "medication" : {
+      "medicationType" : "TABLET",
+      "displayName" : "Microzide",
+      "medicationId" : "MED-009",
+      "genericName" : "Hydrochlorothiazide",
+      "brandName" : "Microzide",
+      "activeIngredients" : [ "Hydrochlorothiazide" ],
+      "interactionIdentifiers" : [ "DIURETIC_THIAZIDE" ],
+      "medicationType" : "TABLET",
+      "strength" : "25mg"
+    },
+    "valid" : true
   } ],
   "createdAt" : null,
   "prescribedBy" : null,
   "status" : "APPROVED",
-  "alerts" : [ {
-    "alertId" : null,
-    "alertLevel" : "INFO",
-    "alertType" : "DRUG_ALLERGY",
-    "title" : "Penicillin Allergy - Alternative Antibiotic Used",
-    "message" : "Patient has documented Penicillin allergy. Doxycycline prescribed as safe alternative for acne treatment.",
-    "recommendation" : "Avoid all Penicillin and Cephalosporin antibiotics. Monitor for photosensitivity with Doxycycline - use sunscreen.",
-    "involvedMedications" : "Doxycycline",
-    "patientFactor" : "Penicillin",
-    "createdAt" : null,
-    "acknowledged" : false,
-    "formattedMessage" : "Alert Type: Drug-Allergy Interaction\nLevel: Information\n\nDetails:\nPatient has documented Penicillin allergy. Doxycycline prescribed as safe alternative for acne treatment.\n\nRecommendation:\nAvoid all Penicillin and Cephalosporin antibiotics. Monitor for photosensitivity with Doxycycline - use sunscreen.",
-    "cssClass" : "alert-info"
-  } ],
+  "alerts" : [ ],
   "empty" : false
 } ]
