@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Prescription.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Audino: Intelligent Prescription Manager</a> &gt; <a href="index.source.html" class="el_package">com.audino.model</a> &gt; <span class="el_source">Prescription.java</span></div><h1>Prescription.java</h1><pre class="source lang-java linenums">package com.audino.model;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
+import java.util.stream.Collectors;
+
+public class Prescription {
+
+    private String prescriptionId;
+    private String patientId;
+    private List&lt;PrescribedDrug&gt; prescribedDrugs;
+    private LocalDateTime createdAt;
+    private String prescribedBy;
+    private PrescriptionStatus status;
+    private List&lt;InteractionAlert&gt; alerts;
+
+<span class="fc" id="L20">    public Prescription() {</span>
+<span class="fc" id="L21">        this.prescribedDrugs = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L22">        this.alerts = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L23">    }</span>
+
+<span class="fc" id="L25">    public Prescription(Patient patient, String prescribedBy) {</span>
+<span class="fc" id="L26">        this.prescriptionId = &quot;RX-&quot; + UUID.randomUUID().toString().substring(0, 8).toUpperCase();</span>
+<span class="fc" id="L27">        this.patientId = patient.getPatientId();</span>
+<span class="fc" id="L28">        this.prescribedBy = prescribedBy;</span>
+<span class="fc" id="L29">        this.prescribedDrugs = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L30">        this.createdAt = LocalDateTime.now();</span>
+<span class="fc" id="L31">        this.status = PrescriptionStatus.DRAFT;</span>
+<span class="fc" id="L32">        this.alerts = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L33">    }</span>
+
+    public void addPrescribedDrug(PrescribedDrug drug) {
+<span class="pc bpc" id="L36" title="1 of 4 branches missed.">        if (drug != null &amp;&amp; drug.isValid()) {</span>
+<span class="fc" id="L37">            this.prescribedDrugs.add(drug);</span>
+        }
+<span class="fc" id="L39">    }</span>
+
+    public void removePrescribedDrug(PrescribedDrug drug) {
+<span class="nc" id="L42">        this.prescribedDrugs.remove(drug);</span>
+<span class="nc" id="L43">    }</span>
+    
+    public boolean isEmpty() {
+<span class="nc" id="L46">        return prescribedDrugs.isEmpty();</span>
+    }
+    
+<span class="nc" id="L49">    public String getPrescriptionId() { return prescriptionId; }</span>
+<span class="fc" id="L50">    public void setPrescriptionId(String prescriptionId) { this.prescriptionId = prescriptionId; }</span>
+<span class="nc" id="L51">    public String getPatientId() { return patientId; }</span>
+<span class="fc" id="L52">    public void setPatientId(String patientId) { this.patientId = patientId; }</span>
+<span class="fc" id="L53">    public List&lt;PrescribedDrug&gt; getPrescribedDrugs() { return new ArrayList&lt;&gt;(prescribedDrugs); }</span>
+<span class="fc" id="L54">    public void setPrescribedDrugs(List&lt;PrescribedDrug&gt; prescribedDrugs) { this.prescribedDrugs = prescribedDrugs; }</span>
+<span class="nc" id="L55">    public LocalDateTime getCreatedAt() { return createdAt; }</span>
+<span class="fc" id="L56">    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }</span>
+<span class="nc" id="L57">    public String getPrescribedBy() { return prescribedBy; }</span>
+<span class="fc" id="L58">    public void setPrescribedBy(String prescribedBy) { this.prescribedBy = prescribedBy; }</span>
+<span class="nc" id="L59">    public PrescriptionStatus getStatus() { return status; }</span>
+<span class="fc" id="L60">    public void setStatus(PrescriptionStatus status) { this.status = status; }</span>
+<span class="nc" id="L61">    public List&lt;InteractionAlert&gt; getAlerts() { return new ArrayList&lt;&gt;(alerts); }</span>
+<span class="fc" id="L62">    public void setAlerts(List&lt;InteractionAlert&gt; alerts) { this.alerts = new ArrayList&lt;&gt;(alerts); }</span>
+    
+    @Override
+    public boolean equals(Object o) {
+<span class="nc bnc" id="L66" title="All 2 branches missed.">        if (this == o) return true;</span>
+<span class="nc bnc" id="L67" title="All 4 branches missed.">        if (o == null || getClass() != o.getClass()) return false;</span>
+<span class="nc" id="L68">        Prescription that = (Prescription) o;</span>
+<span class="nc" id="L69">        return Objects.equals(prescriptionId, that.prescriptionId);</span>
+    }
+
+    @Override
+    public int hashCode() {
+<span class="nc" id="L74">        return Objects.hash(prescriptionId);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

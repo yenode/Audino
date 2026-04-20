@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AllergyCheckStrategy.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Audino: Intelligent Prescription Manager</a> &gt; <a href="index.source.html" class="el_package">com.audino.service</a> &gt; <span class="el_source">AllergyCheckStrategy.java</span></div><h1>AllergyCheckStrategy.java</h1><pre class="source lang-java linenums">package com.audino.service;
+
+import com.audino.model.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+<span class="fc" id="L9">public class AllergyCheckStrategy implements InteractionCheckStrategy {</span>
+
+    @Override
+    public String getStrategyName() {
+<span class="nc" id="L13">        return &quot;Drug-Allergy Interaction Check&quot;;</span>
+    }
+
+    @Override
+    @SuppressWarnings(&quot;unchecked&quot;)
+    public List&lt;InteractionAlert&gt; check(Patient patient, Prescription prescription, Map&lt;String, Object&gt; rules, List&lt;Medication&gt; allMedications) {
+<span class="fc" id="L19">        List&lt;InteractionAlert&gt; alerts = new ArrayList&lt;&gt;();</span>
+<span class="pc bpc" id="L20" title="2 of 6 branches missed.">        if (patient == null || patient.getAllergies().isEmpty() || rules == null) {</span>
+<span class="fc" id="L21">            return alerts;</span>
+        }
+
+<span class="fc" id="L24">        Map&lt;String, Object&gt; allergyRules = (Map&lt;String, Object&gt;) rules.get(&quot;drugAllergyInteractions&quot;);</span>
+<span class="pc bpc" id="L25" title="1 of 2 branches missed.">        if (allergyRules == null) return alerts;</span>
+
+<span class="fc" id="L27">        List&lt;Medication&gt; prescribedMedications = prescription.getPrescribedDrugs().stream()</span>
+<span class="fc" id="L28">            .map(drug -&gt; allMedications.stream()</span>
+<span class="fc" id="L29">                .filter(m -&gt; m.getMedicationId().equals(drug.getMedicationId()))</span>
+<span class="fc" id="L30">                .findFirst().orElse(null))</span>
+<span class="pc bpc" id="L31" title="1 of 2 branches missed.">            .filter(m -&gt; m != null)</span>
+<span class="fc" id="L32">            .collect(Collectors.toList());</span>
+
+<span class="fc bfc" id="L34" title="All 2 branches covered.">        for (Medication med : prescribedMedications) {</span>
+<span class="fc" id="L35">            List&lt;String&gt; medIdentifiers = med.getInteractionIdentifiers().stream()</span>
+<span class="fc" id="L36">                                             .map(String::toLowerCase)</span>
+<span class="fc" id="L37">                                             .collect(Collectors.toList());</span>
+                                             
+<span class="fc bfc" id="L39" title="All 2 branches covered.">            for (String allergy : patient.getAllergies()) {</span>
+<span class="fc" id="L40">                String allergyLower = allergy.toLowerCase();</span>
+
+<span class="fc" id="L42">                allergyRules.forEach((key, ruleObj) -&gt; {</span>
+<span class="fc" id="L43">                    Map&lt;String, Object&gt; rule = (Map&lt;String, Object&gt;) ruleObj;</span>
+<span class="fc" id="L44">                    List&lt;String&gt; keywords = (List&lt;String&gt;) rule.get(&quot;allergyKeywords&quot;);</span>
+<span class="fc" id="L45">                    List&lt;String&gt; medicationClasses = (List&lt;String&gt;) rule.get(&quot;medicationClasses&quot;);</span>
+
+                    // Check if patient allergy matches the rule's allergy keywords
+<span class="pc bpc" id="L48" title="1 of 4 branches missed.">                    if (keywords != null &amp;&amp; keywords.stream().anyMatch(keyword -&gt; allergyLower.contains(keyword.toLowerCase()))) {</span>
+                        // Check if prescribed medication's class matches the rule's medication classes
+<span class="pc bpc" id="L50" title="1 of 4 branches missed.">                        if (medicationClasses != null &amp;&amp; medIdentifiers.stream().anyMatch(medId -&gt; medicationClasses.contains(medId.toUpperCase()))) {</span>
+<span class="fc" id="L51">                            alerts.add(createAlert(patient, med, allergy, rule));</span>
+                        }
+                    }
+<span class="fc" id="L54">                });</span>
+<span class="fc" id="L55">            }</span>
+<span class="fc" id="L56">        }</span>
+<span class="fc" id="L57">        return alerts;</span>
+    }
+
+    private InteractionAlert createAlert(Patient p, Medication m, String allergy, Map&lt;String, Object&gt; rule) {
+<span class="fc" id="L61">        String message = String.format(</span>
+            &quot;Patient has a known allergy to '%s'. The prescribed medication, %s, is in a class of drugs related to this allergy.&quot;,
+<span class="fc" id="L63">            allergy, m.getDisplayName()</span>
+        );
+<span class="fc" id="L65">        return new InteractionAlert(</span>
+            AlertLevel.CRITICAL,
+            AlertType.DRUG_ALLERGY,
+            &quot;Potential Allergic Reaction&quot;,
+            message,
+<span class="fc" id="L70">            (String) rule.get(&quot;recommendation&quot;),</span>
+<span class="fc" id="L71">            m.getDisplayName(),</span>
+            allergy
+        );
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>
