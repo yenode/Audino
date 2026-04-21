@@ -22,8 +22,8 @@ $projectRoot = $PSScriptRoot
 Push-Location $projectRoot
 
 try {
-    if (-not (Test-Path "pom.xml")) {
-        Write-Host "Error: pom.xml not found. Please run setup.ps1 first." -ForegroundColor Red
+    if (-not (Test-Path "target")) {
+        Write-Host "Error: target folder not found. Please build or restore the packaged artifacts first." -ForegroundColor Red
         exit 1
     }
 

@@ -102,33 +102,23 @@ The setup script will:
 - Download all required dependencies.
 - Compile the project.
 - Run initial tests.
-- Initialize data files.
+- Prepare SQLite storage directories.
 
 ### Step 3: Configure Application:
-
-#### Data Files Setup:
-
-The following JSON files need to be properly configured in `src/main/resources/data/`:
-
-1. **medications.json**:
-   - Contains medication database.
-   - Include drug name, active ingredients, and form type.
-
-2. **interaction-rules.json**:
-   - Defines interaction checking rules.
-   - Specifies drug combinations to flag.
-
-3. **patients.json**:
-   - Sample patient data for testing.
-   - Can be customized for demonstration purposes.
 
 #### Configuration File:
 
 Application settings can be customized through `ConfigurationManager` class:
-- Database connection settings (if applicable).
+- SQLite database path settings.
 - UI theme preferences.
 - Logging levels.
 - Alert sensitivity thresholds.
+
+The SQLite path can be configured in `application.properties` using:
+
+```properties
+sqlite.database.path=data/audino.db
+```
 
 ## Building the Application:
 
@@ -210,30 +200,23 @@ Once successfully launched, you will see the main application window:
 
 ### Initial Data Setup:
 
-The application uses JSON files for data persistence. The system comes pre-configured with demonstration data:
+The application uses SQLite as the runtime database. The system seeds a baseline dataset directly through `DataService` on first run when tables are empty:
 
-1. Navigate to `src/main/resources/data/`.
-2. Review and customize JSON templates.
-3. Ensure proper JSON syntax.
-4. Restart application to load new data.
+1. Configure the SQLite path in `application.properties` if needed.
+2. Start the application to initialize schema and baseline records.
+3. Add or update records through the application UI.
+
+Detailed schema and integration information is available in `DataBase.md`.
 
 ### Pre-Loaded Demonstration Data:
 
 The application includes ready-to-use sample data:
 
 #### Medications Database:
-- **150 Medications** including:
-  - Common medications: Lisinopril, Warfarin, Ibuprofen.
-  - Generic medications covering various drug classes.
-  - Multiple medication types: Tablets, Liquids, Injections.
+- **4 baseline medications** including Amoxicillin, Ibuprofen, Warfarin, and Lisinopril.
 
 #### Patient Records:
-- **8 Sample Patients** with realistic medical profiles:
-  - **Mridankan Mandal**: Seasonal allergies, mild asthma.
-  - **Aditya Pachauri**: Hypertension, hyperlipidemia.
-  - **Sayan Samajpati**: Type 1 Diabetes, thyroid disorder.
-  - **Sanskriti Wakale**: Iron deficiency anemia, PCOS.
-  - Plus 4 additional patients with diverse medical histories.
+- **3 baseline patients** with realistic medical profiles to exercise allergy and condition checks.
 
 #### Interaction Rules:
 - Pre-configured drug interaction database.
@@ -242,32 +225,7 @@ The application includes ready-to-use sample data:
 
 ### Adding Custom Data:
 
-Follow the JSON format in existing files to add your own:
-
-#### Custom Medication Example:
-```json
-{
-  "medicationType": "TABLET",
-  "medicationId": "MED-151",
-  "genericName": "Your Medication",
-  "brandName": "Brand Name",
-  "strength": "100mg",
-  "activeIngredients": ["Active Ingredient"],
-  "interactionIdentifiers": ["DRUG_CLASS"]
-}
-```
-
-#### Custom Patient Example:
-```json
-{
-  "patientId": "PAT-CUSTOM1",
-  "firstName": "First",
-  "lastName": "Last",
-  "dateOfBirth": "1990-01-01",
-  "allergies": ["Allergy1"],
-  "chronicConditions": ["Condition1"]
-}
-```
+Use the application UI to add or edit patients, prescriptions, and medication entries. Data is persisted directly to SQLite.
 
 ## Configuration Options:
 

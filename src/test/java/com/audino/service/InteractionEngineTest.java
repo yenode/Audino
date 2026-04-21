@@ -5,6 +5,8 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import static org.junit.jupiter.api.Assertions.*;
@@ -18,9 +20,17 @@ public class InteractionEngineTest {
     private static Medication nsaidMed;
     private static Medication warfarinMed;
     private static List<Medication> allMedications;
+    private static Path sqlitePath;
 
     @BeforeAll
     static void setUp() {
+        try {
+            sqlitePath = Files.createTempFile("audino-interaction-test", ".db");
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to create test SQLite database", e);
+        }
+        System.setProperty("audino.sqlite.path", sqlitePath.toString());
+
         com.audino.util.ConfigurationManager.getInstance().initialize();
         engine = new InteractionEngine();
         dataService = new DataService();
@@ -30,7 +40,7 @@ public class InteractionEngineTest {
         
         // Use Kumar patient who has Penicillin allergy and chronic conditions (Hypertension, Chronic Kidney Disease)
         List<Patient> kumars = dataService.searchPatients("Kumar");
-        assertFalse(kumars.isEmpty(), "Test patient 'Kumar' not found in patients.json");
+        assertFalse(kumars.isEmpty(), "Test patient 'Kumar' not found in baseline SQLite data");
         patientWithAllergyAndCondition = kumars.get(0);
 
         penicillinMed = allMedications.stream().filter(m -> "Amoxicillin".equals(m.getGenericName())).findFirst().get();
@@ -41,6 +51,13 @@ public class InteractionEngineTest {
     @AfterAll
     static void tearDown() {
         engine.shutdown();
+        System.clearProperty("audino.sqlite.path");
+        if (sqlitePath != null) {
+            try {
+                Files.deleteIfExists(sqlitePath);
+            } catch (Exception ignored) {
+            }
+        }
     }
 
     @Test

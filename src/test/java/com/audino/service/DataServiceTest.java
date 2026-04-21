@@ -19,13 +19,32 @@ import static org.junit.jupiter.api.Assertions.*;
 public class DataServiceTest {
 
     private static DataService dataService;
+    private static Path sqlitePath;
 
     @BeforeAll
     static void setUp() {
+        try {
+            sqlitePath = Files.createTempFile("audino-data-service-test", ".db");
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to create test SQLite database", e);
+        }
+        System.setProperty("audino.sqlite.path", sqlitePath.toString());
+
         // Initialize config manager before data service
         com.audino.util.ConfigurationManager.getInstance().initialize();
         dataService = new DataService();
         dataService.loadAllData();
+    }
+
+    @AfterAll
+    static void tearDown() {
+        System.clearProperty("audino.sqlite.path");
+        if (sqlitePath != null) {
+            try {
+                Files.deleteIfExists(sqlitePath);
+            } catch (Exception ignored) {
+            }
+        }
     }
 
     @Test
