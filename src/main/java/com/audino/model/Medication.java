@@ -25,6 +25,9 @@ public abstract class Medication {
     @JsonProperty("brandName")
     protected String brandName;
 
+    @JsonProperty("rxNormCode")
+    protected String rxNormCode;
+
     @JsonProperty("activeIngredients")
     protected List<String> activeIngredients;
 
@@ -62,6 +65,8 @@ public abstract class Medication {
     public void setGenericName(String genericName) { this.genericName = genericName; }
     public String getBrandName() { return brandName; }
     public void setBrandName(String brandName) { this.brandName = brandName; }
+    public String getRxNormCode() { return rxNormCode; }
+    public void setRxNormCode(String rxNormCode) { this.rxNormCode = rxNormCode; }
     public List<String> getActiveIngredients() { return new ArrayList<>(activeIngredients); }
     public void setActiveIngredients(List<String> ingredients) { this.activeIngredients = new ArrayList<>(ingredients); }
     public List<String> getInteractionIdentifiers() { return new ArrayList<>(interactionIdentifiers); }

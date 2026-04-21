@@ -1,137 +1,16 @@
-# Audino Healthcare System - Activity Diagram
+# Audino Activity Diagram
 
-## Activity Diagram: Add Medication Use Case
+## Purpose
+This diagram models the full activity path for initialization, patient selection, medication add workflow, parallel interaction checking, persistence branching, and shutdown.
 
-```
-                    ┌─────────────────────┐
-                    │       START         │
-                    └──────────┬──────────┘
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │  Select Patient     │
-                    │  from List          │
-                    └──────────┬──────────┘
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │ Load Patient Data   │
-                    │ & Existing          │
-                    │ Prescription        │
-                    └──────────┬──────────┘
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │ Check if Current    │
-           ┌────────┤ Prescription Exists?├────────┐
-           │        └─────────────────────┘        │
-           │ NO                                    │ YES
-           ▼                                       ▼
-┌─────────────────────┐              ┌─────────────────────┐
-│ Create New          │              │ Load Existing       │
-│ Prescription        │              │ Prescription        │
-│ (DRAFT Status)      │              │ Data               │
-└──────────┬──────────┘              └──────────┬──────────┘
-           │                                    │
-           └─────────────────┬──────────────────┘
-                             │
-                             ▼
-                    ┌─────────────────────┐
-                    │ Search & Select     │
-                    │ Medication from     │
-                    │ ComboBox           │
-                    └──────────┬──────────┘
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │ Enter Dosage,       │
-                    │ Frequency &         │
-                    │ Duration            │
-                    └──────────┬──────────┘
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │ Validate Input      │
-           ┌────────┤ Data               ├────────┐
-           │        └─────────────────────┘        │
-           │ Invalid                              │ Valid
-           ▼                                       ▼
-┌─────────────────────┐              ┌─────────────────────┐
-│ Show Warning        │              │ Add Medication to   │
-│ Alert with          │              │ Prescription        │
-│ Error Message       │              │ (In Memory)         │
-└──────────┬──────────┘              └──────────┬──────────┘
-           │                                    │
-           └─────────────────┬──────────────────┘
-                             │
-                             ▼
-                    ┌─────────────────────┐
-                    │ Update Prescription │
-                    │ Table View          │
-                    └──────────┬──────────┘
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │ Run Interaction     │
-                    │ Engine Check        │
-                    │ (Async)             │
-                    └──────────┬──────────┘
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │ Display Interaction │
-                    │ Alerts & Summary    │
-                    └──────────┬──────────┘
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │ Set Status to       │
-                    │ DRAFT (Unsaved)     │
-                    └──────────┬──────────┘
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │ Enable Save Button  │
-                    │ & Show Status       │
-                    └──────────┬──────────┘
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │ User Clicks         │
-           ┌────────┤ Save Button?        ├────────┐
-           │        └─────────────────────┘        │
-           │ NO                                    │ YES
-           ▼                                       ▼
-┌─────────────────────┐              ┌─────────────────────┐
-│ Medication Added    │              │ Save Prescription   │
-│ to Prescription     │              │ to JSON Database    │
-│ (Memory Only)       │              └──────────┬──────────┘
-└─────────────────────┘                         │
-                                                 ▼
-                                      ┌─────────────────────┐
-                                      │ Set Status to       │
-                                      │ APPROVED            │
-                                      └──────────┬──────────┘
-                                                 │
-                                                 ▼
-                                      ┌─────────────────────┐
-                                      │ Show Success        │
-                                      │ Message             │
-                                      └──────────┬──────────┘
-                                                 │
-                                                 ▼
-                                      ┌─────────────────────┐
-                                      │       END           │
-                                      └─────────────────────┘
-```
+## PlantUML Source
+The PlantUML source is now maintained in:
 
-## Decision Points:
-- **Patient Selection**: Must select patient before adding medications
-- **Prescription Existence**: System checks for existing prescription or creates new one
-- **Input Validation**: Dosage format must match medication type
-- **Save Decision**: User controls when to persist data to database
+- `documentation/ACTIVITY_DIAGRAM.puml`
 
-## Parallel Processes:
-- **Interaction Checking**: Runs asynchronously in background
-- **UI Updates**: Real-time updates of prescription table and alerts
-- **Search Filtering**: Live medication search as user types
+## Behavioral Notes
+1. Data load now explicitly includes runtime branch logic (`useExternalDataFallback`) for SQLite vs JSON sources.
+2. Prescription creation follows the real get-or-create behavior in `handleAddMedication()`.
+3. Dosage validation is represented as subtype-specific (`Medication.isValidDosage(...)`).
+4. Interaction strategies execute in parallel and merge back into a sorted alert list.
+5. Save path reflects `APPROVED` transition and full-table SQLite rewrite transaction.

@@ -4,6 +4,7 @@
     "medicationId": "MED-001",
     "genericName": "Lisinopril",
     "brandName": "Zestril",
+    "rxNormCode": "29046",
     "strength": "10mg",
     "activeIngredients": [
       "Lisinopril"
@@ -257,6 +258,7 @@
     "medicationId": "MED-020",
     "genericName": "Acetaminophen",
     "brandName": "Tylenol",
+    "rxNormCode": "161",
     "strength": "500mg",
     "activeIngredients": [
       "Acetaminophen"
@@ -284,6 +286,7 @@
     "medicationId": "MED-022",
     "genericName": "Ibuprofen",
     "brandName": "Advil",
+    "rxNormCode": "5640",
     "strength": "200mg",
     "activeIngredients": [
       "Ibuprofen"

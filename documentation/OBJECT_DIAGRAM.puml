@@ -1,0 +1,100 @@
+@startuml
+title Audino Runtime Object Snapshot (Patient Selection + Draft Save Path)
+
+skinparam shadowing false
+skinparam object {
+  BackgroundColor #FFFFFF
+  BorderColor #2B2D42
+}
+
+object "controller:MainController" as controller {
+  selectedPatient = patient1
+  currentPrescription = rx1
+  dataLoadedSuccessfully = true
+}
+
+object "dataService:DataService" as dataService {
+  useExternalDataFallback = true
+  sqliteDbFile = .../data/audino.db
+  patients.size = 1+
+  prescriptions.size = 1+
+}
+
+object "engine:InteractionEngine" as engine {
+  strategies = [allergy, drugDrug, condition]
+}
+
+object "search:MedicationSearchEngine" as search {
+  medications indexed = true
+}
+
+object "patient1:Patient" as patient1 {
+  patientId = PAT-41AF29D2
+  firstName = Ananya
+  lastName = Sharma
+  allergies = [penicillin]
+  chronicConditions = [asthma]
+}
+
+object "rx1:Prescription" as rx1 {
+  prescriptionId = RX-8A7F10BC
+  patientId = PAT-41AF29D2
+  status = DRAFT
+  prescribedBy = Dr. User
+}
+
+object "drug1:PrescribedDrug" as drug1 {
+  medicationId = MED-778
+  dosage = 500
+  frequency = thrice daily
+  duration = 7 days
+}
+
+object "drug2:PrescribedDrug" as drug2 {
+  medicationId = MED-118
+  dosage = 2 puffs
+  frequency = as needed
+  duration = 14 days
+}
+
+object "med1:TabletMedication" as med1 {
+  medicationId = MED-778
+  genericName = Amoxicillin
+  brandName = Amoxil
+  medicationType = TABLET
+  interactionIdentifiers = [PENICILLIN]
+}
+
+object "med2:LiquidMedication" as med2 {
+  medicationId = MED-118
+  genericName = Salbutamol
+  brandName = Ventolin
+  medicationType = LIQUID
+  interactionIdentifiers = [BETA_AGONIST]
+}
+
+object "alert1:InteractionAlert" as alert1 {
+  alertLevel = CRITICAL
+  alertType = DRUG_ALLERGY
+  acknowledged = false
+}
+
+database "sqlite:audino.db" as sqlite
+
+controller -- dataService
+controller -- engine
+dataService -- search
+
+controller -- patient1
+controller -- rx1
+rx1 -- drug1
+rx1 -- drug2
+drug1 -- med1
+drug2 -- med2
+rx1 -- alert1
+
+dataService ..> sqlite : load/save
+engine ..> rx1 : checkAllInteractionsAsync(...)
+engine ..> alert1 : produces
+
+@enduml

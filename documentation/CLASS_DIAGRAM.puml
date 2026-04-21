@@ -1,0 +1,214 @@
+@startuml
+title Audino Class Diagram (Implementation-Aligned)
+
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam packageStyle rectangle
+
+package "com.audino" {
+  class AudinoApplication {
+    +start(primaryStage)
+    +stop()
+    +main(args)
+  }
+}
+
+package "com.audino.controller" {
+  class MainController {
+    -dataService: DataService
+    -interactionEngine: InteractionEngine
+    -selectedPatient: Patient
+    -currentPrescription: Prescription
+    +initialize(location, resources)
+    +handlePatientSelection(patient)
+    +handleAddMedication()
+    +handleSave()
+    +handleRefresh()
+    +shutdown()
+    -checkInteractions()
+    -updateUIState()
+  }
+
+  class PatientDialogController {
+    -patient: Patient
+    +setPatient(patient)
+    +isSaved(): boolean
+    -handleSave()
+    -handleCancel()
+  }
+}
+
+package "com.audino.service" {
+  class DataService {
+    -patients: List<Patient>
+    -medications: List<Medication>
+    -prescriptions: List<Prescription>
+    -interactionRules: Map<String,Object>
+    -medicationSearchEngine: MedicationSearchEngine
+    -useExternalDataFallback: boolean
+    +loadAllData()
+    +getAllPatients(): List<Patient>
+    +getAllMedications(): List<Medication>
+    +getAllPrescriptions(): List<Prescription>
+    +getInteractionRules(): Map<String,Object>
+    +searchPatients(term): List<Patient>
+    +suggestMedications(term, limit): List<Medication>
+    +autoCorrectMedicationName(term): String
+    +savePatient(patient)
+    +updatePatient(patient)
+    +deletePatient(patient)
+    +savePrescription(prescription)
+    +getActivePrescriberionForPatient(patientId): Prescription
+    +saveAllData()
+  }
+
+  class MedicationSearchEngine {
+    +suggest(rawInput, limit): List<Medication>
+    +autoCorrect(rawInput): Optional<String>
+  }
+
+  class InteractionEngine {
+    -strategies: List<InteractionCheckStrategy>
+    +checkAllInteractionsAsync(patient, prescription, rules, meds): CompletableFuture<List<InteractionAlert>>
+    +getCriticalAlertCount(alerts): long
+    +getWarningAlertCount(alerts): long
+    +getInfoAlertCount(alerts): long
+    +shutdown()
+  }
+
+  interface InteractionCheckStrategy {
+    +check(patient, prescription, rules, allMedications): List<InteractionAlert>
+    +getStrategyName(): String
+  }
+
+  class AllergyCheckStrategy
+  class DrugDrugCheckStrategy
+  class ConditionCheckStrategy
+}
+
+package "com.audino.model" {
+  class Patient {
+    -patientId: String
+    -firstName: String
+    -lastName: String
+    -dateOfBirth: LocalDate
+    -gender: String
+    -contactNumber: String
+    -allergies: List<String>
+    -chronicConditions: List<String>
+    +getFullName(): String
+    +getAge(): int
+  }
+
+  abstract class Medication {
+    #medicationId: String
+    #genericName: String
+    #brandName: String
+    #rxNormCode: String
+    #activeIngredients: List<String>
+    #interactionIdentifiers: List<String>
+    #medicationType: MedicationType
+    +getDisplayName(): String
+    +getDosageInstructions(dosage, frequency, duration): String
+    +isValidDosage(dosage): boolean
+  }
+
+  class TabletMedication {
+    -strength: String
+  }
+  class LiquidMedication {
+    -concentration: String
+  }
+  class InjectionMedication {
+    -concentration: String
+    -route: String
+  }
+
+  class Prescription {
+    -prescriptionId: String
+    -patientId: String
+    -prescribedDrugs: List<PrescribedDrug>
+    -createdAt: LocalDateTime
+    -prescribedBy: String
+    -status: PrescriptionStatus
+    -alerts: List<InteractionAlert>
+    +addPrescribedDrug(drug)
+    +removePrescribedDrug(drug)
+    +isEmpty(): boolean
+  }
+
+  class PrescribedDrug {
+    -medicationId: String
+    -dosage: String
+    -frequency: String
+    -duration: String
+    -specialInstructions: String
+    -prescribedBy: String
+    -medication: Medication
+    +isValid(): boolean
+  }
+
+  class InteractionAlert {
+    -alertId: String
+    -alertLevel: AlertLevel
+    -alertType: AlertType
+    -title: String
+    -message: String
+    -recommendation: String
+    -involvedMedications: String
+    -patientFactor: String
+    -acknowledged: boolean
+    +acknowledge()
+    +getFormattedMessage(): String
+    +getCssClass(): String
+  }
+
+  enum AlertLevel
+  enum AlertType
+  enum MedicationType
+  enum PrescriptionStatus
+}
+
+package "com.audino.util" {
+  class ConfigurationManager {
+    -instance: ConfigurationManager
+    +getInstance(): ConfigurationManager
+    +initialize()
+    +getPatientsDataFile(): String
+    +getMedicationsDataFile(): String
+    +getInteractionRulesDataFile(): String
+    +getPrescriptionsDataFile(): String
+    +getObjectMapper(): ObjectMapper
+  }
+}
+
+AudinoApplication --> ConfigurationManager
+AudinoApplication --> MainController
+MainController --> DataService
+MainController --> InteractionEngine
+MainController --> PatientDialogController
+DataService --> ConfigurationManager
+DataService --> MedicationSearchEngine
+DataService --> Patient
+DataService --> Medication
+DataService --> Prescription
+
+InteractionEngine --> InteractionCheckStrategy
+AllergyCheckStrategy ..|> InteractionCheckStrategy
+DrugDrugCheckStrategy ..|> InteractionCheckStrategy
+ConditionCheckStrategy ..|> InteractionCheckStrategy
+
+Medication <|-- TabletMedication
+Medication <|-- LiquidMedication
+Medication <|-- InjectionMedication
+
+Prescription "1" o-- "0..*" PrescribedDrug
+Prescription "1" o-- "0..*" InteractionAlert
+PrescribedDrug "*" --> "1" Medication
+
+InteractionAlert --> AlertLevel
+InteractionAlert --> AlertType
+Medication --> MedicationType
+Prescription --> PrescriptionStatus
+
+@enduml

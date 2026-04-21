@@ -1,0 +1,127 @@
+@startuml
+title Audino — Clinical Decision Support Architecture
+
+skinparam componentStyle rectangle
+skinparam shadowing false
+skinparam defaultTextAlignment center
+skinparam packageStyle rectangle
+skinparam linetype ortho
+skinparam ArrowColor #555555
+skinparam ArrowFontSize 11
+skinparam NoteBorderColor #AAAAAA
+skinparam NoteBackgroundColor #FFFDE7
+skinparam NoteFontSize 11
+
+skinparam package {
+  BorderColor #888888
+  FontStyle bold
+  FontSize 13
+}
+
+skinparam component {
+  BackgroundColor #FFFFFF
+  BorderColor #888888
+}
+
+actor "Clinician" as clinician #E8EAF6
+
+package "Presentation Layer" #EDE7F6 {
+  [MainWindow.fxml]        as fxml       #D1C4E9
+  [MainController]         as controller #D1C4E9
+  [JavaFX Observable Models] as fxmodels #D1C4E9
+}
+
+package "Application Service Layer" #E3F2FD {
+  [DataService]            as dataservice        #BBDEFB
+  [InteractionEngine]      as interactionengine  #BBDEFB
+  [MedicationSearchEngine] as medsearch          #BBDEFB
+}
+
+package "Interaction Strategy Layer" #E8F5E9 {
+  interface "<<interface>>\nInteractionCheckStrategy" as strategy #C8E6C9
+  [AllergyCheckStrategy]   as allergy   #C8E6C9
+  [DrugDrugCheckStrategy]  as ddrug     #C8E6C9
+  [ConditionCheckStrategy] as condition #C8E6C9
+}
+
+' ── Domain Model ─────────────────────────────────────────────
+package "Domain Model Layer" #FFF8E1 {
+  [Patient]          as patient      #FFE082
+  [Prescription]     as prescription #FFE082
+  [PrescribedDrug]   as pdrug        #FFE082
+  [Medication]       as medication   #FFE082
+  [InteractionAlert] as ialert       #FFE082
+}
+
+package "Search Intelligence" #FBE9E7 {
+  [Aho-Corasick Token Matcher]              as aho #FFCCBC
+  [NLP Similarity Ranker\n(Levenshtein + Trigram Cosine)] as nlp #FFCCBC
+}
+
+package "Persistence Layer" #EFEBE9 {
+  [SQLite JDBC Driver] as jdbc #D7CCC8
+
+  database "audino.db" as db #BCAAA4
+
+  package "Tables" #F5F5F5 {
+    [patients]          as tpatients #EEEEEE
+    [medications]       as tmeds     #EEEEEE
+    [prescriptions]     as tpres     #EEEEEE
+    [prescribed_drugs]  as tpdrug    #EEEEEE
+    [interaction_rules] as trules    #EEEEEE
+  }
+}
+
+
+clinician      --> fxml        : uses desktop UI
+fxml           --> controller  : UI events
+controller     --> fxmodels    : data binding
+
+controller     --> dataservice       : load / save
+controller     --> interactionengine : check interactions
+controller     --> medsearch         : autocomplete / suggest
+
+dataservice    --> patient      : hydrates
+dataservice    --> prescription : hydrates
+dataservice    --> pdrug        : hydrates
+dataservice    --> medication   : hydrates
+
+interactionengine --> strategy  : delegates to
+allergy    ..|> strategy
+ddrug      ..|> strategy
+condition  ..|> strategy
+interactionengine --> ialert    : produces
+
+medsearch --> aho : candidate retrieval
+medsearch --> nlp : score ranking
+
+dataservice --> jdbc : SQL operations
+jdbc        --> db   : JDBC connection
+
+db --> tpatients
+db --> tmeds
+db --> tpres
+db --> tpdrug
+db --> trules
+
+tpatients ||--|| tpres    : patient_id
+tpres     ||--o{ tpdrug   : prescription_id
+tmeds     ||--o{ tpdrug   : medication_id
+trules    --o{  tpdrug    : matched by engine
+
+note right of dataservice
+  Schema verified on connection open.
+  All writes wrapped in transactions.
+end note
+
+note bottom of medsearch
+  Direct match attempted first.
+  Ranked suggestion fallback when needed.
+end note
+
+note right of strategy
+  Open/Closed: new check types
+  added without modifying engine.
+end note
+
+@enduml

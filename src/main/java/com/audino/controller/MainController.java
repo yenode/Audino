@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Side;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -83,6 +84,7 @@ public class MainController implements Initializable {
     private final ObservableList<Prescription> prescriptionList = FXCollections.observableArrayList();
     private final ObservableList<InteractionAlert> alertList = FXCollections.observableArrayList();
     private final ObservableList<PrescribedDrug> prescribedDrugList = FXCollections.observableArrayList();
+    private final ContextMenu medicationSuggestionMenu = new ContextMenu();
     
     private boolean dataLoadedSuccessfully = false;
 
@@ -223,7 +225,7 @@ public class MainController implements Initializable {
             @Override
             protected void updateItem(Medication med, boolean empty) {
                 super.updateItem(med, empty);
-                setText(empty ? null : med.getDisplayName() + " (" + med.getGenericName() + ")");
+                setText(empty ? null : formatMedicationLabel(med));
             }
         };
         medicationComboBox.setCellFactory(cellFactory);
@@ -234,7 +236,7 @@ public class MainController implements Initializable {
         medicationColumn.setCellValueFactory(cellData -> {
             PrescribedDrug drug = cellData.getValue();
             if (drug.getMedication() != null) {
-                return new SimpleStringProperty(drug.getMedication().getDisplayName());
+                return new SimpleStringProperty(formatMedicationLabel(drug.getMedication()));
             }
             return new SimpleStringProperty("Unknown Medication");
         });
@@ -304,8 +306,93 @@ public class MainController implements Initializable {
             (obs, oldVal, newVal) -> handlePatientSearch());
 
         medicationSearchField.textProperty().addListener(
-            (obs, oldVal, newVal) -> medicationComboBox.setItems(
-                FXCollections.observableArrayList(dataService.searchMedications(newVal))));
+            (obs, oldVal, newVal) -> handleMedicationSearchInput(newVal));
+
+        medicationSearchField.setOnAction(event -> applyMedicationAutoCorrection());
+        medicationSearchField.focusedProperty().addListener((obs, wasFocused, isFocused) -> {
+            if (!isFocused) {
+                medicationSuggestionMenu.hide();
+            }
+        });
+    }
+
+    private void handleMedicationSearchInput(String query) {
+        if (query == null || query.isBlank()) {
+            medicationComboBox.setItems(medicationList);
+            medicationSuggestionMenu.hide();
+            return;
+        }
+
+        List<Medication> suggestions = dataService.suggestMedications(query, 8);
+        medicationComboBox.setItems(FXCollections.observableArrayList(suggestions));
+        showMedicationSuggestions(query, suggestions);
+    }
+
+    private void showMedicationSuggestions(String query, List<Medication> suggestions) {
+        medicationSuggestionMenu.getItems().clear();
+
+        if (query == null || query.isBlank() || suggestions == null || suggestions.isEmpty()) {
+            medicationSuggestionMenu.hide();
+            return;
+        }
+
+        int menuLimit = Math.min(6, suggestions.size());
+        for (int i = 0; i < menuLimit; i++) {
+            Medication medication = suggestions.get(i);
+            String genericName = medication.getGenericName() == null ? "" : medication.getGenericName().trim();
+
+            MenuItem item = new MenuItem(formatMedicationLabel(medication));
+            item.setOnAction(event -> {
+                medicationSearchField.setText(genericName);
+                medicationComboBox.getSelectionModel().select(medication);
+                medicationSuggestionMenu.hide();
+            });
+            medicationSuggestionMenu.getItems().add(item);
+        }
+
+        if (!medicationSuggestionMenu.isShowing()) {
+            medicationSuggestionMenu.show(medicationSearchField, Side.BOTTOM, 0, 0);
+        }
+    }
+
+    private void applyMedicationAutoCorrection() {
+        String current = medicationSearchField.getText();
+        if (current == null || current.isBlank()) {
+            medicationSuggestionMenu.hide();
+            return;
+        }
+
+        String corrected = dataService.autoCorrectMedicationName(current);
+        if (!corrected.equalsIgnoreCase(current.trim())) {
+            medicationSearchField.setText(corrected);
+            statusLabel.setText("Auto-corrected medication to: " + corrected);
+        }
+
+        List<Medication> results = dataService.suggestMedications(medicationSearchField.getText(), 8);
+        if (!results.isEmpty()) {
+            medicationComboBox.setItems(FXCollections.observableArrayList(results));
+            medicationComboBox.getSelectionModel().select(results.get(0));
+        }
+        medicationSuggestionMenu.hide();
+    }
+
+    private String formatMedicationLabel(Medication medication) {
+        if (medication == null) {
+            return "Unknown Medication";
+        }
+
+        String generic = medication.getGenericName() == null ? "" : medication.getGenericName().trim();
+        String brand = medication.getBrandName() == null ? "" : medication.getBrandName().trim();
+        String rxNorm = medication.getRxNormCode() == null ? "" : medication.getRxNormCode().trim();
+
+        String label = generic;
+        if (!brand.isBlank() && !brand.equalsIgnoreCase(generic)) {
+            label = brand + " (" + generic + ")";
+        }
+
+        label += " [RxNorm: " + (rxNorm.isBlank() ? "N/A" : rxNorm) + "]";
+
+        return label;
     }
 
     @FXML
@@ -448,6 +535,16 @@ public class MainController implements Initializable {
 
         // Validate medication input
         Medication selectedMed = medicationComboBox.getValue();
+        if (selectedMed == null && medicationSearchField.getText() != null && !medicationSearchField.getText().isBlank()) {
+            String corrected = dataService.autoCorrectMedicationName(medicationSearchField.getText());
+            medicationSearchField.setText(corrected);
+            List<Medication> suggestions = dataService.suggestMedications(corrected, 1);
+            if (!suggestions.isEmpty()) {
+                selectedMed = suggestions.get(0);
+                medicationComboBox.getSelectionModel().select(selectedMed);
+            }
+        }
+
         String dosage = dosageField.getText().trim();
         String frequency = frequencyField.getText().trim();
         String duration = durationField.getText().trim();
@@ -632,6 +729,7 @@ public class MainController implements Initializable {
     private void clearPrescriptionForm() {
         medicationComboBox.setValue(null);
         medicationSearchField.clear();
+        medicationSuggestionMenu.hide();
         dosageField.clear();
         frequencyField.clear();
         durationField.clear();

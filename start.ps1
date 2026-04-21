@@ -1,6 +1,20 @@
 
 $ErrorActionPreference = "Stop"
 
+function Resolve-MavenCommand {
+    $mvnCommand = Get-Command mvn -ErrorAction SilentlyContinue
+    if ($mvnCommand) {
+        return $mvnCommand.Source
+    }
+
+    $fallback = "C:\ProgramData\chocolatey\lib\maven\apache-maven-3.9.11\bin\mvn.cmd"
+    if (Test-Path $fallback) {
+        return $fallback
+    }
+
+    throw "Maven executable not found. Install Maven or add it to PATH."
+}
+
 Write-Host "Starting Audino Application..." -ForegroundColor Green
 
 $projectRoot = $PSScriptRoot
@@ -13,9 +27,13 @@ try {
         exit 1
     }
 
+    $mvnCmd = Resolve-MavenCommand
+    $buildDir = Join-Path $env:LOCALAPPDATA "Temp\audino-build"
+    New-Item -ItemType Directory -Path $buildDir -Force | Out-Null
+
     Write-Host "Launching application with Maven..." -ForegroundColor Cyan
-    
-    mvn javafx:run
+
+    & $mvnCmd "-Daudino.build.directory=$buildDir" javafx:run
     
     if ($LASTEXITCODE -ne 0) {
         Write-Host "Error: Application failed to start." -ForegroundColor Red
