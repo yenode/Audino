@@ -1,74 +1,50 @@
 # Audino Database Documentation:
 
-## Overview:
-Audino uses SQLite as the runtime persistence engine.
+## Purpose:
+This document defines the relational model used by the Audino main application. The persistence layer is implemented with SQLite and JDBC. Clinical data is stored in normalized relational tables, while rule payloads and selective lists are stored as JSON text columns where a document shape is required.
 
-- The persistence layer is implemented in DataService.
-- SQLite is embedded and does not require a separate server process.
-- Baseline seed data is created directly by DataService when the database is empty.
+## RDBMS Engine Profile:
+SQLite is used as the embedded RDBMS engine. A server process is not required. ACID semantics are provided by SQLite transactions, and referential integrity is enforced with foreign key checks.
 
-## Database Architecture:
+1. Engine name is SQLite.
+2. JDBC driver is org.xerial sqlite jdbc.
+3. Runtime URL format is jdbc sqlite absolute path.
+4. Foreign key checks are enabled with PRAGMA foreign_keys = ON.
 
-### Runtime Persistence Model:
-- Patient records are stored in relational tables.
-- Medication records are stored in relational tables.
-- Prescription records and prescribed drug rows are stored in relational tables.
-- Interaction rules are stored in the database as JSON payloads.
+## Database File and Runtime Resolution:
+The main runtime file is resolved as data/audino.db in standard execution. A runtime override can be provided through system properties. Parent directory creation is performed before connection open so that first execution in a fresh path can proceed safely.
 
-### Bootstrap Data Strategy:
-- The bootstrap process runs automatically during startup.
-- Baseline records initialize medications, patients, and interaction rules.
-- After bootstrap, runtime reads and writes are fully handled by SQLite.
+1. Property audino.sqlite.path is treated as explicit database file path.
+2. Property audino.data.dir is treated as explicit root, and data/audino.db is derived from it.
+3. Internal fallback candidates are checked from working directory variants.
 
-### Data Access Layer Responsibilities:
-- Open and configure SQLite connections.
-- Enable foreign key constraints.
-- Create schema objects when they do not exist.
-- Execute transactional persistence operations.
-- Hydrate domain entities for controller and interaction services.
+## Entity Relationship Design:
+The relational model is centered on patient, prescription, and medication domains. Cardinality is intentionally constrained for safe prescription flow.
 
-## RDBMS Details:
+1. One patient is linked to one active prescription header through a unique key in prescriptions.patient_id.
+2. One prescription header is linked to many prescribed drug rows.
+3. Many prescribed drug rows are linked to one medication master row.
+4. Interaction rules are stored in a singleton row with id = 1.
 
-- Database engine: SQLite.
-- JDBC driver: org.xerial:sqlite-jdbc.
-- JDBC URL format: jdbc:sqlite:<absolute-path>.
-- Foreign key enforcement: Enabled via PRAGMA foreign_keys = ON.
+Detailed ER source is provided in documentation/ER_DIAGRAM.puml.
 
-## Database Location and Configuration:
+## Normalization and Data Shape:
+The schema is mostly in Third Normal Form for transactional entities.
 
-- Default database path: data/audino.db.
-- Property key: sqlite.database.path in application.properties.
-- Runtime override: JVM system property audino.sqlite.path.
+1. Patient identifiers are isolated in patients.
+2. Prescription headers are isolated in prescriptions.
+3. Prescription items are isolated in prescribed_drugs.
+4. Medication vocabulary is isolated in medications.
+5. Rule payloads are stored as JSON text in interaction_rules for flexible structure.
 
-### Primary Configuration Keys:
-- sqlite.database.path=data/audino.db.
+Controlled denormalization is used for JSON payload columns.
 
-### Example Configuration:
+1. allergies_json and chronic_conditions_json are used for compact patient list storage.
+2. active_ingredients_json and interaction_identifiers_json are used for medication token sets.
+3. alerts_json and rules_json are used for rule and alert payload storage.
 
-```properties
-sqlite.database.path=data/audino.db
-```
-
-### Example Test Override:
-
-```bash
-mvn "-Daudino.sqlite.path=C:/temp/audino-test.db" test
-```
-
-## Initialization and Bootstrap Flow:
-
-DataService.loadAllData executes the following sequence.
-
-1. Opens a SQLite connection and enables foreign keys.
-2. Creates tables if they do not already exist.
-3. Checks whether all core tables are empty.
-4. If empty, inserts baseline records directly through DataService.
-5. Loads runtime entities from SQLite into in-memory collections.
-
-## Schema:
-
-### Patients Table:
-
+## Full Schema Definitions:
+### patients:
 ```sql
 CREATE TABLE IF NOT EXISTS patients (
     patient_id TEXT PRIMARY KEY,
@@ -82,13 +58,13 @@ CREATE TABLE IF NOT EXISTS patients (
 );
 ```
 
-### Medications Table:
-
+### medications:
 ```sql
 CREATE TABLE IF NOT EXISTS medications (
     medication_id TEXT PRIMARY KEY,
     generic_name TEXT,
     brand_name TEXT,
+    rxnorm_code TEXT,
     medication_type TEXT,
     strength TEXT,
     concentration TEXT,
@@ -98,17 +74,7 @@ CREATE TABLE IF NOT EXISTS medications (
 );
 ```
 
-### Interaction Rules Table:
-
-```sql
-CREATE TABLE IF NOT EXISTS interaction_rules (
-    id INTEGER PRIMARY KEY CHECK (id = 1),
-    rules_json TEXT NOT NULL
-);
-```
-
-### Prescriptions Table:
-
+### prescriptions:
 ```sql
 CREATE TABLE IF NOT EXISTS prescriptions (
     prescription_id TEXT PRIMARY KEY,
@@ -121,8 +87,7 @@ CREATE TABLE IF NOT EXISTS prescriptions (
 );
 ```
 
-### Prescribed Drugs Table:
-
+### prescribed_drugs:
 ```sql
 CREATE TABLE IF NOT EXISTS prescribed_drugs (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -138,152 +103,91 @@ CREATE TABLE IF NOT EXISTS prescribed_drugs (
 );
 ```
 
-## Relational Data Model:
-
-### Core Tables:
-- patients.
-- medications.
-- prescriptions.
-- prescribed_drugs.
-- interaction_rules.
-
-### Relationship Model:
-- One-to-one patient-to-active-prescription behavior is enforced with a unique patient_id in prescriptions.
-- One-to-many relationship links prescriptions to prescribed_drugs.
-- Many-to-many medication interaction logic is represented through rule payloads and interaction identifiers.
-
-### Business Rule Enforcement:
-- Deleting a patient cascades to linked prescriptions and prescribed drugs.
-- Saving a prescription replaces conflicting patient prescription rows according to one-active-prescription policy.
-- Persistence operations are wrapped in transactions to avoid partial writes.
-
-## Application Data Flow:
-
-### Startup Sequence:
-1. MainController initializes DataService.
-2. DataService opens SQLite and ensures schema availability.
-3. DataService checks whether core tables are empty.
-4. If empty, DataService seeds baseline data directly in SQLite.
-5. DataService loads entities from SQLite into memory.
-6. MainController binds loaded entities to the JavaFX UI.
-
-### Save Sequence for Prescriptions:
-1. MainController validates form state and interaction outcomes.
-2. MainController delegates save operation to DataService.
-3. DataService opens a transaction and upserts prescription metadata.
-4. DataService rewrites child prescribed_drugs rows for consistency.
-5. DataService commits transaction and refreshes in-memory state.
-
-### Save Sequence for Patients:
-1. MainController collects patient details from dialog UI.
-2. DataService upserts patient row by patient_id.
-3. DataService commits changes and updates memory snapshot.
-
-## Data Modeling Notes:
-
-- Patients, medications, prescriptions, and prescribed_drugs are relationally modeled.
-- Interaction rules, alerts, allergies, chronic conditions, and identifier lists are stored as JSON text payloads.
-- A unique constraint on prescriptions.patient_id enforces one active prescription record per patient.
-
-## CRUD and Transaction Behavior:
-
-- Patient create and update operations use UPSERT by patient_id.
-- Patient delete cascades to prescription and prescribed drug rows through foreign keys.
-- Prescription save removes conflicting patient prescription rows, upserts the current row, and replaces child prescribed_drugs rows in a transaction.
-- saveAllData performs full replacement in a transaction for consistency.
-
-## Data Integrity and Reliability:
-
-### Current Safeguards:
-- Constructor and model-level validation guard invalid payloads.
-- Unique and foreign key constraints enforce relational consistency.
-- Transaction rollback protects against partial updates.
-- Controlled bootstrap logic prevents accidental reseeding over existing runtime data.
-
-### Recommended Enhancements:
-- Add versioned schema migration scripts for future releases.
-- Add periodic backup and restore workflows.
-- Add supplemental indexes for high-frequency query paths.
-- Add audit trails for regulatory and traceability requirements.
-
-## Performance Characteristics:
-
-### Current Behavior:
-- Reads use relational queries and targeted hydration.
-- Writes use transactional SQL operations instead of full-file rewrites.
-- Data loading is deterministic and isolated per operation.
-
-### Optimization Opportunities:
-- Add strategic caching for medication and interaction rule lookups.
-- Add query profiling and index tuning for larger clinics.
-- Add background maintenance jobs for archival scenarios.
-
-## Security Considerations:
-
-### Existing Posture:
-- Desktop-only local runtime model with no direct network exposure.
-- Local filesystem controls govern access to database files.
-- Input sanitization and typed models reduce malformed data risks.
-
-### Production-Grade Recommendations:
-- Add encryption-at-rest for sensitive patient fields.
-- Add role-based access control if multi-user mode is introduced.
-- Add secure backup retention and recovery procedures.
-
-## Testing Strategy:
-
-### Current Coverage:
-- Unit tests validate DataService CRUD behavior.
-- Integration tests validate interaction processing with persisted data.
-- Test suites use isolated temporary SQLite database paths.
-
-### Recommended Additions:
-- Add schema migration tests between released versions.
-- Add concurrency tests for simultaneous persistence requests.
-- Add large-dataset performance regression tests.
-
-## SQLite Integration in Application Layers:
-
-- ConfigurationManager resolves database path and runtime overrides.
-- DataService owns schema creation, bootstrap logic, relational reads, and writes.
-- MainController continues calling DataService methods without API disruption.
-- Interaction strategies consume in-memory entities loaded from SQLite.
-
-## Operational Commands:
-
-### Run Application:
-
-```bash
-mvn javafx:run
+### interaction_rules:
+```sql
+CREATE TABLE IF NOT EXISTS interaction_rules (
+    id INTEGER PRIMARY KEY CHECK (id = 1),
+    rules_json TEXT NOT NULL
+);
 ```
 
-### Run Tests:
+## Operational Index Plan:
+The primary keys and unique keys already create essential indexes. Additional secondary indexes can be created for larger datasets.
 
-```bash
-mvn test
+1. Index on medications.rxnorm_code can be created for RxNorm query acceleration.
+2. Index on medications.generic_name can be created for direct matching.
+3. Index on prescribed_drugs.medication_id can be created for reverse medication drill down.
+4. Index on prescriptions.created_at can be created for temporal reporting.
+
+Example optional index statements are provided below.
+
+```sql
+CREATE INDEX IF NOT EXISTS idx_medications_rxnorm_code ON medications(rxnorm_code);
+CREATE INDEX IF NOT EXISTS idx_medications_generic_name ON medications(generic_name);
+CREATE INDEX IF NOT EXISTS idx_prescribed_drugs_medication_id ON prescribed_drugs(medication_id);
+CREATE INDEX IF NOT EXISTS idx_prescriptions_created_at ON prescriptions(created_at);
 ```
 
-### Inspect Database Manually:
+## Transaction and Consistency Rules:
+Write operations are wrapped in JDBC transactions for atomic behavior. When full replacement save is requested, parent and child rows are rewritten in controlled sequence.
 
+1. prescribed_drugs is cleared first in replacement flow.
+2. prescriptions is cleared second in replacement flow.
+3. patients is cleared last in replacement pre stage.
+4. Insert batches are executed for patients, prescriptions, and prescribed_drugs.
+5. Commit is issued after all batches are successful.
+
+If a failure is raised before commit, rollback semantics are provided by transaction boundaries.
+
+## Application Layer Mapping:
+The relational schema is mapped to domain classes through DataService hydration logic.
+
+1. patients rows are mapped to Patient.
+2. medications rows are mapped to Medication subclasses by medication_type.
+3. prescriptions rows are mapped to Prescription.
+4. prescribed_drugs rows are mapped to PrescribedDrug and linked to Medication.
+5. interaction_rules row is mapped to a rules map.
+
+## Query and Search Behavior:
+Medication search is performed in two phases.
+
+1. Direct SQL loaded in memory collections are checked through substring matching for generic, brand, and RxNorm code.
+2. If direct matches are not found, MedicationSearchEngine is used for ranked suggestion generation.
+
+The ranked suggestion flow uses Aho Corasick token retrieval and NLP based similarity ranking.
+
+1. Levenshtein similarity is used for edit tolerance.
+2. Character trigram cosine similarity is used for lexical closeness.
+3. Token overlap scoring is used for final rank shaping.
+
+## Integrity Constraints:
+Relational integrity is guarded through key constraints and cascading actions.
+
+1. patients.patient_id is the primary key.
+2. prescriptions.prescription_id is the primary key.
+3. prescriptions.patient_id is unique and not null.
+4. prescribed_drugs.prescription_id references prescriptions.prescription_id with ON DELETE CASCADE.
+5. prescribed_drugs.medication_id references medications.medication_id.
+
+## Backup and Restore Guidance:
+SQLite file copy strategy can be used when the process is not writing.
+
+1. Application process should be stopped before file copy backup.
+2. data/audino.db should be copied to a secure location.
+3. Restore can be performed by placing the backup file at the runtime path.
+
+## Validation Commands:
 ```bash
 sqlite3 data/audino.db ".tables"
-sqlite3 data/audino.db "SELECT COUNT(*) FROM patients;"
+sqlite3 data/audino.db "PRAGMA foreign_keys;"
+sqlite3 data/audino.db "SELECT COUNT(*) FROM medications;"
+sqlite3 data/audino.db "SELECT medication_id, generic_name, rxnorm_code FROM medications ORDER BY medication_id LIMIT 10;"
 ```
 
-## Validation Summary:
+## Diagram References:
+### System Architecture Diagram:
+![System Architecture Diagram](visuals/SystemArchitectureDiagram.png)
 
-- SQLite integration compiles and runs in application startup path.
-- Full test suite passes in a clean execution environment.
-- Workspace-specific file lock issues can affect local Maven output directories, but do not indicate database defects.
+### Entity Relationship Diagram:
+![Entity Relationship Diagram](visuals/ERDiagram.png)
 
-## Migration Summary:
-
-### Previous State:
-- Runtime persistence relied on direct JSON CRUD operations.
-
-### Current State:
-- Runtime persistence uses SQLite relational CRUD operations.
-- Baseline records are seeded directly by DataService when required.
-
-### Result:
-The current architecture provides stronger consistency, better maintainability, and safer transaction handling for healthcare data operations.

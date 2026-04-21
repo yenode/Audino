@@ -1,117 +1,85 @@
-# Audino: CodeBase Index:
+# Audino CodeBase Index:
 
-## Project Structure:
+## Purpose:
+This index is provided as a structural map of the Audino main application. Runtime behavior, persistence behavior, interaction safety analysis, and medication retrieval intelligence are described at package and class level.
 
-### Root Files:
-- `pom.xml`: Maven project configuration and dependencies.
-- `README.md`: Project overview and quick start guide.
-- `start.ps1`: PowerShell script to run the application.
-- `setup.ps1`: PowerShell script to set up the project environment.
+## Root Artifacts:
+1. pom.xml is used for dependencies, plugins, and packaging.
+2. README.md is used for execution guidance and high level architecture.
+3. DataBase.md is used for relational schema and ER mapping.
+4. setup.ps1 and start.ps1 are used for Windows setup and launch flow.
+5. Audino.bat is used for command shell launch flow.
 
-### Source Code (`src/main/java/com/audino/`):
+## Main Source Tree:
+### Entry Layer:
+1. src/main/java/com/audino/AudinoApplication.java is used as JavaFX entry point.
 
-#### Main Application:
-- `AudinoApplication.java`: Main entry point for the JavaFX application.
+### Controller Layer:
+1. src/main/java/com/audino/controller/MainController.java is used for UI orchestration.
+2. Medication selection, patient selection, and save operations are coordinated in this layer.
 
-#### Controller Package (`controller/`):
-- `MainController.java`: Handles UI interactions and connects view with business logic.
+### Model Layer:
+1. Patient, Prescription, PrescribedDrug, and Medication are represented as core domain entities.
+2. TabletMedication, LiquidMedication, and InjectionMedication are used as medication type specializations.
+3. InteractionAlert and enum types are used for safety and workflow states.
 
-#### Model Package (`model/`):
-- `AlertLevel.java`: Enumeration for alert severity levels.
-- `AlertType.java`: Enumeration for types of drug interaction alerts.
-- `InjectionMedication.java`: Represents injectable medications.
-- `InteractionAlert.java`: Model for drug interaction warnings.
-- `LiquidMedication.java`: Represents liquid medications.
-- `Medication.java`: Base abstract class for all medications.
-- `MedicationType.java`: Enumeration for medication form types.
-- `Patient.java`: Represents patient information and medical history.
-- `PrescribedDrug.java`: Links medication to prescription with dosage details.
-- `Prescription.java`: Represents a patient's prescription with multiple drugs.
-- `PrescriptionStatus.java`: Enumeration for prescription lifecycle status.
-- `TabletMedication.java`: Represents tablet/capsule medications.
+### Service Layer:
+1. DataService is used for runtime load and persistence orchestration.
+2. InteractionEngine is used for asynchronous interaction rule evaluation.
+3. AllergyCheckStrategy, DrugDrugCheckStrategy, and ConditionCheckStrategy are used as strategy implementations.
+4. MedicationSearchEngine is used for retrieval and ranked similarity scoring.
 
-#### Service Package (`service/`):
-- `AllergyCheckStrategy.java`: Strategy for checking patient allergies against medications.
-- `ConditionCheckStrategy.java`: Strategy for checking drug-condition interactions.
-- `DataService.java`: Handles data loading and persistence operations.
-- `DrugDrugCheckStrategy.java`: Strategy for checking drug-drug interactions.
-- `InteractionCheckStrategy.java`: Interface defining interaction checking strategy.
-- `InteractionEngine.java`: Core engine orchestrating all interaction checks.
+### Utility Layer:
+1. ConfigurationManager is used for object mapper and path resolution.
 
-#### Utility Package (`util/`):
-- `ConfigurationManager.java`: Manages application configuration and settings.
+## Runtime Persistence Model:
+The main application runtime is backed by SQLite. Schema creation is ensured by DataService on connection open. Core entities are loaded into in memory structures for UI binding and interaction analysis.
 
-### Resources (`src/main/resources/`):
+1. patients, medications, prescriptions, prescribed_drugs, and interaction_rules are used as primary tables.
+2. Foreign key constraints are enforced through PRAGMA foreign_keys = ON.
+3. Transactional write flow is used for consistency during save operations.
 
-#### CSS Stylesheets (`css/`):
-- `application.css`: Application-wide styling definitions.
+## Medication Retrieval Engine:
+MedicationSearchEngine performs candidate selection and ranking.
 
-#### Data Files (`data/`):
-- `interaction-rules.json`: Database of drug interaction rules and conditions.
-- `medications.json`: Comprehensive medication database with 150 medications.
-- `patients.json`: Sample patient records (8 patients including Mridankan Mandal, Aditya Pachauri, Sayan Samajpati, and Sanskriti Wakale).
+1. Aho Corasick algorithm is used for fast multi token candidate retrieval.
+2. NLP based similarity ranking is applied with Levenshtein distance and character trigram cosine similarity.
+3. Token overlap scoring is applied for final rank ordering.
+4. Autocorrection suggestions are produced when confidence thresholds are met.
 
-#### FXML Views (`fxml/`):
-- `MainWindow.fxml`: Main application window layout definition.
+## Interaction Safety Engine:
+InteractionEngine coordinates strategy execution and aggregates alerts.
 
-### Test Code (`src/test/java/com/audino/`):
+1. Allergy strategy is used for patient allergy conflicts.
+2. Drug drug strategy is used for cross medication conflicts.
+3. Condition strategy is used for condition contraindications.
+4. Alert severity is represented by CRITICAL, WARNING, and INFO levels.
 
-#### Model Tests (`model/`):
-- `MedicationTest.java`: Unit tests for medication classes.
-- `PatientTest.java`: Unit tests for patient model.
+## Resource Tree:
+### UI Resources:
+1. src/main/resources/fxml/MainWindow.fxml is used for main scene layout.
+2. src/main/resources/css/application.css is used for desktop styling.
 
-#### Service Tests (`service/`):
-- `DataServiceTest.java`: Tests for data service operations.
-- `InteractionEngineTest.java`: Tests for interaction detection logic.
+### Seed and Rule Resources:
+1. src/main/resources/data/medications.json is used for medication seed data.
+2. src/main/resources/data/patients.json is used for patient seed data.
+3. src/main/resources/data/interaction-rules.json is used for safety rule payloads.
 
-#### Test Suite:
-- `TestSuite.java`: Aggregated test suite runner.
+## Test Tree:
+1. src/test/java/com/audino/model contains model level tests.
+2. src/test/java/com/audino/service contains service and search tests.
+3. DataServiceTest verifies load, query, and runtime SQLite path behavior.
+4. MedicationSearchEngineTest verifies ranking and autocorrection behavior.
 
-## Key Design Patterns:
+## Documentation Tree:
+1. documentation/ER_DIAGRAM.puml contains detailed ER source.
+2. documentation/ARCHITECTURE_DIAGRAM.puml contains detailed architecture source.
+3. documentation/DATABASE_INTEGRATION.md contains runtime persistence flow.
+4. documentation/CLASS_DIAGRAM.md contains class relationship narrative.
 
-### Strategy Pattern:
-- Used in interaction checking system with multiple strategies.
-- Allows flexible addition of new interaction check types.
+## Visual Architecture References:
+### System Architecture Diagram:
+![System Architecture Diagram](visuals/SystemArchitectureDiagram.png)
 
-### Factory Pattern:
-- Medication creation with type-specific subclasses.
-
-### MVC Pattern:
-- Clear separation between Model, View (FXML), and Controller.
-
-## Technology Stack:
-
-- **Java**: Core programming language.
-- **JavaFX**: GUI framework for desktop application.
-- **Maven**: Dependency management and build tool.
-- **JUnit**: Unit testing framework.
-- **JSON**: Data persistence format.
-
-## Data Flow:
-
-1. Application starts from `AudinoApplication.java`.
-2. `DataService` loads data from JSON files.
-3. `MainController` handles user interactions.
-4. `InteractionEngine` processes prescriptions using strategy pattern.
-5. Alerts are generated and displayed to user.
-
-## Extension Points:
-
-- Add new medication types by extending `Medication` class.
-- Implement new interaction checks via `InteractionCheckStrategy` interface.
-- Expand data sources in `DataService`.
-- Customize UI through FXML and CSS files.
-
-## User Interface Screenshots:
-
-### Main Application Window:
-![Main Window](visuals/AudinoMainWindowWithPatientData.png)
-**Description**: Complete view of the application showing patient list, prescription form, medication selector, and real-time interaction alerts panel.
-
-### Patient Management Dialogs:
-
-![Add Patient](visuals/AudinoAddPatientDataWindow.png)
-**Description**: Dialog for adding new patients with fields for name, birth date, allergies, and medical conditions.
-
-![Edit Patient](visuals/AudinoEditPatientDataWindow.png)
-**Description**: Dialog for modifying existing patient records allowing updates to allergies, conditions, and personal information.
+### Entity Relationship Diagram:
+![Entity Relationship Diagram](visuals/ERDiagram.png)
