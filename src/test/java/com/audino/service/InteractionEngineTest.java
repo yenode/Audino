@@ -36,6 +36,30 @@ public class InteractionEngineTest {
         dataService = new DataService();
         dataService.loadAllData();
         
+        try (java.sql.Connection conn = com.audino.util.ConfigurationManager.getInstance().getDataSource().getConnection();
+             java.sql.Statement st = conn.createStatement()) {
+            st.execute("DELETE FROM patient_conditions; DELETE FROM patient_allergies; DELETE FROM prescribed_drugs; DELETE FROM prescriptions; DELETE FROM patients; DELETE FROM medications; DELETE FROM interaction_rules;");
+            
+            st.execute("INSERT INTO patients (patient_id, first_name, last_name, version) VALUES ('PAT-TEST-1', 'Raj', 'Kumar', 1)");
+            st.execute("INSERT INTO patients (patient_id, first_name, last_name, version) VALUES ('PAT-TEST-2', 'Aarav', 'Patel', 1)");
+            st.execute("INSERT INTO patient_allergies (patient_id, allergy_name) VALUES ('PAT-TEST-1', 'Penicillin')");
+            st.execute("INSERT INTO patient_conditions (patient_id, condition_name) VALUES ('PAT-TEST-1', 'Hypertension')");
+            st.execute("INSERT INTO patient_conditions (patient_id, condition_name) VALUES ('PAT-TEST-1', 'Chronic Kidney Disease')");
+            
+            st.execute("INSERT INTO medications (medication_id, generic_name, brand_name, rxnorm_code, medication_type) VALUES ('MED-TEST-1', 'Amoxicillin', 'Amoxil', '723', 'TABLET')");
+            st.execute("INSERT INTO medications (medication_id, generic_name, brand_name, rxnorm_code, medication_type) VALUES ('MED-TEST-2', 'Ibuprofen', 'Advil', '2019', 'TABLET')");
+            st.execute("INSERT INTO medications (medication_id, generic_name, brand_name, rxnorm_code, medication_type) VALUES ('MED-TEST-3', 'Warfarin', 'Coumadin', '11289', 'TABLET')");
+            st.execute("INSERT INTO medications (medication_id, generic_name, brand_name, rxnorm_code, medication_type) VALUES ('MED-TEST-4', 'Lisinopril', 'Prinivil', '29046', 'TABLET')");
+            
+            st.execute("INSERT INTO interaction_rules (rule_type, keyword1, keyword2, severity, description, recommendation) VALUES ('DRUG_DRUG', 'Warfarin', 'Ibuprofen', 'CRITICAL', 'desc', 'rec')");
+            st.execute("INSERT INTO interaction_rules (rule_type, keyword1, keyword2, severity, description, recommendation) VALUES ('DRUG_ALLERGY', 'penicillin', 'Amoxicillin', 'CRITICAL', 'desc', 'rec')");
+            st.execute("INSERT INTO interaction_rules (rule_type, keyword1, keyword2, severity, description, recommendation) VALUES ('DRUG_CONDITION', 'hypertension', 'Ibuprofen', 'CRITICAL', 'desc', 'rec')");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        dataService.loadAllData();
+        
         allMedications = dataService.getAllMedications();
         
         // Use Kumar patient who has Penicillin allergy and chronic conditions (Hypertension, Chronic Kidney Disease)

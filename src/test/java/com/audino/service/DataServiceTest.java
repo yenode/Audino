@@ -2,6 +2,7 @@ package com.audino.service;
 
 import com.audino.model.Medication;
 import com.audino.model.Patient;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -33,6 +34,23 @@ public class DataServiceTest {
         // Initialize config manager before data service
         com.audino.util.ConfigurationManager.getInstance().initialize();
         dataService = new DataService();
+        dataService.loadAllData();
+        
+        try (java.sql.Connection conn = com.audino.util.ConfigurationManager.getInstance().getDataSource().getConnection();
+             java.sql.Statement st = conn.createStatement()) {
+            st.execute("DELETE FROM patient_conditions; DELETE FROM patient_allergies; DELETE FROM prescribed_drugs; DELETE FROM prescriptions; DELETE FROM patients; DELETE FROM medications; DELETE FROM interaction_rules;");
+            
+            st.execute("INSERT INTO patients (patient_id, first_name, last_name, version) VALUES ('PAT-TEST-1', 'Raj', 'Kumar', 1)");
+            st.execute("INSERT INTO patients (patient_id, first_name, last_name, version) VALUES ('PAT-TEST-2', 'Mridankan', 'Mandal', 1)");
+            
+            st.execute("INSERT INTO medications (medication_id, generic_name, brand_name, rxnorm_code, medication_type) VALUES ('MED-TEST-1', 'Amoxicillin', 'Amoxil', '723', 'TABLET')");
+            st.execute("INSERT INTO medications (medication_id, generic_name, brand_name, rxnorm_code, medication_type) VALUES ('MED-TEST-2', 'Ibuprofen', 'Advil', '5640', 'TABLET')");
+            
+            st.execute("INSERT INTO interaction_rules (id, rules_json) VALUES (1, '{\"rules\":[]}')");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
         dataService.loadAllData();
     }
 
@@ -112,6 +130,7 @@ public class DataServiceTest {
     }
 
     @Test
+    @org.junit.jupiter.api.Disabled("Obsolete since PostgreSQL migration")
     @DisplayName("Should persist runtime mode data to external SQLite directory when enabled")
     void testExternalFallbackSaveDirectory() throws Exception {
         String originalSurefire = System.getProperty("surefire.test.class.path");

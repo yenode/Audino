@@ -21,6 +21,7 @@ public class ConfigurationManagerTest {
     @Test
     @DisplayName("Should initialize object mapper with expected configuration")
     void testInitializeObjectMapper() {
+        System.setProperty("audino.sqlite.path", ":memory:");
         ConfigurationManager config = ConfigurationManager.getInstance();
 
         config.initialize();
@@ -32,6 +33,7 @@ public class ConfigurationManagerTest {
     @Test
     @DisplayName("Should return configured data file properties")
     void testConfiguredDataFileProperties() {
+        System.setProperty("audino.sqlite.path", ":memory:");
         ConfigurationManager config = ConfigurationManager.getInstance();
 
         config.initialize();
@@ -44,6 +46,7 @@ public class ConfigurationManagerTest {
     @Test
     @DisplayName("Should return default prescriptions data file when property is missing")
     void testDefaultPrescriptionsDataFile() {
+        System.setProperty("audino.sqlite.path", ":memory:");
         ConfigurationManager config = ConfigurationManager.getInstance();
 
         config.initialize();
