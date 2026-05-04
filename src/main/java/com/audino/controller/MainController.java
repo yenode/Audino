@@ -2,6 +2,7 @@ package com.audino.controller;
 
 import com.audino.model.*;
 import com.audino.service.DataService;
+import com.audino.util.SessionManager;
 import com.audino.service.InteractionEngine;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
@@ -44,11 +45,13 @@ public class MainController implements Initializable {
     @FXML private Label patientAllergiesLabel;
     @FXML private Label patientConditionsLabel;
     @FXML private Label medicationCountLabel;
+    @FXML private Label totalBillLabel;
     @FXML private TableView<PrescribedDrug> prescriptionTableView;
     @FXML private TableColumn<PrescribedDrug, String> medicationColumn;
     @FXML private TableColumn<PrescribedDrug, String> dosageColumn;
     @FXML private TableColumn<PrescribedDrug, String> frequencyColumn;
     @FXML private TableColumn<PrescribedDrug, String> durationColumn;
+    @FXML private TableColumn<PrescribedDrug, String> costColumn;
     @FXML private TableColumn<PrescribedDrug, Void> actionColumn;
     @FXML private TextField medicationSearchField;
     @FXML private ComboBox<Medication> medicationComboBox;
@@ -71,6 +74,11 @@ public class MainController implements Initializable {
     @FXML private Button acknowledgeAlertBtn;
 
     @FXML private Label statusLabel;
+    @FXML private Label userInfoLabel;
+    @FXML private Button manageMedsBtn;
+    @FXML private Button viewLogsBtn;
+    @FXML private Button manageUsersBtn;
+
     @FXML private Label prescriptionStatusLabel;
     @FXML private Label interactionStatusLabel;
 
@@ -101,6 +109,15 @@ public class MainController implements Initializable {
         setupAlertsListView();
         setupEventListeners();
         updateUIState();
+
+        // RBAC: set user info and admin visibility
+        com.audino.model.User user = SessionManager.getInstance().getCurrentUser();
+        if (user != null) {
+            userInfoLabel.setText("Logged in: " + user.getUsername() + " (" + user.getRole() + ")");
+            manageMedsBtn.setVisible(user.isAdmin());
+            viewLogsBtn.setVisible(user.isAdmin());
+            manageUsersBtn.setVisible(user.isAdmin());
+        }
     }
     
     private void setupDate() {
@@ -243,6 +260,13 @@ public class MainController implements Initializable {
         dosageColumn.setCellValueFactory(new PropertyValueFactory<>("dosage"));
         frequencyColumn.setCellValueFactory(new PropertyValueFactory<>("frequency"));
         durationColumn.setCellValueFactory(new PropertyValueFactory<>("duration"));
+        costColumn.setCellValueFactory(cellData -> {
+            PrescribedDrug drug = cellData.getValue();
+            if (drug.getTotalCost() != null) {
+                return new SimpleStringProperty(String.format("$%.2f", drug.getTotalCost()));
+            }
+            return new SimpleStringProperty("N/A");
+        });
         prescriptionTableView.setItems(prescribedDrugList);
         setupActionColumn();
     }
@@ -391,6 +415,7 @@ public class MainController implements Initializable {
         }
 
         label += " [RxNorm: " + (rxNorm.isBlank() ? "N/A" : rxNorm) + "]";
+        label += String.format(": ₹%.2f", medication.getPricePerUnit());
 
         return label;
     }
@@ -559,8 +584,18 @@ public class MainController implements Initializable {
             return;
         }
 
+        if (selectedMed.getPricePerUnit() == null || selectedMed.getPricePerUnit() <= 0) {
+            boolean priceAdded = showPricingPromptDialog(selectedMed);
+            if (!priceAdded) {
+                return;
+            }
+            // Save the updated price back to the database
+            dataService.updateMedication(selectedMed);
+        }
+
         // Add medication directly to prescription (but don't save yet)
         PrescribedDrug newDrug = new PrescribedDrug(selectedMed, dosage, frequency, duration, "", "Dr. User");
+        newDrug.calculateCost();
         currentPrescription.addPrescribedDrug(newDrug);
         currentPrescription.setStatus(PrescriptionStatus.DRAFT); // Set as draft until saved
         
@@ -573,6 +608,33 @@ public class MainController implements Initializable {
         // Don't save immediately - user must click Save button
         statusLabel.setText(newDrug.getMedication().getDisplayName() + " added to prescription. Click 'Save' to save to database.");
         prescriptionStatusLabel.setText("Prescription Status: DRAFT (unsaved changes)");
+    }
+
+    private boolean showPricingPromptDialog(Medication medication) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/PricingPromptDialog.fxml"));
+            VBox page = loader.load();
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Missing Price Information");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(prescriptionTableView.getScene().getWindow());
+            Scene scene = new Scene(page);
+            scene.getStylesheets().add(getClass().getResource("/css/application.css").toExternalForm());
+            dialogStage.setScene(scene);
+
+            PricingPromptController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setMedication(medication);
+            controller.setDataService(dataService);
+
+            dialogStage.showAndWait();
+            return controller.isSaveClicked();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showErrorAlert("Dialog Error", "Could not load pricing prompt.", e.getMessage());
+            return false;
+        }
     }
 
     private void handleRemoveMedication(PrescribedDrug drug) {
@@ -670,6 +732,11 @@ public class MainController implements Initializable {
         }
         
         medicationCountLabel.setText(prescribedDrugList.size() + " medications");
+        if (currentPrescription != null) {
+            totalBillLabel.setText(String.format("Total: $%.2f", currentPrescription.getTotalBill()));
+        } else {
+            totalBillLabel.setText("Total: $0.00");
+        }
         prescriptionTableView.refresh();
     }
 
@@ -733,6 +800,114 @@ public class MainController implements Initializable {
         dosageField.clear();
         frequencyField.clear();
         durationField.clear();
+    }
+
+    
+    @FXML
+    private void handleManageMeds() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MedicationManager.fxml"));
+            javafx.scene.Parent page = loader.load();
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Manage Medications");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(prescriptionTableView.getScene().getWindow());
+            Scene scene = new Scene(page);
+            scene.getStylesheets().add(getClass().getResource("/css/application.css").toExternalForm());
+            dialogStage.setScene(scene);
+            
+            MedicationManagerController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setDataService(dataService);
+            
+            dialogStage.showAndWait();
+            
+            // Refresh medications after dialog closes
+            medicationList.setAll(dataService.getAllMedications());
+            setupMedicationComboBox();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showErrorAlert("Dialog Error", "Could not load medication manager", e.getMessage());
+        }
+    }
+
+    @FXML
+    private void handleViewLogs() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AuditLogViewer.fxml"));
+            VBox page = loader.load();
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Audit Logs — Admin Only");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(prescriptionTableView.getScene().getWindow());
+            Scene scene = new Scene(page, 920, 560);
+            scene.getStylesheets().add(getClass().getResource("/css/application.css").toExternalForm());
+            dialogStage.setScene(scene);
+
+            AuditLogController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setDataService(dataService);
+
+            dialogStage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showErrorAlert("Dialog Error", "Could not load audit log viewer.", e.getMessage());
+        }
+    }
+
+    @FXML
+    private void handleManageUsers() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/UserManager.fxml"));
+            VBox page = loader.load();
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Manage Users — Admin Only");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(prescriptionTableView.getScene().getWindow());
+            Scene scene = new Scene(page, 600, 400);
+            scene.getStylesheets().add(getClass().getResource("/css/application.css").toExternalForm());
+            dialogStage.setScene(scene);
+
+            com.audino.controller.UserManagerController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setDataService(dataService);
+
+            dialogStage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showErrorAlert("Dialog Error", "Could not load user manager.", e.getMessage());
+        }
+    }
+
+    @FXML
+    private void handleChangePassword() {
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Change Password");
+        dialog.setHeaderText("Change your password");
+        dialog.setContentText("Enter new password:");
+        
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent() && !result.get().isBlank()) {
+            dataService.changePassword(SessionManager.getInstance().getCurrentUser().getUsername(), result.get());
+            showInfoAlert("Success", "Password updated successfully.");
+        }
+    }
+
+    @FXML
+    private void handleLogout() {
+        SessionManager.getInstance().logout();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Login.fxml"));
+            VBox root = loader.load();
+            Stage stage = (Stage) statusLabel.getScene().getWindow();
+            Scene scene = new Scene(root, 400, 350);
+            scene.getStylesheets().add(getClass().getResource("/css/application.css").toExternalForm());
+            stage.setTitle("Audino: Login");
+            stage.setScene(scene);
+            stage.centerOnScreen();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void shutdown() {

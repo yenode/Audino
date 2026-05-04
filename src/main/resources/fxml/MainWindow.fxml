@@ -20,11 +20,17 @@
    <top>
       <VBox styleClass="header-container">
          <children>
-            <HBox alignment="CENTER_LEFT" styleClass="title-bar">
+            <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="title-bar">
                <children>
                   <Label styleClass="app-title" text="Audino" />
                   <Region HBox.hgrow="ALWAYS" />
-                  <Label fx:id="currentDateLabel" styleClass="date-label" text="Today, August 27, 2025" />
+                  <Label fx:id="userInfoLabel" style="-fx-text-fill: #aaa;" text="" />
+                  <Button fx:id="manageMedsBtn" mnemonicParsing="false" onAction="#handleManageMeds" styleClass="secondary-btn" text="Manage Meds" visible="false" />
+                  <Button fx:id="viewLogsBtn" mnemonicParsing="false" onAction="#handleViewLogs" styleClass="secondary-btn" text="View Logs" visible="false" />
+                  <Button fx:id="manageUsersBtn" mnemonicParsing="false" onAction="#handleManageUsers" styleClass="secondary-btn" text="Manage Users" visible="false" />
+                  <Button mnemonicParsing="false" onAction="#handleChangePassword" styleClass="secondary-btn" text="Change Pwd" />
+                  <Button mnemonicParsing="false" onAction="#handleLogout" styleClass="danger-btn" text="Logout" />
+                  <Label fx:id="currentDateLabel" styleClass="date-label" text="Today" />
                </children>
             </HBox>
             <ToolBar prefHeight="60.0" styleClass="modern-toolbar">
@@ -100,6 +106,8 @@
                            <children>
                               <Label styleClass="card-title" text="Current Prescription" />
                               <Region HBox.hgrow="ALWAYS" />
+                              <Label fx:id="totalBillLabel" styleClass="total-bill" text="Total: $0.00" />
+                              <Region prefWidth="15.0" />
                               <Label fx:id="medicationCountLabel" styleClass="med-count" text="0 medications" />
                            </children>
                         </HBox>
@@ -109,6 +117,7 @@
                               <TableColumn fx:id="dosageColumn" prefWidth="100.0" text="Dosage" />
                               <TableColumn fx:id="frequencyColumn" prefWidth="120.0" text="Frequency" />
                               <TableColumn fx:id="durationColumn" prefWidth="100.0" text="Duration" />
+                              <TableColumn fx:id="costColumn" prefWidth="80.0" text="Cost" />
                               <TableColumn fx:id="actionColumn" prefWidth="80.0" text="Action" />
                            </columns>
                            <columnResizePolicy>

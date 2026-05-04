@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="550.0" prefWidth="900.0" spacing="12.0" styleClass="dialog-container" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.audino.controller.AuditLogController">
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+   <children>
+      <HBox alignment="CENTER_LEFT" spacing="12.0">
+         <children>
+            <Label styleClass="dialog-header" text="Audit Logs (Admin)" />
+            <Label fx:id="logCountLabel" style="-fx-text-fill: #888;" text="0 entries" />
+            <javafx.scene.layout.Region HBox.hgrow="ALWAYS" />
+            <Button mnemonicParsing="false" onAction="#handleRefresh" styleClass="secondary-btn" text="Refresh" />
+            <Button mnemonicParsing="false" onAction="#handleClose" styleClass="secondary-btn" text="Close" />
+         </children>
+      </HBox>
+      <TableView fx:id="logTableView" VBox.vgrow="ALWAYS">
+         <columns>
+            <TableColumn fx:id="timestampCol" prefWidth="160.0" text="Timestamp" />
+            <TableColumn fx:id="userCol" prefWidth="80.0" text="User" />
+            <TableColumn fx:id="operationCol" prefWidth="100.0" text="Operation" />
+            <TableColumn fx:id="entityTypeCol" prefWidth="110.0" text="Entity" />
+            <TableColumn fx:id="entityIdCol" prefWidth="130.0" text="ID" />
+            <TableColumn fx:id="detailsCol" prefWidth="290.0" text="Details" />
+         </columns>
+      </TableView>
+   </children>
+</VBox>

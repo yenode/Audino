@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<SplitPane dividerPositions="0.6" prefHeight="600.0" prefWidth="1000.0" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.audino.controller.MedicationManagerController">
+   <items>
+      <VBox spacing="10.0">
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+         <Label styleClass="dialog-header" text="All Medications" />
+         <TableView fx:id="medTableView" VBox.vgrow="ALWAYS">
+            <columns>
+               <TableColumn fx:id="idCol" prefWidth="100.0" text="ID" />
+               <TableColumn fx:id="nameCol" prefWidth="150.0" text="Generic Name" />
+               <TableColumn fx:id="brandCol" prefWidth="150.0" text="Brand" />
+               <TableColumn fx:id="rxNormCol" prefWidth="100.0" text="RxNorm" />
+               <TableColumn fx:id="typeCol" prefWidth="100.0" text="Type" />
+               <TableColumn fx:id="priceCol" prefWidth="80.0" text="Price" />
+            </columns>
+         </TableView>
+      </VBox>
+      <VBox spacing="15.0" styleClass="dialog-container">
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+         <Label styleClass="dialog-header" text="Add / Edit Medication" />
+         <Label fx:id="errorLabel" textFill="red" visible="false" />
+         
+         <ScrollPane VBox.vgrow="ALWAYS" fitToWidth="true" style="-fx-background-color: transparent;">
+             <VBox spacing="10.0">
+                 <VBox spacing="5.0">
+                    <Label styleClass="form-label" text="Medication ID" />
+                    <TextField fx:id="idField" promptText="e.g., MED-001" styleClass="form-field" />
+                 </VBox>
+                 <VBox spacing="5.0">
+                    <Label styleClass="form-label" text="Generic Name" />
+                    <TextField fx:id="genericNameField" styleClass="form-field" />
+                 </VBox>
+                 <VBox spacing="5.0">
+                    <Label styleClass="form-label" text="Brand Name" />
+                    <TextField fx:id="brandNameField" styleClass="form-field" />
+                 </VBox>
+                 <HBox spacing="10.0">
+                    <VBox spacing="5.0" HBox.hgrow="ALWAYS">
+                       <Label styleClass="form-label" text="RxNorm Code" />
+                       <TextField fx:id="rxNormField" styleClass="form-field" />
+                    </VBox>
+                    <VBox spacing="5.0" HBox.hgrow="ALWAYS">
+                       <Label styleClass="form-label" text="Type" />
+                       <ComboBox fx:id="typeComboBox" prefWidth="150.0" styleClass="form-field" />
+                    </VBox>
+                 </HBox>
+                 <VBox spacing="5.0">
+                    <Label styleClass="form-label" text="Price Per Unit (₹)" />
+                    <TextField fx:id="priceField" promptText="e.g. 5.50" styleClass="form-field" />
+                 </VBox>
+                 <VBox spacing="5.0">
+                    <Label styleClass="form-label" text="Interactions (Info only)" />
+                    <TextArea fx:id="interactionsArea" prefRowCount="4" editable="false" wrapText="true" styleClass="form-field" />
+                 </VBox>
+             </VBox>
+         </ScrollPane>
+
+         <HBox alignment="CENTER_RIGHT" spacing="10.0">
+            <Button mnemonicParsing="false" onAction="#handleClear" styleClass="secondary-btn" text="Clear" />
+            <Button mnemonicParsing="false" onAction="#handleSave" style="-fx-background-color: #2e7d32; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 15; -fx-background-radius: 4;" text="Save" />
+            <Button mnemonicParsing="false" onAction="#handleCancel" style="-fx-background-color: #c62828; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 15; -fx-background-radius: 4;" text="Close" />
+         </HBox>
+      </VBox>
+   </items>
+</SplitPane>

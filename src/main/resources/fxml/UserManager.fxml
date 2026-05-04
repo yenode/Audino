@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox prefHeight="400.0" prefWidth="600.0" spacing="10.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.audino.controller.UserManagerController">
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+    </padding>
+
+    <Label styleClass="header-label" text="User Management" />
+
+    <TableView fx:id="userTableView" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="usernameCol" prefWidth="300.0" text="Username" />
+            <TableColumn fx:id="roleCol" prefWidth="250.0" text="Role" />
+        </columns>
+    </TableView>
+
+    <HBox alignment="CENTER_LEFT" spacing="10.0">
+        <TextField fx:id="usernameField" promptText="Username" />
+        <PasswordField fx:id="passwordField" promptText="Password" />
+        <ComboBox fx:id="roleComboBox" prefWidth="150.0" />
+        <Button onAction="#handleAddUser" text="Add User" style="-fx-background-color: #2e7d32; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 15; -fx-background-radius: 4;" />
+        <Region HBox.hgrow="ALWAYS" />
+        <Button onAction="#handleClose" text="Close" style="-fx-background-color: #c62828; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 15; -fx-background-radius: 4;" />
+    </HBox>
+</VBox>
