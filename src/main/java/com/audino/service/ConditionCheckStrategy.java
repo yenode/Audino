@@ -45,9 +45,11 @@ public class ConditionCheckStrategy implements InteractionCheckStrategy {
                             conditionLower.contains(keyword.toLowerCase()));
                         
                         if (conditionMatches) {
-                            boolean medicationMatches = medClasses.stream().anyMatch(medClass ->
-                                med.getInteractionIdentifiers().stream().anyMatch(id -> 
-                                    id.equalsIgnoreCase(medClass)));
+                            boolean medicationMatches = medClasses.stream().anyMatch(medClass -> {
+                                if (med.getGenericName() != null && med.getGenericName().equalsIgnoreCase(medClass)) return true;
+                                if (med.getBrandName() != null && med.getBrandName().equalsIgnoreCase(medClass)) return true;
+                                return med.getInteractionIdentifiers().stream().anyMatch(id -> id.equalsIgnoreCase(medClass));
+                            });
                             
                             if (medicationMatches) {
                                 alerts.add(createAlert(patient, med, condition, rule));

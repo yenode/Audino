@@ -31,10 +31,18 @@ public class AllergyCheckStrategy implements InteractionCheckStrategy {
             .filter(m -> m != null)
             .collect(Collectors.toList());
 
+        System.out.println("[ALLERGY-DEBUG] prescribedMedications resolved: " + prescribedMedications.size() + " of " + prescription.getPrescribedDrugs().size() + " drugs. AllMeds size=" + allMedications.size());
+        prescription.getPrescribedDrugs().forEach(d -> System.out.println("[ALLERGY-DEBUG]   drug.medicationId=" + d.getMedicationId()));
+        prescribedMedications.forEach(m -> System.out.println("[ALLERGY-DEBUG]   resolved med=" + m.getDisplayName() + " id=" + m.getMedicationId()));
+
         for (Medication med : prescribedMedications) {
-            List<String> medIdentifiers = med.getInteractionIdentifiers().stream()
-                                             .map(String::toLowerCase)
-                                             .collect(Collectors.toList());
+            List<String> medIdentifiers = new ArrayList<>();
+            if (med.getInteractionIdentifiers() != null) {
+                medIdentifiers.addAll(med.getInteractionIdentifiers().stream().map(String::toLowerCase).collect(Collectors.toList()));
+            }
+            if (med.getGenericName() != null) medIdentifiers.add(med.getGenericName().toLowerCase());
+            if (med.getBrandName() != null) medIdentifiers.add(med.getBrandName().toLowerCase());
+            System.out.println("[ALLERGY-DEBUG] med=" + med.getDisplayName() + " identifiers=" + medIdentifiers + " allergies=" + patient.getAllergies());
                                              
             for (String allergy : patient.getAllergies()) {
                 String allergyLower = allergy.toLowerCase();
@@ -46,8 +54,10 @@ public class AllergyCheckStrategy implements InteractionCheckStrategy {
 
                     // Check if patient allergy matches the rule's allergy keywords
                     if (keywords != null && keywords.stream().anyMatch(keyword -> allergyLower.contains(keyword.toLowerCase()))) {
+                        System.out.println("[ALLERGY-DEBUG] allergy=" + allergy + " matches rule keywords=" + keywords + " medClasses=" + medicationClasses + " medIds=" + medIdentifiers);
                         // Check if prescribed medication's class matches the rule's medication classes
-                        if (medicationClasses != null && medIdentifiers.stream().anyMatch(medId -> medicationClasses.contains(medId.toUpperCase()))) {
+                        if (medicationClasses != null && medicationClasses.stream().anyMatch(cls ->
+                                medIdentifiers.stream().anyMatch(medId -> medId.equalsIgnoreCase(cls)))) {
                             alerts.add(createAlert(patient, med, allergy, rule));
                         }
                     }

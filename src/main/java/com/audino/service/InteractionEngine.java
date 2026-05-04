@@ -30,9 +30,16 @@ public class InteractionEngine {
     public CompletableFuture<List<InteractionAlert>> checkAllInteractionsAsync(
         Patient patient, Prescription prescription, Map<String, Object> rules, List<Medication> allMedications) {
 
+        System.out.println("[DEBUG] Checking interactions for Patient: " + patient.getFullName() + ", Rules: " + (rules != null ? rules.keySet() : "null"));
+        System.out.println("[DEBUG] Prescribed drugs count: " + (prescription != null ? prescription.getPrescribedDrugs().size() : 0));
+
         List<CompletableFuture<List<InteractionAlert>>> futures = strategies.stream()
             .map(strategy -> CompletableFuture.supplyAsync(
-                () -> strategy.check(patient, prescription, rules, allMedications), executorService))
+                () -> {
+                    List<InteractionAlert> result = strategy.check(patient, prescription, rules, allMedications);
+                    System.out.println("[DEBUG] Strategy " + strategy.getStrategyName() + " returned " + result.size() + " alerts.");
+                    return result;
+                }, executorService))
             .collect(Collectors.toList());
 
         return CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]))

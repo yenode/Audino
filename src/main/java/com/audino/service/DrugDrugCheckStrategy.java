@@ -38,8 +38,15 @@ public class DrugDrugCheckStrategy implements InteractionCheckStrategy {
                 Medication med1 = meds.get(i);
                 Medication med2 = meds.get(j);
 
-                Set<String> ids1 = new HashSet<>(med1.getInteractionIdentifiers());
-                Set<String> ids2 = new HashSet<>(med2.getInteractionIdentifiers());
+                Set<String> ids1 = new HashSet<>();
+                if (med1.getInteractionIdentifiers() != null) ids1.addAll(med1.getInteractionIdentifiers());
+                if (med1.getGenericName() != null) ids1.add(med1.getGenericName());
+                if (med1.getBrandName() != null) ids1.add(med1.getBrandName());
+                
+                Set<String> ids2 = new HashSet<>();
+                if (med2.getInteractionIdentifiers() != null) ids2.addAll(med2.getInteractionIdentifiers());
+                if (med2.getGenericName() != null) ids2.add(med2.getGenericName());
+                if (med2.getBrandName() != null) ids2.add(med2.getBrandName());
 
                 drugDrugRules.forEach((key, ruleObj) -> {
                     Map<String, Object> rule = (Map<String, Object>) ruleObj;
