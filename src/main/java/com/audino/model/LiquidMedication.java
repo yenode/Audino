@@ -20,8 +20,12 @@ public class LiquidMedication extends Medication {
     @Override
     public boolean isValidDosage(String dosage) {
         if (dosage == null || dosage.trim().isEmpty()) return false;
-        // Simple validation for formats like "5ml", "10 mg", etc.
-        return dosage.toLowerCase().matches("\\d+(\\.\\d+)?\\s*(ml|mg)");
+        try {
+            double dose = Double.parseDouble(dosage.trim());
+            return dose > 0;
+        } catch (NumberFormatException e) {
+            return dosage.toLowerCase().matches("^[0-9]+(\\.[0-9]+)?\\s*(ml|mg|mcg|g|cc)$");
+        }
     }
 
     public String getConcentration() { return concentration; }

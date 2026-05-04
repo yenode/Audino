@@ -37,6 +37,12 @@ public abstract class Medication {
     @JsonProperty("medicationType")
     protected MedicationType medicationType;
 
+    @JsonProperty("pricePerUnit")
+    protected Double pricePerUnit;
+
+    @JsonProperty("version")
+    protected int version;
+
     public Medication() {
         this.activeIngredients = new ArrayList<>();
         this.interactionIdentifiers = new ArrayList<>();
@@ -73,6 +79,10 @@ public abstract class Medication {
     public void setInteractionIdentifiers(List<String> identifiers) { this.interactionIdentifiers = new ArrayList<>(identifiers); }
     public MedicationType getMedicationType() { return medicationType; }
     public void setMedicationType(MedicationType type) { this.medicationType = type; }
+    public Double getPricePerUnit() { return pricePerUnit; }
+    public void setPricePerUnit(Double pricePerUnit) { this.pricePerUnit = pricePerUnit; }
+    public int getVersion() { return version; }
+    public void setVersion(int version) { this.version = version; }
 
     @Override
     public boolean equals(Object o) {

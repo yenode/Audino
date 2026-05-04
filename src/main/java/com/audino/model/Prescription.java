@@ -16,6 +16,7 @@ public class Prescription {
     private String prescribedBy;
     private PrescriptionStatus status;
     private List<InteractionAlert> alerts;
+    private int version;
 
     public Prescription() {
         this.prescribedDrugs = new ArrayList<>();
@@ -46,6 +47,15 @@ public class Prescription {
         return prescribedDrugs.isEmpty();
     }
     
+    public Double getTotalBill() {
+        return prescribedDrugs.stream()
+                .map(drug -> {
+                    drug.calculateCost();
+                    return drug.getTotalCost() != null ? drug.getTotalCost() : 0.0;
+                })
+                .reduce(0.0, Double::sum);
+    }
+    
     public String getPrescriptionId() { return prescriptionId; }
     public void setPrescriptionId(String prescriptionId) { this.prescriptionId = prescriptionId; }
     public String getPatientId() { return patientId; }
@@ -60,6 +70,8 @@ public class Prescription {
     public void setStatus(PrescriptionStatus status) { this.status = status; }
     public List<InteractionAlert> getAlerts() { return new ArrayList<>(alerts); }
     public void setAlerts(List<InteractionAlert> alerts) { this.alerts = new ArrayList<>(alerts); }
+    public int getVersion() { return version; }
+    public void setVersion(int version) { this.version = version; }
     
     @Override
     public boolean equals(Object o) {

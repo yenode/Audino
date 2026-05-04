@@ -10,6 +10,7 @@ public class PrescribedDrug {
     private String duration;
     private String specialInstructions;
     private String prescribedBy;
+    private Double totalCost;
 
     private Medication medication;
 
@@ -30,6 +31,44 @@ public class PrescribedDrug {
         return medication != null && dosage != null && !dosage.isEmpty() &&
                frequency != null && !frequency.isEmpty() && medication.isValidDosage(dosage);
     }
+    
+    public void calculateCost() {
+        if (medication != null && medication.getPricePerUnit() != null) {
+            try {
+                // Naive calculation for demo purposes. 
+                // Parses the first number it finds in dosage and duration to calculate a multiplier.
+                double doseUnits = parseFirstNumber(dosage, 1.0);
+                double durationDays = parseFirstNumber(duration, 1.0);
+                double freqMultiplier = parseFrequency(frequency);
+                
+                this.totalCost = doseUnits * durationDays * freqMultiplier * medication.getPricePerUnit();
+            } catch (Exception e) {
+                this.totalCost = 0.0;
+            }
+        } else {
+            this.totalCost = null;
+        }
+    }
+    
+    private double parseFirstNumber(String text, double defaultVal) {
+        if (text == null || text.trim().isEmpty()) return defaultVal;
+        String num = text.replaceAll("[^0-9.]", "");
+        if (num.isEmpty() || num.equals(".")) return defaultVal;
+        try {
+            return Double.parseDouble(num);
+        } catch (NumberFormatException e) {
+            return defaultVal;
+        }
+    }
+    
+    private double parseFrequency(String freq) {
+        if (freq == null) return 1.0;
+        String lower = freq.toLowerCase();
+        if (lower.contains("twice") || lower.contains("bid") || lower.contains("2 times")) return 2.0;
+        if (lower.contains("three") || lower.contains("tid") || lower.contains("3 times")) return 3.0;
+        if (lower.contains("four") || lower.contains("qid") || lower.contains("4 times")) return 4.0;
+        return 1.0;
+    }
 
     public String getMedicationId() { return medicationId; }
     public void setMedicationId(String medicationId) { this.medicationId = medicationId; }
@@ -46,6 +85,8 @@ public class PrescribedDrug {
     
     public Medication getMedication() { return medication; }
     public void setMedication(Medication medication) { this.medication = medication; }
+    public Double getTotalCost() { return totalCost; }
+    public void setTotalCost(Double totalCost) { this.totalCost = totalCost; }
 
     @Override
     public boolean equals(Object o) {

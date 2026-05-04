@@ -23,8 +23,12 @@ public class InjectionMedication extends Medication {
     @Override
     public boolean isValidDosage(String dosage) {
         if (dosage == null || dosage.trim().isEmpty()) return false;
-        // Simple validation for formats like "1ml", "10 units", etc.
-        return dosage.toLowerCase().matches("\\d+(\\.\\d+)?\\s*(ml|units)");
+        try {
+            double dose = Double.parseDouble(dosage.trim());
+            return dose > 0;
+        } catch (NumberFormatException e) {
+            return dosage.toLowerCase().matches("^[0-9]+(\\.[0-9]+)?\\s*(ml|units|mg|mcg)$");
+        }
     }
     
     public String getConcentration() { return concentration; }

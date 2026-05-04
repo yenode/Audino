@@ -27,9 +27,10 @@ public class TabletMedication extends Medication {
         if (dosage == null || dosage.trim().isEmpty()) return false;
         try {
             double dose = Double.parseDouble(dosage.trim());
-            return dose > 0 && dose < 10; // Simple validation
+            return dose > 0 && dose <= 10;
         } catch (NumberFormatException e) {
-            return false;
+            String lower = dosage.toLowerCase().trim();
+            return lower.matches("^[0-9]+(\\.[0-9]+)?\\s*(mg|mcg|g|tablet|tablets|pill|pills|cap|capsule|capsules)$");
         }
     }
     

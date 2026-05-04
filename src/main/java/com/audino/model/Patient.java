@@ -17,6 +17,7 @@ public class Patient {
     private String contactNumber;
     private List<String> allergies;
     private List<String> chronicConditions;
+    private int version;
 
     public Patient() {
         this.allergies = new ArrayList<>();
@@ -67,6 +68,8 @@ public class Patient {
             chronicConditions.add(condition.trim());
         }
     }
+    public int getVersion() { return version; }
+    public void setVersion(int version) { this.version = version; }
 
     @Override
     public boolean equals(Object o) {
