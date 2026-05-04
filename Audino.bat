@@ -11,6 +11,27 @@ cd /d "%~dp0"
 set "BUILD_DIR=%LOCALAPPDATA%\Temp\audino-build"
 if not exist "%BUILD_DIR%" mkdir "%BUILD_DIR%"
 
+set "DATA_DIR=%LOCALAPPDATA%\Audino\data"
+set "DB_PATH=%DATA_DIR%\audino.db"
+set "PROJECT_DB=%CD%\data\audino.db"
+set "DB_BAK=%CD%\data\audino.db.bak"
+set "ETL_DB=%CD%\..\audino-etl\artifacts\latest\audino_master.db"
+if not exist "%DATA_DIR%" mkdir "%DATA_DIR%"
+if not exist "%DB_PATH%" (
+    if exist "%PROJECT_DB%" (
+        copy /Y "%PROJECT_DB%" "%DB_PATH%" >nul
+        echo Seeded runtime SQLite database from project copy: %PROJECT_DB%
+    ) else if exist "%DB_BAK%" (
+        copy /Y "%DB_BAK%" "%DB_PATH%" >nul
+        echo Restored SQLite database from backup: %DB_BAK%
+    ) else if exist "%ETL_DB%" (
+        copy /Y "%ETL_DB%" "%DB_PATH%" >nul
+        echo Seeded SQLite database from ETL artifact: %ETL_DB%
+    ) else (
+        echo SQLite database file not found. A new database will be created at: %DB_PATH%
+    )
+)
+
 set "MVN_CMD=mvn"
 where mvn >nul 2>&1
 if errorlevel 1 (
@@ -67,10 +88,11 @@ set "APP_JAR_PATH=%CD%\target\%APP_JAR%"
 
 echo Starting Audino application from target\%APP_JAR% ...
 echo Runtime data directory: %RUNTIME_DATA_DIR%
+echo Using runtime SQLite database: %DB_PATH%
 echo.
 
 REM Run using Maven JavaFX plugin (handles all JavaFX dependencies automatically)
-"%MVN_CMD%" -Daudino.build.directory="%BUILD_DIR%" javafx:run
+"%MVN_CMD%" -Daudino.build.directory="%BUILD_DIR%" -Daudino.sqlite.path="%DB_PATH%" javafx:run
 
 if errorlevel 1 (
     echo.
