@@ -1,0 +1,10 @@
+target/
+target2/
+target3/
+target_new/
+build_out/
+*.class
+*.py
+*.bak
+tmp.index
+data/
