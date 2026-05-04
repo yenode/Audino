@@ -1,124 +1,65 @@
 @startuml
-title Audino End-to-End Prescription Workflow (Code-Aligned)
-
-skinparam shadowing false
-skinparam sequence {
-  ArrowColor #2B2D42
-  LifeLineBorderColor #2B2D42
-  LifeLineBackgroundColor #FFFFFF
-}
+title Audino Healthcare System - Add Medication Sequence
 
 actor User
-participant "AudinoApplication" as App
-participant "ConfigurationManager" as Config
-participant "MainController" as Controller
-participant "DataService" as DataService
-database "SQLite (audino.db)" as Sqlite
-participant "MedicationSearchEngine" as Search
-participant "InteractionEngine" as Engine
-participant "AllergyCheckStrategy" as Allergy
-participant "DrugDrugCheckStrategy" as DrugDrug
-participant "ConditionCheckStrategy" as Condition
+participant MainController as MC
+participant PricingPromptController as PC
+participant DataService as DS
+participant InteractionEngine as IE
+database PostgreSQLDB as DB
 
-== Startup ==
-User -> App : launch(args)
-App -> Config : initialize()
-App -> Controller : initialize()
-activate Controller
-Controller -> DataService : new DataService()
-Controller -> Engine : new InteractionEngine()
-Controller -> DataService : loadAllData()
-activate DataService
+User -> MC : selectPatient()
+activate MC
+MC -> DS : getActivePrescriberionForPatient(patientId)
+activate DS
+DS -> DB : SELECT from prescriptions
+activate DB
+DB --> DS : ResultSet
+deactivate DB
+DS --> MC : return Prescription
+deactivate DS
+MC --> User : updateUI()
+deactivate MC
 
-alt Runtime mode (default)
-  DataService -> DataService : resolveSqlitePath()
-  DataService -> Sqlite : ensureSqliteSchema()
-  DataService -> Sqlite : loadMedicationsFromSqlite()
-  DataService -> Sqlite : loadInteractionRulesFromSqlite()
-  DataService -> Sqlite : loadPatientsFromSqlite()
-  DataService -> Sqlite : loadPrescriptionsFromSqlite()
-else Test mode (Surefire)
-  DataService -> DataService : loadData(/data/*.json)
-end
+User -> MC : searchMedication(query)
+activate MC
+MC -> DS : searchMedications(query)
+activate DS
+DS --> MC : return filteredList
+deactivate DS
+MC --> User : display results
+deactivate MC
 
-DataService -> Search : new MedicationSearchEngine(medications)
-DataService --> Controller : patients, medications, prescriptions, rules
-deactivate DataService
-Controller --> User : UI populated
-deactivate Controller
+User -> MC : selectMedication & enterDosage
+activate MC
+MC -> PC : openPricingPrompt(medication, dosage)
+activate PC
+PC --> MC : return calculatedPrice
+deactivate PC
+MC -> MC : addPrescribedDrug()
 
-== Patient selection ==
-User -> Controller : handlePatientSelection(patient)
-activate Controller
-Controller -> DataService : getActivePrescriberionForPatient(patientId)
-DataService --> Controller : existing Prescription or null
+MC -> IE : checkAllInteractionsAsync()
+activate IE
+IE -> IE : processRules()
+IE --> MC : CompletableFuture<List<InteractionAlert>>
+deactivate IE
+MC -> MC : updateAlertsView()
+MC --> User : showDraftStatus
+deactivate MC
 
-alt Existing prescription found
-  Controller -> Controller : prescribedDrugList.setAll(...)
-  Controller -> Controller : checkInteractions()
-else No prescription
-  Controller -> Controller : clear table and alerts
-end
-
-== Medication search and add ==
-User -> Controller : handleMedicationSearchInput(query)
-Controller -> DataService : suggestMedications(query, 8)
-DataService -> Search : suggest(query, limit)
-Search --> DataService : ranked medications
-DataService --> Controller : suggestions
-
-User -> Controller : handleAddMedication()
-Controller -> Controller : validate fields + isValidDosage()
-Controller -> Controller : currentPrescription.addPrescribedDrug(...)
-Controller -> Controller : currentPrescription.setStatus(DRAFT)
-Controller -> Controller : checkInteractions()
-
-Controller -> Engine : checkAllInteractionsAsync(patient, prescription, rules, meds)
-activate Engine
-par Parallel strategy checks
-  Engine -> Allergy : check(...)
-  Allergy --> Engine : List<InteractionAlert>
-and
-  Engine -> DrugDrug : check(...)
-  DrugDrug --> Engine : List<InteractionAlert>
-and
-  Engine -> Condition : check(...)
-  Condition --> Engine : List<InteractionAlert>
-end
-Engine -> Engine : merge + sort by AlertLevel desc
-Engine --> Controller : CompletableFuture<List<InteractionAlert>>
-deactivate Engine
-Controller --> User : alerts + counters updated
-
-== Save ==
-User -> Controller : handleSave()
-Controller -> Controller : setStatus(APPROVED)
-Controller -> Controller : setAlerts(alertList)
-Controller -> DataService : savePrescription(currentPrescription)
-activate DataService
-DataService -> DataService : replace by patientId
-DataService -> DataService : saveAllData()
-
-alt Runtime mode (SQLite)
-  DataService -> Sqlite : open transaction
-  DataService -> Sqlite : DELETE prescribed_drugs, prescriptions, patients
-  DataService -> Sqlite : INSERT patients
-  DataService -> Sqlite : INSERT prescriptions (alerts_json)
-  DataService -> Sqlite : INSERT prescribed_drugs
-  DataService -> Sqlite : commit
-else Test mode (JSON)
-  DataService -> DataService : write patients.json + prescriptions.json
-end
-
-DataService --> Controller : save complete
-deactivate DataService
-Controller --> User : "Prescription saved successfully"
-deactivate Controller
-
-== Shutdown ==
-User -> App : close window
-App -> Controller : shutdown()
-Controller -> DataService : saveAllData(patientList, prescriptionList)
-Controller -> Engine : shutdown()
+User -> MC : clickSave()
+activate MC
+MC -> DS : savePrescription(prescription)
+activate DS
+DS -> DB : conn.setAutoCommit(false)
+activate DB
+DS -> DB : executeBatch() / UPSERT
+DB --> DS : success
+DS -> DB : conn.commit()
+deactivate DB
+DS --> MC : return success
+deactivate DS
+MC --> User : showSaveConfirmation
+deactivate MC
 
 @enduml

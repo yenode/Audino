@@ -1,22 +1,22 @@
 # Audino Database Documentation:
 
 ## Purpose:
-This document defines the relational model used by the Audino main application. The persistence layer is implemented with SQLite and JDBC. Clinical data is stored in normalized relational tables, while rule payloads and selective lists are stored as JSON text columns where a document shape is required.
+This document defines the relational model used by the Audino main application. The persistence layer is implemented with PostgreSQL and JDBC. Clinical data is stored in normalized relational tables, while rule payloads and selective lists are stored as JSON text columns where a document shape is required.
 
 ## RDBMS Engine Profile:
-SQLite is used as the embedded RDBMS engine. A server process is not required. ACID semantics are provided by SQLite transactions, and referential integrity is enforced with foreign key checks.
+PostgreSQL is used as the relational database. A native PostgreSQL server is expected on port 5432, but if unavailable, an embedded PostgreSQL instance will be provisioned automatically on the same port at runtime. ACID semantics are provided by PostgreSQL transactions, and referential integrity is enforced natively.
 
-1. Engine name is SQLite.
-2. JDBC driver is org.xerial sqlite jdbc.
-3. Runtime URL format is jdbc sqlite absolute path.
-4. Foreign key checks are enabled with PRAGMA foreign_keys = ON.
+1. Engine name is PostgreSQL.
+2. JDBC driver is org.postgresql.Driver.
+3. Connection pooling is managed by HikariCP.
+4. Default runtime URL format is jdbc:postgresql://localhost:5432/postgres.
 
 ## Database File and Runtime Resolution:
-The main runtime file is resolved as data/audino.db in standard execution. A runtime override can be provided through system properties. Parent directory creation is performed before connection open so that first execution in a fresh path can proceed safely.
+The main runtime connection is resolved as jdbc:postgresql://localhost:5432/postgres in standard execution. Configuration overrides can be provided through system properties or application.properties.
 
-1. Property audino.sqlite.path is treated as explicit database file path.
-2. Property audino.data.dir is treated as explicit root, and data/audino.db is derived from it.
-3. Internal fallback candidates are checked from working directory variants.
+1. Property db.url is treated as the explicit JDBC connection string.
+2. Property db.username and db.password define the authentication credentials.
+3. Embedded Postgres fallback provides a robust zero-config startup sequence.
 
 ## Entity Relationship Design:
 The relational model is centered on patient, prescription, and medication domains. Cardinality is intentionally constrained for safe prescription flow.
@@ -29,85 +29,136 @@ The relational model is centered on patient, prescription, and medication domain
 Detailed ER source is provided in documentation/ER_DIAGRAM.puml.
 
 ## Normalization and Data Shape:
-The schema is mostly in Third Normal Form for transactional entities.
+The core relational schema is designed in accordance with Third Normal Form principles to eliminate data redundancy and ensure logical consistency. 
 
-1. Patient identifiers are isolated in patients.
+1. **First Normal Form (1NF)**: Each table row represents a unique record identified by a primary key (`patient_id`, `prescription_id`, `id`, `username`). Each column contains atomic values with respect to the relational engine, except for intentionally embedded document shapes.
+2. **Second Normal Form (2NF)**: All non-key attributes are fully functionally dependent on the entire primary key. For example, in the `prescribed_drugs` associative table, properties like `dosage` and `frequency` depend entirely on the composite relationship between the prescription and the medication, represented by the surrogate `id` primary key.
+3. **Third Normal Form (3NF)**: Transitive dependencies are removed. Patient demographic details (like `first_name`) live strictly in the `patients` table, while prescription attributes (`status`, `created_at`) live strictly in the `prescriptions` table. Changes to a patient's name do not require updates to their historical prescriptions.
+
+Entity isolation guarantees logical separation.
+
+1. Patient identifiers and demographic data are isolated in patients.
 2. Prescription headers are isolated in prescriptions.
-3. Prescription items are isolated in prescribed_drugs.
-4. Medication vocabulary is isolated in medications.
-5. Rule payloads are stored as JSON text in interaction_rules for flexible structure.
+3. Prescription line items are isolated in prescribed_drugs.
+4. Medication vocabulary and billing data is isolated in medications.
+5. System users and hashed credentials are isolated in users.
 
-Controlled denormalization is used for JSON payload columns.
+### Strict Normalization:
+Audino has fully deprecated JSON-based array storage to embrace strict relational normalization.
 
-1. allergies_json and chronic_conditions_json are used for compact patient list storage.
-2. active_ingredients_json and interaction_identifiers_json are used for medication token sets.
-3. alerts_json and rules_json are used for rule and alert payload storage.
+1. **Patient Data**: Arrays for `allergies` and `chronic_conditions` are broken out into dedicated associative tables (`patient_allergies`, `patient_conditions`).
+2. **Medication Data**: Component lists like `active_ingredients` and `interaction_identifiers` reside in strict child tables (`medication_ingredients`, `medication_identifiers`).
+3. **Alerts & Rules**: The interaction rules and prescription alerts have been completely normalized. `interaction_rules` is now a schema separating rule sets by `rule_type`, `keyword1`, `keyword2`, and `severity`. Alerts are mapped natively through `prescription_alerts`.
 
 ## Full Schema Definitions:
+### users:
+```sql
+CREATE TABLE IF NOT EXISTS users (
+    username VARCHAR(50) PRIMARY KEY,
+    password_hash VARCHAR(255) NOT NULL,
+    role VARCHAR(20) NOT NULL
+);
+```
 ### patients:
 ```sql
 CREATE TABLE IF NOT EXISTS patients (
-    patient_id TEXT PRIMARY KEY,
-    first_name TEXT,
-    last_name TEXT,
-    date_of_birth TEXT,
-    gender TEXT,
-    contact_number TEXT,
-    allergies_json TEXT,
-    chronic_conditions_json TEXT
+    patient_id VARCHAR(50) PRIMARY KEY,
+    first_name VARCHAR(100),
+    last_name VARCHAR(100),
+    date_of_birth VARCHAR(50),
+    gender VARCHAR(20),
+    contact_number VARCHAR(50),
+    version INTEGER DEFAULT 0
+);
+
+CREATE TABLE IF NOT EXISTS patient_allergies (
+    patient_id VARCHAR(50) REFERENCES patients(patient_id) ON DELETE CASCADE,
+    allergy_name VARCHAR(255),
+    PRIMARY KEY (patient_id, allergy_name)
+);
+
+CREATE TABLE IF NOT EXISTS patient_conditions (
+    patient_id VARCHAR(50) REFERENCES patients(patient_id) ON DELETE CASCADE,
+    condition_name VARCHAR(255),
+    PRIMARY KEY (patient_id, condition_name)
 );
 ```
 
 ### medications:
 ```sql
 CREATE TABLE IF NOT EXISTS medications (
-    medication_id TEXT PRIMARY KEY,
-    generic_name TEXT,
-    brand_name TEXT,
-    rxnorm_code TEXT,
-    medication_type TEXT,
-    strength TEXT,
-    concentration TEXT,
-    route TEXT,
-    active_ingredients_json TEXT,
-    interaction_identifiers_json TEXT
+    medication_id VARCHAR(50) PRIMARY KEY,
+    generic_name VARCHAR(255),
+    brand_name VARCHAR(255),
+    rxnorm_code VARCHAR(50),
+    medication_type VARCHAR(50),
+    strength VARCHAR(50),
+    concentration VARCHAR(50),
+    route VARCHAR(50),
+    price_per_unit NUMERIC(10,2),
+    version INTEGER DEFAULT 0
+);
+
+CREATE TABLE IF NOT EXISTS medication_ingredients (
+    medication_id VARCHAR(50) REFERENCES medications(medication_id) ON DELETE CASCADE,
+    ingredient_name VARCHAR(255),
+    PRIMARY KEY (medication_id, ingredient_name)
+);
+
+CREATE TABLE IF NOT EXISTS medication_identifiers (
+    medication_id VARCHAR(50) REFERENCES medications(medication_id) ON DELETE CASCADE,
+    identifier_value VARCHAR(255),
+    PRIMARY KEY (medication_id, identifier_value)
 );
 ```
 
 ### prescriptions:
 ```sql
 CREATE TABLE IF NOT EXISTS prescriptions (
-    prescription_id TEXT PRIMARY KEY,
-    patient_id TEXT NOT NULL UNIQUE,
-    created_at TEXT,
-    prescribed_by TEXT,
-    status TEXT,
-    alerts_json TEXT,
-    FOREIGN KEY (patient_id) REFERENCES patients(patient_id) ON DELETE CASCADE
+    prescription_id VARCHAR(50) PRIMARY KEY,
+    patient_id VARCHAR(50) NOT NULL REFERENCES patients(patient_id) ON DELETE CASCADE,
+    created_at VARCHAR(50),
+    prescribed_by VARCHAR(100),
+    status VARCHAR(50),
+    total_bill NUMERIC(10,2),
+    version INTEGER DEFAULT 0
+);
+
+CREATE TABLE IF NOT EXISTS prescription_alerts (
+    id SERIAL PRIMARY KEY,
+    prescription_id VARCHAR(50) REFERENCES prescriptions(prescription_id) ON DELETE CASCADE,
+    alert_type VARCHAR(50),
+    alert_level VARCHAR(50),
+    message TEXT,
+    acknowledged BOOLEAN
 );
 ```
 
 ### prescribed_drugs:
 ```sql
 CREATE TABLE IF NOT EXISTS prescribed_drugs (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    prescription_id TEXT NOT NULL,
-    medication_id TEXT NOT NULL,
-    dosage TEXT,
-    frequency TEXT,
-    duration TEXT,
-    special_instructions TEXT,
-    prescribed_by TEXT,
-    FOREIGN KEY (prescription_id) REFERENCES prescriptions(prescription_id) ON DELETE CASCADE,
-    FOREIGN KEY (medication_id) REFERENCES medications(medication_id)
+    id SERIAL PRIMARY KEY,
+    prescription_id VARCHAR(50) NOT NULL REFERENCES prescriptions(prescription_id) ON DELETE CASCADE,
+    medication_id VARCHAR(50) NOT NULL REFERENCES medications(medication_id),
+    dosage VARCHAR(50),
+    frequency VARCHAR(50),
+    duration VARCHAR(50),
+    special_instructions VARCHAR(255),
+    prescribed_by VARCHAR(100),
+    total_cost NUMERIC(10,2)
 );
 ```
 
 ### interaction_rules:
 ```sql
 CREATE TABLE IF NOT EXISTS interaction_rules (
-    id INTEGER PRIMARY KEY CHECK (id = 1),
-    rules_json TEXT NOT NULL
+    id SERIAL PRIMARY KEY,
+    rule_type VARCHAR(50),
+    keyword1 VARCHAR(255),
+    keyword2 VARCHAR(255),
+    severity VARCHAR(50),
+    description TEXT,
+    recommendation TEXT
 );
 ```
 
@@ -129,15 +180,27 @@ CREATE INDEX IF NOT EXISTS idx_prescriptions_created_at ON prescriptions(created
 ```
 
 ## Transaction and Consistency Rules:
-Write operations are wrapped in JDBC transactions for atomic behavior. When full replacement save is requested, parent and child rows are rewritten in controlled sequence.
+Write operations are strictly wrapped in JDBC transactions for guaranteed atomic behavior to satisfy full ACID requirements. 
 
+1. **Atomicity**: When full replacement save is requested, parent and child rows are rewritten in controlled sequence. If any step fails, all operations roll back entirely.
+2. **Consistency**: `users` constraints (unique usernames) and foreign keys are explicitly defined, preventing invalid or orphan state.
+3. **Isolation**: Read-Committed isolation level ensures write skew and dirty reads are prevented when editing core schemas.
+4. **Durability**: Successful `executeBatch()` calls followed by `conn.commit()` synchronously flush data to the PostgreSQL WAL log.
+
+During bulk updates:
 1. prescribed_drugs is cleared first in replacement flow.
 2. prescriptions is cleared second in replacement flow.
 3. patients is cleared last in replacement pre stage.
 4. Insert batches are executed for patients, prescriptions, and prescribed_drugs.
 5. Commit is issued after all batches are successful.
 
-If a failure is raised before commit, rollback semantics are provided by transaction boundaries.
+If a failure is raised before commit, active rollback semantics are triggered via `conn.rollback()` before returning control to the service layer.
+
+## Authentication and Billing Integration:
+The application leverages PostgreSQL constraints for high-fidelity extensions.
+
+1. **Authentication**: Handled via the `users` table. The `password_hash` column stores BCrypt salted hashes exclusively. The `role` column regulates user permissions.
+2. **Billing**: `medications.price_per_unit` introduces basic billing metrics allowing prescription costing calculations natively through numeric queries.
 
 ## Application Layer Mapping:
 The relational schema is mapped to domain classes through DataService hydration logic.
@@ -170,18 +233,17 @@ Relational integrity is guarded through key constraints and cascading actions.
 5. prescribed_drugs.medication_id references medications.medication_id.
 
 ## Backup and Restore Guidance:
-SQLite file copy strategy can be used when the process is not writing.
+PostgreSQL database backups can be made using standard pg_dump operations.
 
-1. Application process should be stopped before file copy backup.
-2. data/audino.db should be copied to a secure location.
-3. Restore can be performed by placing the backup file at the runtime path.
+1. Run pg_dump to export the postgres database instance.
+2. For embedded PostgreSQL instances, data resets upon termination.
+3. A standalone PostgreSQL server should be used for production persistence.
 
 ## Validation Commands:
 ```bash
-sqlite3 data/audino.db ".tables"
-sqlite3 data/audino.db "PRAGMA foreign_keys;"
-sqlite3 data/audino.db "SELECT COUNT(*) FROM medications;"
-sqlite3 data/audino.db "SELECT medication_id, generic_name, rxnorm_code FROM medications ORDER BY medication_id LIMIT 10;"
+psql -h localhost -p 5432 -U postgres -d postgres -c "\dt"
+psql -h localhost -p 5432 -U postgres -d postgres -c "SELECT COUNT(*) FROM medications;"
+psql -h localhost -p 5432 -U postgres -d postgres -c "SELECT medication_id, generic_name, rxnorm_code FROM medications ORDER BY medication_id LIMIT 10;"
 ```
 
 ## Diagram References:

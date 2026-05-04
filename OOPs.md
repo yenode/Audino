@@ -1,27 +1,27 @@
-# OOPs - Consolidated Documentation
+# OOPs - Consolidated Documentation:
 
 This document consolidates all files from the `documentation` folder into a single reference.
 
-## Included Sources
+## Included Sources:
 
-1. `OOP_PILLARS.md`
-2. `CLASS_DIAGRAM.md`
-3. `OBJECT_DIAGRAM.md`
-4. `SEQUENCE_DIAGRAM.md`
-5. `ACTIVITY_DIAGRAM.md`
+1. `OOP_PILLARS.md`.
+2. `CLASS_DIAGRAM.md`.
+3. `OBJECT_DIAGRAM.md`.
+4. `SEQUENCE_DIAGRAM.md`.
+5. `ACTIVITY_DIAGRAM.md`.
 
 ---
 
-## 1. Four Pillars of OOP
+## 1. Four Pillars of OOP:
 
-# Four Pillars of OOP in Audino Healthcare System
+# Four Pillars of OOP in Audino Healthcare System:
 
-## 1. ENCAPSULATION
+## 1. ENCAPSULATION:
 *Hiding internal details and providing controlled access*
 
 ### Real Examples from the Code:
 
-#### A. Patient Class - Data Protection
+#### A. Patient Class - Data Protection:
 ```java
 // Patient.java
 public class Patient {
@@ -52,12 +52,12 @@ public class Patient {
 ```
 **Implementation:** Other classes cannot directly access patient data. They must use the provided methods, which include validation.
 
-#### B. DataService Class - Hidden Database Operations
+#### B. DataService Class - Hidden Database Operations:
 ```java
 // DataService.java
 public class DataService {
     private List<Patient> patients;           // Hidden storage
-    private String jdbcUrl;                  // Hidden SQLite configuration
+    private String jdbcUrl;                  // Hidden PostgreSQL configuration
     private List<Prescription> prescriptions; // Private data
     
     // Simple public interface
@@ -80,16 +80,16 @@ public class DataService {
     }
 }
 ```
-**Benefit:** Controllers do not need to know about SQLite tables, SQL statements, or transaction handling. The savePatient() method handles all complexity internally.
+**Benefit:** Controllers do not need to know about PostgreSQL tables, SQL statements, or transaction handling. The savePatient() method handles all complexity internally.
 
 ---
 
-## 2. INHERITANCE
+## 2. INHERITANCE:
 *One class inherits properties and behaviors from another*
 
 ### Real Examples from the Code:
 
-#### A. Custom Exception Classes
+#### A. Custom Exception Classes:
 ```java
 // Custom exception hierarchy
 public class DataServiceException extends Exception {
@@ -106,7 +106,7 @@ public class PatientNotFoundException extends DataServiceException {
 ```
 **Implementation:** PatientNotFoundException automatically gets all the features of Exception (like stack traces, error messages) plus adds its own specific behavior.
 
-#### B. Model Base Class Pattern
+#### B. Model Base Class Pattern:
 ```java
 // Base entity class implementation
 public abstract class BaseEntity {
@@ -132,7 +132,7 @@ public class Medication extends BaseEntity {
 ```
 **Benefit:** No need to write ID and creation date code in every class. Write once, use everywhere.
 
-#### C. Controller Inheritance from JavaFX
+#### C. Controller Inheritance from JavaFX:
 ```java
 // MainController inherits JavaFX capabilities
 public class MainController implements Initializable {
@@ -149,12 +149,12 @@ public class MainController implements Initializable {
 
 ---
 
-## 3. POLYMORPHISM
+## 3. POLYMORPHISM:
 *Same method name, different behaviors depending on the object*
 
 ### Real Examples from the Code:
 
-#### A. Strategy Pattern for Interaction Checking
+#### A. Strategy Pattern for Interaction Checking:
 ```java
 // Same interface, different implementations
 public interface InteractionCheckStrategy {
@@ -212,7 +212,7 @@ public class InteractionEngine {
 ```
 **Implementation:** The same method checkInteraction() produces different results depending on which strategy object is used.
 
-#### B. Collection Polymorphism in Controllers
+#### B. Collection Polymorphism in Controllers:
 ```java
 // MainController.java
 public class MainController {
@@ -234,12 +234,12 @@ public class MainController {
 
 ---
 
-## 4. ABSTRACTION
+## 4. ABSTRACTION:
 *Hiding complex implementation details behind simple interfaces*
 
 ### Real Examples from the Code:
 
-#### A. DataService Abstraction
+#### A. DataService Abstraction:
 ```java
 // Complex operations hidden behind simple methods
 public class DataService {
@@ -271,7 +271,7 @@ public class DataService {
 }
 ```
 
-#### B. MainController UI Abstraction
+#### B. MainController UI Abstraction:
 ```java
 // MainController.java
 public class MainController {
@@ -309,7 +309,7 @@ public class MainController {
 }
 ```
 
-#### C. Prescription Class Business Logic Abstraction
+#### C. Prescription Class Business Logic Abstraction:
 ```java
 // Prescription.java
 public class Prescription {
@@ -343,37 +343,37 @@ public class Prescription {
 
 ---
 
-## Summary
+## Summary:
 
-### 1. ENCAPSULATION = Keep private things private
-- Patient data is protected - only accessible through safe methods
-- Database operations are hidden in DataService
-- UI components are private in controllers
+### 1. ENCAPSULATION = Keep private things private:
+- Patient data is protected - only accessible through safe methods.
+- Database operations are hidden in DataService.
+- UI components are private in controllers.
 
-### 2. INHERITANCE = Child gets parent features
-- Exception classes inherit from Java Exception class
-- Controllers inherit from JavaFX interfaces
-- All entities can inherit common ID and date fields
+### 2. INHERITANCE = Child gets parent features:
+- Exception classes inherit from Java Exception class.
+- Controllers inherit from JavaFX interfaces.
+- All entities can inherit common ID and date fields.
 
-### 3. POLYMORPHISM = Same name, different behaviors
-- Different interaction checking strategies with same method name
-- Different alert types responding to same interface
-- Same list operations working on different data types
+### 3. POLYMORPHISM = Same name, different behaviors:
+- Different interaction checking strategies with same method name.
+- Different alert types responding to same interface.
+- Same list operations working on different data types.
 
-### 4. ABSTRACTION = Hide complexity behind simple interfaces
-- savePatient() - simple call, complex operations hidden
-- updateUIState() - one call updates entire interface
-- checkInteractions() - simple call, complex async processing hidden
+### 4. ABSTRACTION = Hide complexity behind simple interfaces:
+- savePatient() - simple call, complex operations hidden.
+- updateUIState() - one call updates entire interface.
+- checkInteractions() - simple call, complex async processing hidden.
 
 The Audino project demonstrates professional OOP design with all four pillars properly implemented for maintainable and extensible code.
 
 ---
 
-## 2. Class Diagram
+## 2. Class Diagram:
 
-# Audino Healthcare System - Class Diagram
+# Audino Healthcare System - Class Diagram:
 
-## UML Class Diagram
+## UML Class Diagram:
 
 ```
 ┌─────────────────────────────────────┐
@@ -550,21 +550,21 @@ The Audino project demonstrates professional OOP design with all four pillars pr
 ```
 
 ## Relationships:
-- **MainController** → **DataService**: Uses (Dependency)
-- **MainController** → **InteractionEngine**: Uses (Dependency)
-- **Patient** → **Prescription**: One-to-Many (Composition)
-- **Prescription** → **PrescribedDrug**: One-to-Many (Composition)
-- **PrescribedDrug** → **Medication**: Many-to-One (Association)
-- **InteractionEngine** → **InteractionCheckStrategy**: One-to-Many (Strategy Pattern)
-- **DataService** manages all entities through SQLite persistence
+- **MainController** → **DataService**: Uses (Dependency).
+- **MainController** → **InteractionEngine**: Uses (Dependency).
+- **Patient** → **Prescription**: One-to-Many (Composition).
+- **Prescription** → **PrescribedDrug**: One-to-Many (Composition).
+- **PrescribedDrug** → **Medication**: Many-to-One (Association).
+- **InteractionEngine** → **InteractionCheckStrategy**: One-to-Many (Strategy Pattern).
+- **DataService** manages all entities through PostgreSQL persistence.
 
 ---
 
-## 3. Object Diagram
+## 3. Object Diagram:
 
-# Audino Healthcare System - Object Diagram
+# Audino Healthcare System - Object Diagram:
 
-## Object Diagram: Adding Medication Workflow
+## Object Diagram: Adding Medication Workflow:
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -697,23 +697,23 @@ The Audino project demonstrates professional OOP design with all four pillars pr
 ```
 
 ## Object Relationships in Runtime:
-1. **MainController** holds references to active Patient and current Prescription
-2. **Patient** object contains personal data and medical history
-3. **Prescription** aggregates multiple PrescribedDrug objects
-4. **PrescribedDrug** references Medication from the master medication list
-5. **DataService** manages persistence of all entities to SQLite tables
-6. **InteractionEngine** processes current prescription and generates alerts
+1. **MainController** holds references to active Patient and current Prescription.
+2. **Patient** object contains personal data and medical history.
+3. **Prescription** aggregates multiple PrescribedDrug objects.
+4. **PrescribedDrug** references Medication from the master medication list.
+5. **DataService** manages persistence of all entities to PostgreSQL tables.
+6. **InteractionEngine** processes current prescription and generates alerts.
 
 ---
 
-## 4. Sequence Diagram
+## 4. Sequence Diagram:
 
-# Audino Healthcare System - Sequence Diagram
+# Audino Healthcare System - Sequence Diagram:
 
-## Sequence Diagram: Add Medication Use Case
+## Sequence Diagram: Add Medication Use Case:
 
 ```
-User          MainController    DataService    InteractionEngine    SQLiteDB
+User          MainController    DataService    InteractionEngine    PostgreSQLDB
  │                 │                │                 │               │
  │ selectPatient() │                │                 │               │
  ├─────────────────►               │                 │               │
@@ -804,46 +804,46 @@ User          MainController    DataService    InteractionEngine    SQLiteDB
 
 ## Key Interactions:
 
-### 1. Patient Selection Phase
-- User selects patient → Controller loads existing prescription from DataService
-- DataService reads from SQLite to get prescription data
-- UI updates with patient information and prescription history
+### 1. Patient Selection Phase:
+- User selects patient → Controller loads existing prescription from DataService.
+- DataService reads from PostgreSQL to get prescription data.
+- UI updates with patient information and prescription history.
 
-### 2. Medication Search Phase 
-- User types in search field → Controller calls DataService.searchMedications()
-- Real-time filtering of medication list from in-memory data
-- ComboBox updates with filtered results
+### 2. Medication Search Phase:
+- User types in search field → Controller calls DataService.searchMedications().
+- Real-time filtering of medication list from in-memory data.
+- ComboBox updates with filtered results.
 
-### 3. Add Medication Phase
-- User fills form and clicks Add → Controller validates input locally
-- Medication added to current prescription object (in-memory only)
-- Prescription table updated immediately
-- Interaction engine called asynchronously for safety checks
+### 3. Add Medication Phase:
+- User fills form and clicks Add → Controller validates input locally.
+- Medication added to current prescription object (in-memory only).
+- Prescription table updated immediately.
+- Interaction engine called asynchronously for safety checks.
 
-### 4. Interaction Checking (Async)
-- InteractionEngine runs strategies in parallel
-- Checks drug-drug, drug-allergy, and condition interactions
-- Returns CompletableFuture with alerts list
-- UI updated with interaction alerts when processing completes
+### 4. Interaction Checking (Async):
+- InteractionEngine runs strategies in parallel.
+- Checks drug-drug, drug-allergy, and condition interactions.
+- Returns CompletableFuture with alerts list.
+- UI updated with interaction alerts when processing completes.
 
-### 5. Save Phase
-- User clicks Save → Controller calls DataService.savePrescription()
-- DataService writes updated prescription to SQLite
-- Prescription status changed from DRAFT to APPROVED
-- Success message shown to user
+### 5. Save Phase:
+- User clicks Save → Controller calls DataService.savePrescription().
+- DataService writes updated prescription to PostgreSQL.
+- Prescription status changed from DRAFT to APPROVED.
+- Success message shown to user.
 
 ## Asynchronous Operations:
-- **Interaction Checking**: Non-blocking background process
-- **Database I/O**: SQLite read/write operations
-- **UI Updates**: Platform.runLater() for thread-safe UI updates
+- **Interaction Checking**: Non-blocking background process.
+- **Database I/O**: PostgreSQL read/write operations.
+- **UI Updates**: Platform.runLater() for thread-safe UI updates.
 
 ---
 
-## 5. Activity Diagram
+## 5. Activity Diagram:
 
-# Audino Healthcare System - Activity Diagram
+# Audino Healthcare System - Activity Diagram:
 
-## Activity Diagram: Add Medication Use Case
+## Activity Diagram: Add Medication Use Case:
 
 ```
                     ┌─────────────────────┐
@@ -947,7 +947,7 @@ User          MainController    DataService    InteractionEngine    SQLiteDB
            ▼                                       ▼
 ┌─────────────────────┐              ┌─────────────────────┐
 │ Medication Added    │              │ Save Prescription   │
-│ to Prescription     │              │ to SQLite Database  │
+│ to Prescription     │              │ to PostgreSQL Database  │
 │ (Memory Only)       │              └──────────┬──────────┘
 └─────────────────────┘                         │
                                                  ▼
@@ -969,12 +969,12 @@ User          MainController    DataService    InteractionEngine    SQLiteDB
 ```
 
 ## Decision Points:
-- **Patient Selection**: Must select patient before adding medications
-- **Prescription Existence**: System checks for existing prescription or creates new one
-- **Input Validation**: Dosage format must match medication type
-- **Save Decision**: User controls when to persist data to database
+- **Patient Selection**: Must select patient before adding medications.
+- **Prescription Existence**: System checks for existing prescription or creates new one.
+- **Input Validation**: Dosage format must match medication type.
+- **Save Decision**: User controls when to persist data to database.
 
 ## Parallel Processes:
-- **Interaction Checking**: Runs asynchronously in background
-- **UI Updates**: Real-time updates of prescription table and alerts
-- **Search Filtering**: Live medication search as user types
+- **Interaction Checking**: Runs asynchronously in background.
+- **UI Updates**: Real-time updates of prescription table and alerts.
+- **Search Filtering**: Live medication search as user types.

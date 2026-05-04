@@ -102,22 +102,22 @@ The setup script will:
 - Download all required dependencies.
 - Compile the project.
 - Run initial tests.
-- Prepare SQLite storage directories.
+- Prepare PostgreSQL storage directories.
 
 ### Step 3: Configure Application:
 
 #### Configuration File:
 
 Application settings can be customized through `ConfigurationManager` class:
-- SQLite database path settings.
+- PostgreSQL database path settings.
 - UI theme preferences.
 - Logging levels.
 - Alert sensitivity thresholds.
 
-The SQLite path can be configured in `application.properties` using:
+The PostgreSQL path can be configured in `application.properties` using:
 
 ```properties
-sqlite.database.path=data/audino.db
+db.url=jdbc:postgresql://localhost:5432/postgres
 ```
 
 ## Building the Application:
@@ -200,9 +200,9 @@ Once successfully launched, you will see the main application window:
 
 ### Initial Data Setup:
 
-The application uses SQLite as the runtime database. The system seeds a baseline dataset directly through `DataService` on first run when tables are empty:
+The application uses PostgreSQL as the runtime database. The system seeds a baseline dataset directly through `DataService` on first run when tables are empty:
 
-1. Configure the SQLite path in `application.properties` if needed.
+1. Configure the PostgreSQL path in `application.properties` if needed.
 2. Start the application to initialize schema and baseline records.
 3. Add or update records through the application UI.
 
@@ -225,7 +225,7 @@ The application includes ready-to-use sample data:
 
 ### Adding Custom Data:
 
-Use the application UI to add or edit patients, prescriptions, and medication entries. Data is persisted directly to SQLite.
+Use the application UI to add or edit patients, prescriptions, and medication entries. Data is persisted directly to PostgreSQL.
 
 ## Configuration Options:
 

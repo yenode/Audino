@@ -16,15 +16,17 @@ This index is provided as a structural map of the Audino main application. Runti
 
 ### Controller Layer:
 1. src/main/java/com/audino/controller/MainController.java is used for UI orchestration.
-2. Medication selection, patient selection, and save operations are coordinated in this layer.
+2. src/main/java/com/audino/controller/PricingPromptController.java is used for billing and cost calculation logic.
+3. Medication selection, patient selection, and save operations are coordinated in this layer.
 
 ### Model Layer:
 1. Patient, Prescription, PrescribedDrug, and Medication are represented as core domain entities.
-2. TabletMedication, LiquidMedication, and InjectionMedication are used as medication type specializations.
-3. InteractionAlert and enum types are used for safety and workflow states.
+2. User is used as the security entity for authentication.
+3. TabletMedication, LiquidMedication, and InjectionMedication are used as medication type specializations.
+4. InteractionAlert and enum types are used for safety and workflow states.
 
 ### Service Layer:
-1. DataService is used for runtime load and persistence orchestration.
+1. DataService is used for runtime load, persistence orchestration, and secure BCrypt user authentication.
 2. InteractionEngine is used for asynchronous interaction rule evaluation.
 3. AllergyCheckStrategy, DrugDrugCheckStrategy, and ConditionCheckStrategy are used as strategy implementations.
 4. MedicationSearchEngine is used for retrieval and ranked similarity scoring.
@@ -33,10 +35,10 @@ This index is provided as a structural map of the Audino main application. Runti
 1. ConfigurationManager is used for object mapper and path resolution.
 
 ## Runtime Persistence Model:
-The main application runtime is backed by SQLite. Schema creation is ensured by DataService on connection open. Core entities are loaded into in memory structures for UI binding and interaction analysis.
+The main application runtime is backed by PostgreSQL. Schema creation is ensured by DataService on connection open. Core entities are loaded into in memory structures for UI binding and interaction analysis.
 
 1. patients, medications, prescriptions, prescribed_drugs, and interaction_rules are used as primary tables.
-2. Foreign key constraints are enforced through PRAGMA foreign_keys = ON.
+2. Foreign key constraints are enforced natively by the PostgreSQL engine.
 3. Transactional write flow is used for consistency during save operations.
 
 ## Medication Retrieval Engine:
@@ -68,7 +70,7 @@ InteractionEngine coordinates strategy execution and aggregates alerts.
 ## Test Tree:
 1. src/test/java/com/audino/model contains model level tests.
 2. src/test/java/com/audino/service contains service and search tests.
-3. DataServiceTest verifies load, query, and runtime SQLite path behavior.
+3. DataServiceTest verifies load, query, and runtime PostgreSQL path behavior.
 4. MedicationSearchEngineTest verifies ranking and autocorrection behavior.
 
 ## Documentation Tree:

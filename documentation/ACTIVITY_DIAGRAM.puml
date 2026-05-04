@@ -1,110 +1,58 @@
 @startuml
-title Audino Prescription Assembly and Persistence Activity
-
-skinparam shadowing false
-skinparam roundcorner 10
-skinparam activity {
-  BackgroundColor #F8F9FA
-  BorderColor #2B2D42
-}
+title Audino Healthcare System - Prescription Authoring Activity
 
 start
 
-:Launch JavaFX application;
-:MainController.initialize();
-:DataService.loadAllData();
-
-if (useExternalDataFallback?) then (yes)
-  :Resolve SQLite path;
-  :Ensure schema tables exist;
-  :Load medications, rules, patients, prescriptions from SQLite;
+:Clinician logs in via Authentication Prompt;
+if (Credentials Valid?) then (yes)
+  :Load Main Window UI;
 else (no)
-  :Load patients/medications/rules/prescriptions from JSON resources;
+  :Show Error Message;
+  stop
 endif
 
-:Build MedicationSearchEngine index;
-:Render patient and medication UI lists;
+:Select Patient from Patient List;
+:Retrieve Patient Medical History and Allergies;
 
-:User selects patient;
-:handlePatientSelection(patient);
-if (Existing prescription for patient?) then (yes)
-  :Load prescribed drugs into table;
-  :Set currentPrescription from DataService;
-else (no)
-  :Clear prescription table and alert list;
-endif
-
-:User searches medication;
-:suggestMedications(query, 8);
-:Show ranked suggestions;
-
-:User enters dosage/frequency/duration and clicks Add;
-if (Patient selected?) then (yes)
-  if (currentPrescription exists?) then (yes)
-    :Use current prescription;
-  else (no)
-    :Try load existing prescription by patientId;
-    if (Found?) then (yes)
-      :Use existing prescription;
+repeat
+  :Search for Medication;
+  :Select Medication from Results;
+  :Enter Dosage, Frequency, and Duration;
+  :Pricing Prompt calculates Billing Estimate;
+  :Add PrescribedDrug to Prescription;
+  
+  fork
+    :Check Allergy Conflicts;
+  fork again
+    :Check Drug-Drug Interactions;
+  fork again
+    :Check Condition Contraindications;
+  end fork
+  
+  if (Alerts Found?) then (yes)
+    :Display Alerts in UI;
+    :Clinician reviews Alerts;
+    if (Acknowledge Alerts?) then (yes)
+      :Proceed with Medication;
     else (no)
-      :Create new Prescription(patient, "Dr. User");
-      :Set status DRAFT;
+      :Remove Medication from Prescription;
     endif
-  endif
-else (no)
-  :Show warning and stop add action;
-endif
-
-if (Medication and fields valid?) then (yes)
-  if (isValidDosage for subtype?) then (yes)
-    :Create PrescribedDrug;
-    :Add to prescription;
-    :Set status DRAFT;
-    :Refresh table;
-
-    :Trigger checkInteractions();
-    fork
-      :AllergyCheckStrategy.check();
-    fork again
-      :DrugDrugCheckStrategy.check();
-    fork again
-      :ConditionCheckStrategy.check();
-    end fork
-
-    :Merge and sort alerts by severity;
-    :Update alert list and counters;
   else (no)
-    :Show invalid dosage warning;
+    :Proceed with Medication;
   endif
+  
+repeat while (Add more medications?) is (yes)
+
+:Click Save Prescription;
+:DataService initiates ACID Transaction;
+
+if (Transaction Successful?) then (yes)
+  :PostgreSQL executes Commit;
+  :Show Success Confirmation;
 else (no)
-  :Show missing information warning;
+  :PostgreSQL executes Rollback;
+  :Show Error Message;
 endif
-
-if (User clicks Save?) then (yes)
-  :Set prescription status APPROVED;
-  :Attach current alerts;
-  :DataService.savePrescription();
-  :Replace existing prescription for same patientId;
-
-  if (useExternalDataFallback?) then (yes)
-    :Open SQLite transaction;
-    :Delete old rows from prescribed_drugs/prescriptions/patients;
-    :Insert patients;
-    :Insert prescriptions and alerts_json;
-    :Insert prescribed drugs;
-    :Commit;
-  else (no)
-    :Write patients.json and prescriptions.json;
-  endif
-
-  :Show save success status;
-else (no)
-  :Keep draft in memory (unsaved changes);
-endif
-
-:On application stop -> shutdown();
-:Save data if loaded and non-empty;
-:Shutdown interaction engine executor;
 
 stop
 @enduml

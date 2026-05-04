@@ -1,7 +1,7 @@
 # Audino ER Diagram Reference:
 
 ## Purpose:
-The relational entity relationship source for Audino is provided in ER_DIAGRAM.puml. The schema reflects runtime SQLite tables used by the main application.
+The relational entity relationship source for Audino is provided in ER_DIAGRAM.puml. The schema reflects runtime PostgreSQL tables used by the main application.
 
 ## Coverage:
 1. patients, medications, prescriptions, prescribed_drugs, and interaction_rules entities are represented.

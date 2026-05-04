@@ -1,7 +1,7 @@
 # Audino: Intelligent Prescription Manager:
 
 ## System Overview:
-Audino is designed as a desktop healthcare application for safe prescription authoring. A JavaFX interface is provided for patient selection, medication search, prescription authoring, and interaction review. Runtime persistence is handled by SQLite so that relational integrity can be preserved for patient, prescription, and medication records.
+Audino is designed as a desktop healthcare application for safe prescription authoring. A JavaFX interface is provided for patient selection, medication search, prescription authoring, and interaction review. Runtime persistence is handled by PostgreSQL so that relational integrity can be preserved for patient, prescription, and medication records.
 
 ## Core Capabilities:
 1. Patient records are managed with allergies and chronic conditions.
@@ -9,12 +9,14 @@ Audino is designed as a desktop healthcare application for safe prescription aut
 3. Prescription authoring is performed with dosage, frequency, duration, and prescribing clinician details.
 4. Safety analysis is performed for drug allergy, drug drug, and drug condition interactions.
 5. Alert severity is represented through critical, warning, and info levels.
+6. Authentication system uses BCrypt hashed credentials to manage clinician access and roles.
+7. Billing integrations generate dynamic prescription price estimates using unit pricing.
 
 ## Search and Safety Intelligence:
 Medication retrieval is performed through direct matching and ranked suggestion flow. An Aho Corasick algorithm is used for multi token candidate retrieval. NLP based similarity ranking is applied through Levenshtein distance and character trigram cosine scoring so that misspelled medication text can be interpreted safely.
 
 ## Architecture Summary:
-The application is structured with Model View Controller boundaries. Safety rule evaluation is delegated to strategy implementations through the interaction engine. Persistence duties are centralized in DataService, and schema control is performed in SQLite through JDBC.
+The application is structured with Model View Controller boundaries. Safety rule evaluation is delegated to strategy implementations through the interaction engine. Persistence duties are centralized in DataService, and schema control is performed in PostgreSQL through JDBC.
 
 1. MainController is used for UI state orchestration.
 2. DataService is used for loading and transactional persistence.
@@ -23,13 +25,14 @@ The application is structured with Model View Controller boundaries. Safety rule
 5. ConfigurationManager is used for path and object mapper configuration.
 
 ## Runtime Data Model:
-SQLite is used in runtime mode for core entities. The primary file is placed at data/audino.db unless a runtime property is provided. Foreign key checks are enabled with PRAGMA foreign_keys = ON.
+PostgreSQL is used in runtime mode for core entities via HikariCP connection pooling. The primary database connection defaults to jdbc:postgresql://localhost:5432/postgres unless a runtime property is provided. Embedded PostgreSQL is automatically initialized on port 5432 if a native database service is not detected during application startup.
 
 1. patients is used as the patient master table.
-2. medications is used as the medication master table with RxNorm code storage.
+2. medications is used as the medication master table with RxNorm code storage and unit pricing for billing.
 3. prescriptions is used for active prescription headers.
 4. prescribed_drugs is used for prescription line items.
 5. interaction_rules is used for JSON rule payload storage.
+6. users is used for authenticated accounts and hashed password storage.
 
 ## Build and Execution:
 ### Prerequisites:

@@ -1,100 +1,97 @@
 @startuml
-title Audino Runtime Object Snapshot (Patient Selection + Draft Save Path)
+title Audino Healthcare System - Object Diagram
 
-skinparam shadowing false
-skinparam object {
-  BackgroundColor #FFFFFF
-  BorderColor #2B2D42
-}
-
-object "controller:MainController" as controller {
+object "mainController : MainController" as mc {
   selectedPatient = patient1
-  currentPrescription = rx1
-  dataLoadedSuccessfully = true
+  currentPrescription = prescription1
+  dataService = dataService1
+  interactionEngine = interactionEngine1
 }
 
-object "dataService:DataService" as dataService {
-  useExternalDataFallback = true
-  sqliteDbFile = .../data/audino.db
-  patients.size = 1+
-  prescriptions.size = 1+
+object "patient1 : Patient" as p1 {
+  patientId = "PAT-12345678"
+  firstName = "John"
+  lastName = "Doe"
+  dateOfBirth = 1990-05-15
+  gender = "Male"
+  allergies = ["Penicillin", "Sulfa"]
+  chronicConditions = ["Hypertension", "Diabetes"]
 }
 
-object "engine:InteractionEngine" as engine {
-  strategies = [allergy, drugDrug, condition]
-}
-
-object "search:MedicationSearchEngine" as search {
-  medications indexed = true
-}
-
-object "patient1:Patient" as patient1 {
-  patientId = PAT-41AF29D2
-  firstName = Ananya
-  lastName = Sharma
-  allergies = [penicillin]
-  chronicConditions = [asthma]
-}
-
-object "rx1:Prescription" as rx1 {
-  prescriptionId = RX-8A7F10BC
-  patientId = PAT-41AF29D2
+object "prescription1 : Prescription" as rx1 {
+  prescriptionId = "RX-87654321"
+  patient = patient1
+  prescriber = "Dr. Admin"
+  dateCreated = 2025-11-13T10:30:00
   status = DRAFT
-  prescribedBy = Dr. User
 }
 
-object "drug1:PrescribedDrug" as drug1 {
-  medicationId = MED-778
-  dosage = 500
-  frequency = thrice daily
-  duration = 7 days
+object "prescribedDrug1 : PrescribedDrug" as pd1 {
+  medicationId = "MED-001"
+  dosage = "10mg"
+  frequency = "Twice daily"
+  duration = "7 days"
+  instructions = "Take with food"
+  prescriber = "Dr. Admin"
 }
 
-object "drug2:PrescribedDrug" as drug2 {
-  medicationId = MED-118
-  dosage = 2 puffs
-  frequency = as needed
-  duration = 14 days
+object "prescribedDrug2 : PrescribedDrug" as pd2 {
+  medicationId = "MED-002"
+  dosage = "500mg"
+  frequency = "Once daily"
+  duration = "30 days"
+  instructions = "Take in morning"
+  prescriber = "Dr. Admin"
 }
 
-object "med1:TabletMedication" as med1 {
-  medicationId = MED-778
-  genericName = Amoxicillin
-  brandName = Amoxil
+object "medication1 : Medication" as m1 {
+  medicationId = "MED-001"
+  displayName = "Lisinopril"
+  genericName = "Lisinopril"
   medicationType = TABLET
-  interactionIdentifiers = [PENICILLIN]
+  pricePerUnit = 0.50
 }
 
-object "med2:LiquidMedication" as med2 {
-  medicationId = MED-118
-  genericName = Salbutamol
-  brandName = Ventolin
-  medicationType = LIQUID
-  interactionIdentifiers = [BETA_AGONIST]
+object "medication2 : Medication" as m2 {
+  medicationId = "MED-002"
+  displayName = "Metformin"
+  genericName = "Metformin HCl"
+  medicationType = TABLET
+  pricePerUnit = 0.25
 }
 
-object "alert1:InteractionAlert" as alert1 {
-  alertLevel = CRITICAL
-  alertType = DRUG_ALLERGY
+object "dataService1 : DataService" as ds {
+  patients = [patient1, ...]
+  medications = [medication1, medication2, ...]
+  prescriptions = [prescription1, ...]
+  users = [userAdmin, ...]
+}
+
+object "userAdmin : User" as u1 {
+  username = "admin"
+  role = "ADMIN"
+}
+
+object "interactionEngine1 : InteractionEngine" as ie {
+  strategies = [allergyStrategy, drugDrugStrategy, conditionStrategy]
+}
+
+object "alert1 : InteractionAlert" as a1 {
+  alertLevel = WARNING
+  alertType = "Drug-Condition Interaction"
+  message = "Lisinopril may affect blood pressure monitoring in hypertensive patients"
   acknowledged = false
 }
 
-database "sqlite:audino.db" as sqlite
-
-controller -- dataService
-controller -- engine
-dataService -- search
-
-controller -- patient1
-controller -- rx1
-rx1 -- drug1
-rx1 -- drug2
-drug1 -- med1
-drug2 -- med2
-rx1 -- alert1
-
-dataService ..> sqlite : load/save
-engine ..> rx1 : checkAllInteractionsAsync(...)
-engine ..> alert1 : produces
+mc --> p1 : selectedPatient
+p1 --> rx1 : has
+rx1 --> pd1 : contains
+rx1 --> pd2 : contains
+pd1 --> m1 : references
+pd2 --> m2 : references
+mc --> ds : uses
+mc --> ie : uses
+ds --> u1 : manages
+rx1 --> a1 : produces
 
 @enduml

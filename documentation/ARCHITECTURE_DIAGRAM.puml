@@ -1,5 +1,5 @@
 @startuml
-title Audino — Clinical Decision Support Architecture
+title Audino - Clinical Decision Support Architecture
 
 skinparam componentStyle rectangle
 skinparam shadowing false
@@ -28,6 +28,7 @@ actor "Clinician" as clinician #E8EAF6
 package "Presentation Layer" #EDE7F6 {
   [MainWindow.fxml]        as fxml       #D1C4E9
   [MainController]         as controller #D1C4E9
+  [PricingPromptController] as pricing   #D1C4E9
   [JavaFX Observable Models] as fxmodels #D1C4E9
 }
 
@@ -46,6 +47,7 @@ package "Interaction Strategy Layer" #E8F5E9 {
 
 ' ── Domain Model ─────────────────────────────────────────────
 package "Domain Model Layer" #FFF8E1 {
+  [User]             as user         #FFE082
   [Patient]          as patient      #FFE082
   [Prescription]     as prescription #FFE082
   [PrescribedDrug]   as pdrug        #FFE082
@@ -59,11 +61,13 @@ package "Search Intelligence" #FBE9E7 {
 }
 
 package "Persistence Layer" #EFEBE9 {
-  [SQLite JDBC Driver] as jdbc #D7CCC8
+  [PostgreSQL JDBC Driver] as jdbc #D7CCC8
+  [HikariCP Connection Pool] as hikari #D7CCC8
 
-  database "audino.db" as db #BCAAA4
+  database "PostgreSQL Server / Embedded Postgres" as db #BCAAA4
 
   package "Tables" #F5F5F5 {
+    [users]             as tusers    #EEEEEE
     [patients]          as tpatients #EEEEEE
     [medications]       as tmeds     #EEEEEE
     [prescriptions]     as tpres     #EEEEEE
@@ -76,11 +80,13 @@ package "Persistence Layer" #EFEBE9 {
 clinician      --> fxml        : uses desktop UI
 fxml           --> controller  : UI events
 controller     --> fxmodels    : data binding
+pricing        --> dataservice : check unit costs
 
-controller     --> dataservice       : load / save
+controller     --> dataservice       : load / save / auth
 controller     --> interactionengine : check interactions
 controller     --> medsearch         : autocomplete / suggest
 
+dataservice    --> user         : hydrates
 dataservice    --> patient      : hydrates
 dataservice    --> prescription : hydrates
 dataservice    --> pdrug        : hydrates
@@ -95,15 +101,18 @@ interactionengine --> ialert    : produces
 medsearch --> aho : candidate retrieval
 medsearch --> nlp : score ranking
 
-dataservice --> jdbc : SQL operations
+dataservice --> hikari : get connection
+hikari      --> jdbc : pooled connections
 jdbc        --> db   : JDBC connection
 
+db --> tusers
 db --> tpatients
 db --> tmeds
 db --> tpres
 db --> tpdrug
 db --> trules
 
+tusers    ||--o{ tpres    : auth rules
 tpatients ||--|| tpres    : patient_id
 tpres     ||--o{ tpdrug   : prescription_id
 tmeds     ||--o{ tpdrug   : medication_id
@@ -111,7 +120,7 @@ trules    --o{  tpdrug    : matched by engine
 
 note right of dataservice
   Schema verified on connection open.
-  All writes wrapped in transactions.
+  All writes wrapped in ACID transactions.
 end note
 
 note bottom of medsearch

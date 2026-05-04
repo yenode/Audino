@@ -156,8 +156,8 @@ The system automatically performs three types of checks:
 - Review console output for error messages.
 
 #### Data Not Loading:
-- Ensure the configured SQLite directory is writable.
-- Verify `sqlite.database.path` in `application.properties`.
+- Ensure the configured PostgreSQL directory is writable.
+- Verify `postgresql.database.path` in `application.properties`.
 - Check filesystem permissions for the database file path.
 
 #### Interaction Checks Not Working:

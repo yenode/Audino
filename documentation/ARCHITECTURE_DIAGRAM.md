@@ -5,7 +5,7 @@ The detailed architecture source for Audino is provided in ARCHITECTURE_DIAGRAM.
 
 ## Coverage:
 1. Presentation, service, strategy, domain, persistence, and search intelligence layers are represented.
-2. SQLite integration and table level entities are represented.
+2. PostgreSQL integration and table level entities are represented.
 3. Medication retrieval intelligence is represented with Aho Corasick token matching and NLP based similarity ranking.
 
 ## Render Command:

@@ -8,6 +8,13 @@ skinparam entity {
   BorderColor #2B2D42
 }
 
+entity "users" as users {
+  * username : VARCHAR(50) <<PK>>
+  --
+  password_hash : VARCHAR(255)
+  role : VARCHAR(20)
+}
+
 entity "patients" as patients {
   * patient_id : TEXT <<PK>>
   --
@@ -18,6 +25,7 @@ entity "patients" as patients {
   contact_number : TEXT
   allergies_json : TEXT
   chronic_conditions_json : TEXT
+  version : INTEGER
 }
 
 entity "medications" as medications {
@@ -32,20 +40,21 @@ entity "medications" as medications {
   route : TEXT
   active_ingredients_json : TEXT
   interaction_identifiers_json : TEXT
+  price_per_unit : DOUBLE PRECISION
 }
 
 entity "prescriptions" as prescriptions {
   * prescription_id : TEXT <<PK>>
   --
   * patient_id : TEXT <<FK, UQ>>
-  created_at : TEXT
+  created_at : TIMESTAMP
   prescribed_by : TEXT
   status : TEXT
   alerts_json : TEXT
 }
 
 entity "prescribed_drugs" as prescribed_drugs {
-  * id : INTEGER <<PK, AI>>
+  * id : SERIAL <<PK>>
   --
   * prescription_id : TEXT <<FK>>
   * medication_id : TEXT <<FK>>
@@ -57,7 +66,7 @@ entity "prescribed_drugs" as prescribed_drugs {
 }
 
 entity "interaction_rules" as interaction_rules {
-  * id : INTEGER <<PK, CHECK id = 1>>
+  * id : INTEGER <<PK>>
   --
   * rules_json : TEXT
 }
