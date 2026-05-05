@@ -253,3 +253,15 @@ psql -h localhost -p 5432 -U postgres -d postgres -c "SELECT medication_id, gene
 ### Entity Relationship Diagram:
 ![Entity Relationship Diagram](visuals/ERDiagram.png)
 
+### Class Diagram:
+![Class Diagram](visuals/ClassDiagram.png)
+
+### Object Diagram:
+![Object Diagram](visuals/ObjectDiagram.png)
+
+### Sequence Diagram:
+![Sequence Diagram](visuals/SequenceDiagram.png)
+
+### Activity Diagram:
+![Activity Diagram](visuals/ActivityDiagram.png)
+

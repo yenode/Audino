@@ -374,6 +374,7 @@ The Audino project demonstrates professional OOP design with all four pillars pr
 # Audino Healthcare System - Class Diagram:
 
 ## UML Class Diagram:
+![Class Diagram](visuals/ClassDiagram.png)
 
 ```
 ┌─────────────────────────────────────┐
@@ -565,6 +566,7 @@ The Audino project demonstrates professional OOP design with all four pillars pr
 # Audino Healthcare System - Object Diagram:
 
 ## Object Diagram: Adding Medication Workflow:
+![Object Diagram](visuals/ObjectDiagram.png)
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -711,6 +713,7 @@ The Audino project demonstrates professional OOP design with all four pillars pr
 # Audino Healthcare System - Sequence Diagram:
 
 ## Sequence Diagram: Add Medication Use Case:
+![Sequence Diagram](visuals/SequenceDiagram.png)
 
 ```
 User          MainController    DataService    InteractionEngine    PostgreSQLDB
@@ -844,6 +847,7 @@ User          MainController    DataService    InteractionEngine    PostgreSQLDB
 # Audino Healthcare System - Activity Diagram:
 
 ## Activity Diagram: Add Medication Use Case:
+![Activity Diagram](visuals/ActivityDiagram.png)
 
 ```
                     ┌─────────────────────┐
