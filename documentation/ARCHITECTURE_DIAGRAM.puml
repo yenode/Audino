@@ -36,6 +36,7 @@ package "Application Service Layer" #E3F2FD {
   [DataService]            as dataservice        #BBDEFB
   [InteractionEngine]      as interactionengine  #BBDEFB
   [MedicationSearchEngine] as medsearch          #BBDEFB
+  [AppSeeder]              as seeder             #B3E5FC
 }
 
 package "Interaction Strategy Layer" #E8F5E9 {
@@ -43,6 +44,7 @@ package "Interaction Strategy Layer" #E8F5E9 {
   [AllergyCheckStrategy]   as allergy   #C8E6C9
   [DrugDrugCheckStrategy]  as ddrug     #C8E6C9
   [ConditionCheckStrategy] as condition #C8E6C9
+  [AhoCorasickInteractionStrategy] as ahoint #A5D6A7
 }
 
 ' ── Domain Model ─────────────────────────────────────────────
@@ -56,7 +58,7 @@ package "Domain Model Layer" #FFF8E1 {
 }
 
 package "Search Intelligence" #FBE9E7 {
-  [Aho-Corasick Token Matcher]              as aho #FFCCBC
+  [Aho-Corasick Token Matcher\n(Autocomplete)]              as aho #FFCCBC
   [NLP Similarity Ranker\n(Levenshtein + Trigram Cosine)] as nlp #FFCCBC
 }
 
@@ -64,15 +66,19 @@ package "Persistence Layer" #EFEBE9 {
   [PostgreSQL JDBC Driver] as jdbc #D7CCC8
   [HikariCP Connection Pool] as hikari #D7CCC8
 
-  database "PostgreSQL Server / Embedded Postgres" as db #BCAAA4
+  database "Embedded Postgres Server (Port 5432)" as db #BCAAA4
+  folder "Local Data Persistence" as dbstorage {
+    file "data/pg-data/" as pgdata #D7CCC8
+  }
 
-  package "Tables" #F5F5F5 {
+  package "Normalized Relational Tables" #F5F5F5 {
     [users]             as tusers    #EEEEEE
     [patients]          as tpatients #EEEEEE
     [medications]       as tmeds     #EEEEEE
     [prescriptions]     as tpres     #EEEEEE
     [prescribed_drugs]  as tpdrug    #EEEEEE
     [interaction_rules] as trules    #EEEEEE
+    [audit_logs]        as taudit    #EEEEEE
   }
 }
 
@@ -96,6 +102,7 @@ interactionengine --> strategy  : delegates to
 allergy    ..|> strategy
 ddrug      ..|> strategy
 condition  ..|> strategy
+ahoint     ..|> strategy
 interactionengine --> ialert    : produces
 
 medsearch --> aho : candidate retrieval
@@ -104,6 +111,7 @@ medsearch --> nlp : score ranking
 dataservice --> hikari : get connection
 hikari      --> jdbc : pooled connections
 jdbc        --> db   : JDBC connection
+db          --> pgdata : physical storage (ACID)
 
 db --> tusers
 db --> tpatients
@@ -111,6 +119,7 @@ db --> tmeds
 db --> tpres
 db --> tpdrug
 db --> trules
+db --> taudit
 
 tusers    ||--o{ tpres    : auth rules
 tpatients ||--|| tpres    : patient_id
@@ -118,19 +127,22 @@ tpres     ||--o{ tpdrug   : prescription_id
 tmeds     ||--o{ tpdrug   : medication_id
 trules    --o{  tpdrug    : matched by engine
 
+seeder --> dataservice : purges and injects\nMock Clinical Dataset
+
 note right of dataservice
   Schema verified on connection open.
   All writes wrapped in ACID transactions.
 end note
 
 note bottom of medsearch
-  Direct match attempted first.
-  Ranked suggestion fallback when needed.
+  Aho-Corasick direct match attempted first.
+  Levenshtein Ranked suggestion fallback when needed.
 end note
 
 note right of strategy
   Open/Closed: new check types
   added without modifying engine.
+  AhoCorasick uses fast string matching.
 end note
 
 @enduml
