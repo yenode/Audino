@@ -1,4 +1,4 @@
-# Audino: Intelligent Prescription Manager:
+# Audino: Intelligent Prescription Manager
 
 ## System Overview:
 Audino is designed as a desktop healthcare application for safe prescription authoring. A JavaFX interface is provided for patient selection, medication search, prescription authoring, and interaction review. Runtime persistence is handled by PostgreSQL so that relational integrity can be preserved for patient, prescription, and medication records.
