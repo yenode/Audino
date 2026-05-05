@@ -81,7 +81,7 @@ The application includes baseline patients for demonstration:
 ### 4. Interaction Checking:
 
 #### Automatic Checks:
-The system automatically performs three types of checks:
+The system automatically performs three main checks:
 
 1. **Drug-Drug Interactions**:
    - Detects potentially harmful combinations.
