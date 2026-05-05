@@ -67,7 +67,7 @@ public class ConfigurationManager {
         } catch (Exception e) {
             System.out.println("Postgres not running on 5432. Starting Embedded Postgres...");
             try {
-                java.io.File dataDir = new java.io.File(System.getProperty("user.home"), ".audino-postgres-data");
+                java.io.File dataDir = new java.io.File(System.getProperty("user.dir"), "data/pg-data");
                 dataDir.mkdirs();
                 io.zonky.test.db.postgres.embedded.EmbeddedPostgres.builder().setCleanDataDirectory(false).setDataDirectory(dataDir).setPort(5432).start();
             } catch (Exception ex) {

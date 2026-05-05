@@ -5,8 +5,7 @@
 ### Database Storage:
 
 Audino uses a persistent Embedded PostgreSQL database. All clinical data is securely stored natively within the project directory:
-- **Windows Path**: `C:\Users\<YourUsername>\.audino-postgres-data\`
-- **Linux/Mac Path**: `~/.audino-postgres-data/`
+- **Path**: `data/pg-data/`
 
 ### Populating the Database with Test Data:
 
