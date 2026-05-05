@@ -7,4 +7,3 @@ build_out/
 *.py
 *.bak
 tmp.index
-data/

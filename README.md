@@ -3,74 +3,44 @@
 ## System Overview:
 Audino is designed as a desktop healthcare application for safe prescription authoring. A JavaFX interface is provided for patient selection, medication search, prescription authoring, and interaction review. Runtime persistence is handled by PostgreSQL so that relational integrity can be preserved for patient, prescription, and medication records.
 
-## Core Capabilities:
-1. Patient records are managed with allergies and chronic conditions.
-2. Medication records are searched by generic name, brand name, and RxNorm code.
-3. Prescription authoring is performed with dosage, frequency, duration, and prescribing clinician details.
-4. Safety analysis is performed for drug allergy, drug drug, and drug condition interactions.
-5. Alert severity is represented through critical, warning, and info levels.
-6. Authentication system uses BCrypt hashed credentials to manage clinician access and roles.
-7. Billing integrations generate dynamic prescription price estimates using unit pricing.
+## Tech Stack Used:
+- **Language**: Java 17
+- **UI Framework**: JavaFX 19
+- **Database Engine**: PostgreSQL (Embedded & Native support)
+- **Database Connection Pooling**: HikariCP
+- **Database Interaction**: Native JDBC
+- **Security**: BCrypt for role-based clinician authentication
+- **Build Tool**: Apache Maven
 
-## Search and Safety Intelligence:
-Medication retrieval is performed through direct matching and ranked suggestion flow. An Aho Corasick algorithm is used for multi token candidate retrieval. NLP based similarity ranking is applied through Levenshtein distance and character trigram cosine scoring so that misspelled medication text can be interpreted safely.
+## Features and Functionality:
+- **Patient Record Management**: Create, update, and securely store detailed patient demographics, chronic conditions, and allergy profiles.
+- **Medication Intelligence System**: 
+  - **Medication Search**: Search by generic name, brand name, and standard RxNorm identifier codes.
+  - **Autocorrection Pipeline**: Typo tolerance via Levenshtein distance and character trigram cosine similarity scoring to detect and autocorrect misspelled medication searches.
+  - **Search Recommendations**: Context-aware dynamic drop-down suggestions powered by Aho-Corasick multi-token candidate retrieval as the user types.
+- **Prescription Authoring**: End-to-end authoring interface with structured dosage, frequency, duration, unit pricing, and prescribing physician tracking.
+- **Real-Time Clinical Interaction Engine**: 
+  - **Drug-Drug Interactions**: Actively prevents harmful cross-reactions between concurrently prescribed medications.
+  - **Drug-Allergy Interactions**: Flags severe conflicts between prescribed drug classes and patient-specific allergies.
+  - **Drug-Condition Contraindications**: Warns against prescriptions that aggravate documented chronic patient conditions.
+- **Dynamic Alerting System**: Visual severity categorization (Critical, Warning, and Info alerts) that actively monitors the authoring flow. Unacknowledged critical alerts prevent prescription finalization.
+- **Role-Based Access Control**: Secure login capabilities limiting administrative tasks exclusively to authorized clinicians using BCrypt-hashed credentials.
+- **Automated Pricing Estimation**: Dynamic cost estimation calculated using unified prescription duration and dosage logic, yielding precise currency estimations in real-time.
 
 ## Architecture Summary:
-The application is structured with Model View Controller boundaries. Safety rule evaluation is delegated to strategy implementations through the interaction engine. Persistence duties are centralized in DataService, and schema control is performed in PostgreSQL through JDBC.
+The application is structured with strict Model-View-Controller boundaries. Safety rule evaluation is delegated to strategy implementations through the interaction engine. Persistence duties are centralized in DataService, and schema control is performed in PostgreSQL through JDBC.
 
-1. MainController is used for UI state orchestration.
-2. DataService is used for loading and transactional persistence.
-3. InteractionEngine is used for asynchronous strategy execution.
-4. MedicationSearchEngine is used for ranked medication retrieval.
-5. ConfigurationManager is used for path and object mapper configuration.
-
-## Runtime Data Model:
-PostgreSQL is used in runtime mode for core entities via HikariCP connection pooling. The primary database connection defaults to jdbc:postgresql://localhost:5432/postgres unless a runtime property is provided. Embedded PostgreSQL is automatically initialized on port 5432 if a native database service is not detected during application startup.
-
-1. patients is used as the patient master table.
-2. medications is used as the medication master table with RxNorm code storage and unit pricing for billing.
-3. prescriptions is used for active prescription headers.
-4. prescribed_drugs is used for prescription line items.
-5. interaction_rules is used for JSON rule payload storage.
-6. users is used for authenticated accounts and hashed password storage.
-
-## Build and Execution:
-### Prerequisites:
-1. Java JDK 17 or higher is required.
-2. Apache Maven 3.6 or higher is required.
-
-### Compile:
-```bash
-mvn clean compile
-```
-
-### Test:
-```bash
-mvn test
-```
-
-### Run:
-```bash
-mvn javafx:run
-```
-
-### Package:
-```bash
-mvn clean package
-```
-
-## Generated Artifacts:
-Package output is produced in target/. The following artifacts are generated by Maven package flow.
-
-1. target/audino-1.1.0.jar.
-2. target/original-audino-1.1.0.jar.
+## Steps to Run the Project:
+For comprehensive instructions on compiling, configuring, and launching the application, please refer to the primary documentation:
+- [Installation and Setup Guide](documentation/InstallationAndSetup.md)
+- [Usage Guide](Usage.md)
 
 ## Documentation Map:
-1. Data model and SQL schema details are documented in DataBase.md.
-2. Integration and persistence flow details are documented in documentation/DATABASE_INTEGRATION.md.
-3. Class level structure is documented in documentation/CLASS_DIAGRAM.md.
-4. Detailed ER source is documented in documentation/ER_DIAGRAM.puml.
-5. Detailed architecture source is documented in documentation/ARCHITECTURE_DIAGRAM.puml.
+1. Data model and SQL schema details are documented in `DataBase.md`.
+2. Integration and persistence flow details are documented in `documentation/DATABASE_INTEGRATION.md`.
+3. Class level structure is documented in `documentation/CLASS_DIAGRAM.md`.
+4. Detailed ER source is documented in `documentation/ER_DIAGRAM.puml`.
+5. Detailed architecture source is documented in `documentation/ARCHITECTURE_DIAGRAM.puml`.
 
 ## Visual References:
 ### Main Window:
@@ -81,4 +51,3 @@ Package output is produced in target/. The following artifacts are generated by 
 
 ### Edit Patient Dialog:
 ![Edit Patient](visuals/AudinoEditPatientDataWindow.png)
-

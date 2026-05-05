@@ -2,9 +2,25 @@
 
 ## Getting Started:
 
+### Database Storage:
+
+Audino uses a persistent Embedded PostgreSQL database. All clinical data is securely stored natively within the project directory:
+- **Windows Path**: `C:\Users\<YourUsername>\.audino-postgres-data\`
+- **Linux/Mac Path**: `~/.audino-postgres-data/`
+
+### Populating the Database with Test Data:
+
+To instantly populate the database with a high-fidelity clinical dataset (100+ random Indian patients, 100+ real-world medications with INR pricing, 50+ interaction rules, and fully populated prescriptions), you can run the internal data seeder module.
+
+Execute the following Maven command from the project root:
+```powershell
+mvn compile exec:java "-Dexec.mainClass=com.audino.util.AppSeeder"
+```
+*Note: Make sure the main Audino JavaFX application is closed before running the seeder to prevent database file lock conflicts.*
+
 ### Launching the Application:
 
-After installation, run the application using:
+After installation and optional database seeding, run the application using:
 ```powershell
 .\start.ps1
 ```
